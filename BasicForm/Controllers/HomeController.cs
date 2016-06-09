@@ -47,13 +47,13 @@ namespace BasicForm.Controllers
                     calCus.Cust.Description += customer.ToString();
                 }
                 calCus.reSetValues();
-                if(calCus.Month > 5)
+                /*if(calCus.Month > 5)
                 {
                     calCus.Month = 3;
                 }else
                 {
                     calCus.Month = 8;
-                }
+                }*/
 
 
             }

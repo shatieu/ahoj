@@ -69,6 +69,9 @@ namespace BasicForm.Models
                                         if (fieldsOfObject.PropertyType == typeof(ODateOrder))
                                         {
                                             fieldsOfObject.SetValue(customer, new ODateOrder(sqlReader[fieldsOfObject.Name].ToString()));
+                                        }else if (fieldsOfObject.PropertyType == typeof(OProdecure))
+                                        {
+                                            fieldsOfObject.SetValue(customer, new OProdecure(Int32.Parse(sqlReader[fieldsOfObject.Name].ToString())));
                                         }
                                         break;
                                     //default is string    
@@ -133,6 +136,7 @@ namespace BasicForm.Models
 
 
         /// <summary>
+        /// NEED TO BE DONE WITH PROCEDURE
         /// Takes all orders in this month and code it into on string
         /// </summary>
         /// <param name="month">to be found in it</param>
@@ -146,7 +150,7 @@ namespace BasicForm.Models
             {
                 conn.Open();
                 
-                String selectingTimes = string.Format("SELECT {0}, {1} FROM {2} WHERE {0} LIKE @regexMonth", DBCusOrderDate, DBCusOrderTime, DBName);
+                String selectingTimes = string.Format("SELECT {0} FROM {1} WHERE {0} LIKE @regexMonth", DBCusOrderDate,/* DBCusOrderTime, */DBName);
                 String regexMonth = year + "_" + month + "_%";
                 using (SqlCommand sqlCommand = new SqlCommand(selectingTimes, conn))
                 {
@@ -157,10 +161,10 @@ namespace BasicForm.Models
                     {
 
                         String cusDate = sqlReader[DBCusOrderDate].ToString();
-                        String cusTime = sqlReader[DBCusOrderTime].ToString();
+                        // String cusTime = sqlReader[DBCusOrderTime].ToString();
 
                         //codes it into format
-                        String coded = cusDate+"-"+cusTime;
+                        String coded = cusDate;// +"-"+cusTime;
 
                         takenTimes.Add(coded);
 
