@@ -34,7 +34,7 @@ namespace BasicForm.Models
         {
             return string.Format( "Select * FROM {0}", DBName);
         }
-        
+
 
         /// <summary>
         /// Load all customers in database 
@@ -47,26 +47,41 @@ namespace BasicForm.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-
-                
                 using (SqlCommand sqlCommand = new SqlCommand(QueryGetAll(), conn))
                 {
                     SqlDataReader sqlReader = sqlCommand.ExecuteReader();
-
                     while (sqlReader.Read())
                     {
                         Customer customer = new Customer();
-                        customer.BirthYear = sqlReader[DBCusBirthYear].ToString();
-                        customer.Description = sqlReader[DBCusDescription].ToString();
-                        customer.DoctorID = Int32.Parse( sqlReader[DBCusDocID].ToString());
-                        customer.Email = sqlReader[DBCusEmail].ToString();
-                        customer.ID = Int32.Parse(sqlReader[DBCusID].ToString());
-                        customer.Name = sqlReader[DBCusName].ToString();
-                        customer.OrderDate = new DateOrder( sqlReader[DBCusOrderDate].ToString());
-                        customer.OrderTime = Int32.Parse(sqlReader[DBCusOrderTime].ToString());
-                        customer.Phone = sqlReader[DBCusPhone].ToString();
-                        customer.Surname = sqlReader[DBCusSurName].ToString();
 
+                        foreach (var fieldsOfObject in customer.GetType().GetProperties())
+                        {
+                            TypeCode typeOfVariable = Type.GetTypeCode(fieldsOfObject.PropertyType);
+                            try
+                            {
+                                //setting value of every property in customer object
+                                switch (typeOfVariable)
+                                {
+                                    case TypeCode.Int32:
+                                        fieldsOfObject.SetValue(customer, Int32.Parse(sqlReader[fieldsOfObject.Name].ToString()));
+                                        break;
+                                    case TypeCode.Object:
+                                        if (fieldsOfObject.PropertyType == typeof(ODateOrder))
+                                        {
+                                            fieldsOfObject.SetValue(customer, new ODateOrder(sqlReader[fieldsOfObject.Name].ToString()));
+                                        }
+                                        break;
+                                    //default is string    
+                                    default:
+                                        fieldsOfObject.SetValue(customer, sqlReader[fieldsOfObject.Name].ToString());
+                                        break;
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("Cannot take " + fieldsOfObject.Name + "from database\n");
+                            }
+                        }
                         customers.Add(customer);
                     }
                 }
@@ -74,7 +89,8 @@ namespace BasicForm.Models
 
             return customers;
         }
-        
+
+
         /// <summary>
         /// Set customer into database
         /// 
