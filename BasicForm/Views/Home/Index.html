@@ -1,0 +1,190 @@
+@model BasicForm.Models.CalendarCustomer
+
+@{
+    ViewBag.Title = "Calendar";
+    
+}
+
+<link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+        <br />
+
+
+        
+
+
+        <div id="c_box">
+            <div id="c_month_year_box">
+
+                <a href="#"><div id="c_left_click"></div></a>
+                <div id="c_month_year">@Model.Month / @Model.Year</div>
+                <a href="www.google.com"><div id="c_right_click"></div></a>
+               @Html.ActionLink("Neco", "increaseMonth", new { cusCal = Model })
+
+            </div>
+            
+
+
+           
+
+            <div id="c_days_box">
+
+                <!-- Name days-->
+                <div class="c_day_row_title">
+                    <div class="c_day_title">PO</div>
+                    <div class="c_day_title">ÚT</div>
+                    <div class="c_day_title">ST</div>
+                    <div class="c_day_title">ÈT</div>
+                    <div class="c_day_title">PÁ</div>
+                    <div class="c_day_week_title">SO</div>
+                    <div class="c_day_week_title">NE</div>
+                </div>
+
+                <!-- Big table with days-->
+                @{for (int rows = 0; rows < 5; rows++)
+                    {
+                        int dayNumber;
+                        <div class="c_day_row">
+
+                            @for (int day = 0; day < 7; day++)
+                            {
+
+                                if ((rows * 7) + day < @Model.firstOfMonth)
+                                {
+                                    dayNumber = @Model.DaysInLastMonth - @Model.firstOfMonth + day + 1;
+                                    <div class="c_out_month">@dayNumber</div>
+                                }
+                                else if ((rows * 7) + day > Model.DaysInMonth + Model.firstOfMonth - 1)
+                                {
+                                    dayNumber = @rows * 7 + day - Model.DaysInMonth - Model.firstOfMonth + 1;
+                                    <div class="c_out_month">@dayNumber</div>
+                                }
+                                else if (day >= 5)
+                                {
+                                    dayNumber = @rows * 7 + @day - Model.firstOfMonth + 1;
+                                    <div class="c_day_weekend">@dayNumber</div>
+                                }
+                                else
+                                {
+                                    dayNumber = @rows * 7 + @day - Model.firstOfMonth + 1;
+                                    <div class="c_day">@dayNumber</div>
+                                }
+
+                            }
+                        </div>
+                    }
+                }
+
+            </div>
+            <div id="c_check_box">
+                Datum: <input type="text" class="inputs" placeholder="-" />
+                Èas: <input type="text" class="inputs" placeholder="-" />
+            </div>
+            <div id="c_info_time_box">
+
+                <div id="c_info_box">
+                    Jméno:*
+                    @Html.EditorFor(model => model.Cust.Name, new { htmlAttributes = new { @class = "inputs" } })
+                    @Html.ValidationMessageFor(model => model.Cust.Name, "", new { @class = "text-danger" })
+                    Pøíjmení:*
+                    @Html.EditorFor(model => model.Cust.Surname, new { htmlAttributes = new { @class = "inputs" } })
+                    @Html.ValidationMessageFor(model => model.Cust.Surname, "", new { @class = "text-danger" })
+                    Telefon:*
+                    @Html.EditorFor(model => model.Cust.Phone, new { htmlAttributes = new { @class = "inputs", @placeholder = "+420" } })
+                    @Html.ValidationMessageFor(model => model.Cust.Phone, "", new { @class = "text-danger" })
+                    Roèník narození:*
+                    @Html.EditorFor(model => model.Cust.BirthYear, new { htmlAttributes = new { @class = "inputs" } })
+                    @Html.ValidationMessageFor(model => model.Cust.BirthYear, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div id="c_time_box">
+
+                    <!-- Minutes -->
+                    <div class="c_time_hour"></div>
+                    @for (int i = 0; i < 6; i++)
+                    {
+                        char zero = '0';
+                        <div class="c_time_hour">@i@zero</div>
+                    }
+
+                    <!-- Hours -->
+                    @for (int i = 8; i < 18; i++)
+                    {
+                        <!-- Hours displaying-->
+                        <div class="c_time_hour">@i</div>
+
+                        <!-- Blocks to select-->
+                        for (int j = 0; j < 6; j++)
+                        {
+                            <div class="c_time_minute"></div>
+                        }
+                    }
+                </div>
+                <div id="c_send_box">
+                    <div id="c_left_send">
+                        E-mail:*<br />
+                        @Html.EditorFor(model => model.Cust.Email, new { htmlAttributes = new { @class = "inputs_grt" } })
+                        @Html.ValidationMessageFor(model => model.Cust.Email, "", new { @class = "text-danger" })
+                        Procedura:<br />
+                        <select class="select" name="Filter">
+                            <option value='1' class="option_filter">Jiné...</option>
+                            <option value='2' class="option_filter">Procedura #1 (10 min.)</option>
+                            <option value='3' class="option_filter">Procedura #2 (10 min.)</option>
+                            <option value='4' class="option_filter">Procedura #3 (20 min.)</option>
+                        </select>
+                        <br /><br />
+                        <input type="submit" value="Send" class="btn btn-default" />
+                        <!-- <a href="#"><div class="send">Objednat se</div></a>-->
+                        <br />
+
+                    </div>
+                    <div id="c_right_send">
+                        Poznámka:<br />
+                        <textarea class="txtarea">@Model.Cust.Description</textarea>
+                        @Html.ActionLink("Details","Details")
+
+                        @Html.ActionLink("Back to List", "Index")
+
+                        @{
+                            var result = Request["YourButtonSpecialName"];
+                        }
+                        @if (result == "xx")
+                        {
+                            Model.increaseMonth();
+                            Model.reSetValues();
+                            
+                        }
+
+                        <button type="submit" name="YourButtonSpecialName" value="xx" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            
+
+        </div>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    </div>
+
+        
+
+        
+
+}
+
+
+

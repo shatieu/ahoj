@@ -1,0 +1,74 @@
+﻿@model BasicForm.Models.CalendarCustomer
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<div>
+    <h4>CalendarCustomer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DaysInMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DaysInMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.firstOfMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.firstOfMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DaysInLastMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DaysInLastMonth)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    
+    @Html.ActionLink("Back to List", "Index")
+</p>

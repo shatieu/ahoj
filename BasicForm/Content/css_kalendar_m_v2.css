@@ -1,0 +1,390 @@
+@charset "utf-8";
+/* CSS Document */
+body{
+	background:#55B1EC;	/*svetle modra*/
+	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	
+	}
+#c_box{
+	width:491px;
+	height:auto;
+	margin-left:100px; /* pro testovani*/
+	background:#FFFFFF;
+	}
+
+/*SWITCH MONTH YEAR*/	
+#c_month_year_box{
+	width:491px;
+	height:30px;
+	background:#FFFFFF;
+	border-bottom:1px #C3C3C3 solid;
+	text-align:center;
+	margin:auto;
+	padding:5px 0 0 0;	
+	float:left;
+	
+	}	
+	
+#c_month_year{
+	width:150px;
+	
+	min-width:50px;
+	height:30px;
+	float:left;
+	}	
+	
+#c_left_click{
+	margin-left:140px;
+	width:30px;
+	height:30px;
+	float:left;
+	margin-right:10px;
+	
+	}	
+	
+#c_right_click{
+	width:30px;
+	height:30px;
+	float:left;
+	margin-left:10px;
+	}
+	
+	
+	
+/*DAYS*/	
+.c_day_title{
+	width:70px;
+	height:25px;
+	float:left;
+	background:#D9D9D9;
+	text-align:center;
+	padding:5px 0 5px 0;
+	font-size:20px;
+	transition:0.1s linear;
+	color:#000000;
+	border-bottom:1px #C3C3C3 silid;
+	border-right:1px #C3C3C3 solid;
+
+	
+	}
+.c_day_week_title{
+	width:67px;
+	height:25px;
+	float:left;
+	background:#D9D9D9;
+	text-align:center;
+	padding:5px 0 5px 0;
+	font-size:20px;
+	transition:0.1s linear;
+	color:#000000;
+	border-bottom:1px #C3C3C3 solid;
+	border-right:1px #C3C3C3 solid;
+
+	
+	}
+
+#c_days_box{
+	width:491px;
+	height:auto;
+	float:left;
+	background:#C3C3C3;
+	}
+
+.c_day{
+	width:70px;
+	height:20px;
+	float:left;
+	background:#FFFFFF;
+	text-align:center;
+	padding:10px 0 10px 0;
+	font-size:16px;
+	transition:0.1s linear;
+	color:#000000;
+	border-right:1px #C3C3C3 solid;
+
+	
+	}
+.c_day:hover{
+	width:70px;
+	height:20px;
+	float:left;
+	background:#3C9ADF;
+	text-align:center;
+	padding:10px 0 10px 0;
+	font-size:16px;
+	transition:0.1s linear;
+	color:#FFFFFF;
+	
+	}
+.c_day:active{	/*Choosed day*/
+	width:70px;
+	height:20px;
+	float:left;
+	background:#3C9ADF;
+	text-align:center;
+	padding:10px 0 10px 0;
+	font-size:16px;
+	transition:0.1s linear;
+	color:#000000;
+	}
+
+	
+.c_day_weekend{	/* Weekend block */
+	width:67px;
+	height:20px;
+	float:left;
+	background:#CDCDCD;
+	text-align:center;
+	padding:10px 0 10px 0;
+	font-size:16px;
+	color:#000000;
+	border-right:1px #C3C3C3 solid;
+	border-bottom:1px #C3C3C3 solid;
+	}	
+.c_day_week_avaible{
+	width:67px;
+	height:20px;
+	float:left;
+	background:#FFFFFF;
+	text-align:center;
+	padding:10px 0 10px 0;
+	font-size:16px;
+	transition:0.1s linear;
+	color:#000000;
+	border-right:1px #C3C3C3 solid;
+
+	
+	}
+.c_day_week_avaible:hover{
+	width:67px;
+	height:20px;
+	float:left;
+	background:#3C9ADF;
+	text-align:center;
+	padding:10px 0 10px 0;
+	font-size:16px;
+	transition:0.1s linear;
+	color:#FFFFFF;
+	
+	}
+	
+	
+ .c_out_month{	/*day out of month*/
+	width:70px;
+	height:20px;
+	float:left;
+	background:#EBEBEB;
+	text-align:center;
+	padding:10px 0 10px 0;
+	font-size:16px;
+	color:#535353;
+	border-right:1px #C3C3C3 solid;
+	}	
+	
+/* SWITCH PART OF DAY*/	
+	
+#c_day_part_box{
+	width:491px;
+	height:30px;
+	background:#FFFFFF;
+	border-bottom:1px #C3C3C3 solid;
+
+	text-align:center;
+	margin:auto;
+	padding:5px 0 0 0;	
+	float:left;
+	
+	}	
+	
+#c_day_part{
+	width:150px;
+	height:30px;
+	float:left;
+	}	
+/*INFO TIME*/
+#c_info_time_box{
+	width:491px;
+	height:auto;
+	min-height:500px;
+	background:#FFFFFF;
+	float:left;
+	border-top:1px #C3C3C3 solid;
+	}
+
+
+#c_time_box{
+	width:491px;
+	height:40px;
+	
+	float:left;
+	text-align:center;
+	background:#7B7B7B;
+	
+	}	
+	
+/* HOURS */	
+.c_time_hour{
+	width:69px;
+	height:25px;
+	float:left;
+	background:#7B7B7B;
+	color:#FFFFFF;
+	padding:10px 0 5px 0;
+	border-right:1px black solid;
+	}
+.c_time_hour:first-child{
+	border-left:1px black solid;
+	}
+.c_time_hour:last-child{
+
+	}
+	
+
+/* MINUTE BOXES */	
+
+/* MINUTE TITLE */
+#c_title_pos{
+	width:491px;
+	height:40px;
+	}
+
+
+.c_time_minute_title{
+	width:70px;
+	height:auto;
+	float:left;
+	background:#CCCCCC;
+	color:#575757;	
+	transition:0.1s linear;
+	padding:1px 0 2px 0;
+	border-left:1px #B4B4B4 solid;
+
+	}	
+.c_time_minute_title:first-child{
+	border-left:none;
+	
+	}
+.c_time_minute_title:last-child{
+	border-right:none;
+	
+	}
+/* MINUTE BOXES TITTLE*/
+.c_minute_box_title:first-child{
+	border-left:1px black solid;
+	
+	}
+.c_minute_box_title{
+	width:70px;
+	height:15px;
+	font-size:10px;
+	float:left;
+	
+	}	
+
+
+
+/* MINUTE BOX */
+.c_minute_box:last-child{
+	
+	
+	}
+.c_minute_box{
+	width:70px;
+	height:30px;	
+	float:left;	
+	
+	}	
+
+/* MINUTE */	
+
+/* MINUTE  FREE */	
+.c_time_minute:first-child{
+
+	}
+.c_time_minute:last-child{
+	
+	
+	}
+	
+
+.c_time_minute{
+	width:70px;
+	height:20px;
+	float:left;
+	background:#43C1FF;
+	color:#000000;	
+	transition:0.1s linear;
+	padding:5px 0 5px 0;
+	border-top:1px #B4B4B4 solid;
+	border-left:1px #B4B4B4 solid;
+
+	}	
+
+	
+.c_time_minute:hover{
+	width:70px;
+	height:20px;
+	float:left;
+	background:#00A5B9;
+	color:#000000;	
+	transition:0.1s linear;	
+	padding:5px 0 5px 0;
+	border-left:1px #B4B4B4 solid;
+	}	
+
+/* MINUTE FULL */
+.c_time_minute_full{
+	width:70px;
+	height:20px;
+	float:left;
+	background:#722121;
+	color:#FFFFFF;
+	padding:5px 0 5px 0;
+	border-top:1px #B4B4B4 solid;
+	border-left:1px #B4B4B4 solid;
+	
+	}
+.c_time_minute_full:first-child{
+
+	
+	}
+.c_time_minute_full:last-child{
+
+	
+	}	
+	
+/* MINUTE BLOCKED */
+.c_time_minute_blocked{
+	width:70px;
+	height:20px;
+	float:left;
+	background:#000000;
+	color:#FFFFFF;
+	padding:5px 0 5px 0;
+	border-top:1px #B4B4B4 solid;
+	border-left:1px #B4B4B4 solid;
+	}
+.c_time_minute_blocked:first-child{
+	
+	
+	}
+.c_time_minute_blocked:last-child{
+	
+	
+	}		
+	
+/* INFO BOX*/	
+#c_info_box{
+	width:491px;
+	height:auto;
+	
+	min-height:200px;
+	float:left;
+	
+	}	
+	
+#c_send_box{
+	
+	}	
+	
+	
