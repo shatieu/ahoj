@@ -38,13 +38,12 @@ namespace BasicForm.Controllers
             if (ModelState.IsValid)
             {
                 calCus.Cust.DoctorID = 1;
-                calCus.Cust.OrderDate = new DateOrder("1999_02_12_15:53");
-                calCus.Cust.OrderTime = 10;
+                calCus.Cust.OrderDate = new ODateOrder("1999_02_12_15:53");
                // DBcust.CustomerInsert(cust);
 
-                List<Customer> customers = DBcust.CustomerGetAll();
+                List<OCustomer> customers = DBcust.CustomerGetAll();
                 
-                foreach (Customer customer in customers) {
+                foreach (OCustomer customer in customers) {
                     calCus.Cust.Description += customer.ToString();
                 }
                 calCus.reSetValues();
