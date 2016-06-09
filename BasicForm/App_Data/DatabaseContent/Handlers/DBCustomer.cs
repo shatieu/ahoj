@@ -40,9 +40,9 @@ namespace BasicForm.Models
         /// Load all customers in database 
         /// </summary>
         /// <returns>List of customers</returns>
-        public List<Customer> CustomerGetAll()
+        public List<OCustomer> CustomerGetAll()
         {
-            List<Customer> customers = new List<Customer>();
+            List<OCustomer> customers = new List<OCustomer>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -52,7 +52,7 @@ namespace BasicForm.Models
                     SqlDataReader sqlReader = sqlCommand.ExecuteReader();
                     while (sqlReader.Read())
                     {
-                        Customer customer = new Customer();
+                        OCustomer customer = new OCustomer();
 
                         foreach (var fieldsOfObject in customer.GetType().GetProperties())
                         {
@@ -66,9 +66,9 @@ namespace BasicForm.Models
                                         fieldsOfObject.SetValue(customer, Int32.Parse(sqlReader[fieldsOfObject.Name].ToString()));
                                         break;
                                     case TypeCode.Object:
-                                        if (fieldsOfObject.PropertyType == typeof(DateOrder))
+                                        if (fieldsOfObject.PropertyType == typeof(ODateOrder))
                                         {
-                                            fieldsOfObject.SetValue(customer, new DateOrder(sqlReader[fieldsOfObject.Name].ToString()));
+                                            fieldsOfObject.SetValue(customer, new ODateOrder(sqlReader[fieldsOfObject.Name].ToString()));
                                         }
                                         break;
                                     //default is string    
@@ -97,7 +97,7 @@ namespace BasicForm.Models
         /// </summary>
         /// <param name="customer">to be inserted</param>
         /// <returns>True if inserted, False if fail</returns>
-        public bool CustomerInsert(Customer customer)
+        public bool CustomerInsert(OCustomer customer)
         {
 
             int check;

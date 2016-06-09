@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BasicForm.Models
 {
-    public class DateOrder
+    public class ODateOrder
     {
         private int _day;
         public int Day
@@ -101,7 +101,7 @@ namespace BasicForm.Models
         }
 
 
-        public DateOrder()
+        public ODateOrder()
         {
             Day = Year = Hour = Minute = 0;
             
@@ -115,7 +115,7 @@ namespace BasicForm.Models
         /// <param name="_year">year</param>
         /// <param name="_minute">minute</param>
         /// <param name="_hour">hour</param>
-        public DateOrder(int day, int month, int year, int minute, int hour)
+        public ODateOrder(int day, int month, int year, int minute, int hour)
         {
             Day = day;
             Month = month;
@@ -129,7 +129,7 @@ namespace BasicForm.Models
         /// Takes string from database and parse it into object
         /// </summary>
         /// <param name="DateFromDatabase"> String to parse in format YYYY_MM_DD_HH:MM </param>
-        public DateOrder(String DateFromDatabase)
+        public ODateOrder(String DateFromDatabase)
         {
             ParserFromDB(DateFromDatabase);
         }

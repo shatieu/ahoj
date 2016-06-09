@@ -7,7 +7,7 @@ namespace BasicForm.Models
 {
     public class CalendarCustomer
     {
-        public Customer Cust { get; set; }
+        public OCustomer Cust { get; set; }
         public String Date { get; set; }
         public String Time { get; set; }
         public int Year { get; set; }
@@ -28,7 +28,7 @@ namespace BasicForm.Models
 
 
             
-            Cust = new Customer();
+            Cust = new OCustomer();
             TakenTime = getTakenTimes(Month,Year);
 
             switch(new DateTime(Year, Month, 1).DayOfWeek)
@@ -76,7 +76,7 @@ namespace BasicForm.Models
         {
             List<String> takenTimes = new DBCustomer().getTakenTimes(mounth, year);
             HashSet<String> toSave = new HashSet<string>();
-            DateOrder date = new DateOrder();
+            ODateOrder date = new ODateOrder();
             String dateDatabaseFormat;
             String outputFormat;
             int lasts;

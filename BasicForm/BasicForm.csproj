@@ -153,7 +153,7 @@
     <Compile Include="Models\CalendarCustomer.cs" />
     <Compile Include="Models\CalendarDoctor.cs" />
     <Compile Include="App_Data\DatabaseContent\Objects\OCustomer.cs" />
-    <Compile Include="App_Data\DatabaseContent\Objects\DateOrder.cs" />
+    <Compile Include="App_Data\DatabaseContent\Objects\ODateOrder.cs" />
     <Compile Include="App_Data\DatabaseContent\Handlers\DBCalendar.cs" />
     <Compile Include="App_Data\DatabaseContent\Handlers\DBCustomer.cs" />
     <Compile Include="App_Data\DatabaseContent\Objects\OProdecure.cs" />

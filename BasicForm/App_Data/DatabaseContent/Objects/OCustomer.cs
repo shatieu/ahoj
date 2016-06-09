@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BasicForm.Models
 {
-    public class Customer
+    public class OCustomer
     {
         [Required(ErrorMessage = "Tohle je potreba")]
         public String Name { get; set; }
@@ -19,14 +19,14 @@ namespace BasicForm.Models
         [Required(ErrorMessage = "A chci vsechno!")]
         public string BirthYear { get; set; }
         public String Description { get; set; }
-        public DateOrder OrderDate { get; set; }
+        public ODateOrder OrderDate { get; set; }
         public int ProcedureID { get; set; }
         public int DoctorID { get; set; }
         public int ID { get; set; }
         public string DescriptionDoctor { get; set; }
 
 
-        public Customer()
+        public OCustomer()
         {
             Name = "Jirka";
             Surname = "";
@@ -34,7 +34,7 @@ namespace BasicForm.Models
             Phone = "";
             BirthYear = "";
             Description = "";
-            OrderDate = new DateOrder();
+            OrderDate = new ODateOrder();
             DoctorID = 0;
             ID = 3;
 
