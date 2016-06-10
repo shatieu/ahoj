@@ -35,6 +35,39 @@ namespace BasicForm.Models
 
         }
 
+        /// <summary>
+        /// Sets into command all parametres of object. 
+        /// Works corectelly with mathod getQueryInsertObjectAll()
+        /// </summary>
+        /// <param name="sqlCommand">command that will be pamameters added into</param>
+        /// <param name="obj">object parameters which would be inseted</param>
+        protected void setCommandParametersOfObjectAll(SqlCommand sqlCommand, Object obj)
+        {
+            PropertyInfo[] propertiesOfObject = obj.GetType().GetProperties();
+
+            foreach (var property in propertiesOfObject)
+            {
+                sqlCommand.Parameters.AddWithValue("@" + property.Name, property.GetValue(obj).ToString());
+            }
+        }
+
+
+        /// <summary>
+        /// Get all values in string and takes then into database query 
+        /// </summary>
+        /// <param name="DBName">Table that in will be taken from</param>
+        /// <returns>String with query for taking all customers and its customers</returns>
+        protected String getQuerySelectAll(String DBName)
+        {
+            return string.Format("Select * FROM {0}", DBName);
+        }
+
+        /// <summary>
+        /// creates new string with query to insert object with all properties
+        /// </summary>
+        /// <param name="obj">properties will be taken in this</param>
+        /// <param name="DBName">name of database that will be inserting into</param>
+        /// <returns></returns>
         protected string getQueryInsertObject(Object obj, String DBName)
         {
             StringBuilder sb = new StringBuilder();

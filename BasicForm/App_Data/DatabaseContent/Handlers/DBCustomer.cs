@@ -26,14 +26,7 @@ namespace BasicForm.Models
         }
 
 
-        /// <summary>
-        /// Get all values in string and takes then into database query 
-        /// </summary>
-        /// <returns>String with query for taking all customers and its customers</returns>
-        private String QueryGetAll()
-        {
-            return string.Format( "Select * FROM {0}", DBName);
-        }
+
 
 
         /// <summary>
@@ -47,7 +40,7 @@ namespace BasicForm.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                using (SqlCommand sqlCommand = new SqlCommand(QueryGetAll(), conn))
+                using (SqlCommand sqlCommand = new SqlCommand(base.getQuerySelectAll(DBName), conn))
                 {
                     SqlDataReader sqlReader = sqlCommand.ExecuteReader();
                     while (sqlReader.Read())
@@ -57,28 +50,33 @@ namespace BasicForm.Models
                         foreach (var fieldsOfObject in customer.GetType().GetProperties())
                         {
                             TypeCode typeOfVariable = Type.GetTypeCode(fieldsOfObject.PropertyType);
+
                             try
                             {
+                                dynamic valueToSet = "";
                                 //setting value of every property in customer object
                                 switch (typeOfVariable)
                                 {
                                     case TypeCode.Int32:
-                                        fieldsOfObject.SetValue(customer, Int32.Parse(sqlReader[fieldsOfObject.Name].ToString()));
+                                        valueToSet = Int32.Parse(sqlReader[fieldsOfObject.Name].ToString());
                                         break;
                                     case TypeCode.Object:
                                         if (fieldsOfObject.PropertyType == typeof(ODateOrder))
                                         {
-                                            fieldsOfObject.SetValue(customer, new ODateOrder(sqlReader[fieldsOfObject.Name].ToString()));
-                                        }else if (fieldsOfObject.PropertyType == typeof(OProdecure))
+                                            valueToSet = new ODateOrder(sqlReader[fieldsOfObject.Name].ToString());
+                                        }
+                                        else if (fieldsOfObject.PropertyType == typeof(OProdecure))
                                         {
-                                            fieldsOfObject.SetValue(customer, new OProdecure(Int32.Parse(sqlReader[fieldsOfObject.Name].ToString())));
+                                            valueToSet = new OProdecure(Int32.Parse(sqlReader[fieldsOfObject.Name].ToString()));
                                         }
                                         break;
                                     //default is string    
                                     default:
-                                        fieldsOfObject.SetValue(customer, sqlReader[fieldsOfObject.Name].ToString());
+                                        valueToSet = sqlReader[fieldsOfObject.Name].ToString();
                                         break;
                                 }
+
+                                fieldsOfObject.SetValue(customer, valueToSet);
                             }
                             catch (Exception e)
                             {
@@ -102,7 +100,6 @@ namespace BasicForm.Models
         /// <returns>True if inserted, False if fail</returns>
         public bool CustomerInsert(OCustomer customer)
         {
-
             int check;
 
             //check mandatory fields
@@ -118,6 +115,7 @@ namespace BasicForm.Models
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryInsert, conn))
                 {
+                    /*
                     sqlCommand.Parameters.AddWithValue("@"+ DBCusName,customer.Name);
                     sqlCommand.Parameters.AddWithValue("@"+ DBCusSurName, customer.Surname);
                     sqlCommand.Parameters.AddWithValue("@"+ DBCusPhone, customer.Phone);
@@ -125,7 +123,8 @@ namespace BasicForm.Models
                     sqlCommand.Parameters.AddWithValue("@"+ DBCusDescription, customer.Description);
                     sqlCommand.Parameters.AddWithValue("@"+ DBCusBirthYear, customer.BirthYear);
                     sqlCommand.Parameters.AddWithValue("@"+ DBCusOrderDate, customer.OrderDate.ToString());
-                    sqlCommand.Parameters.AddWithValue("@" + DBCusDocID, customer.DoctorID);
+                    sqlCommand.Parameters.AddWithValue("@" + DBCusDocID, customer.DoctorID);*/
+                    base.setCommandParametersOfObjectAll(sqlCommand, customer);
 
                     check = sqlCommand.ExecuteNonQuery();
                 }
