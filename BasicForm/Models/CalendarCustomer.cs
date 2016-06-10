@@ -29,7 +29,7 @@ namespace BasicForm.Models
 
             
             Cust = new OCustomer();
-            //TakenTime = getTakenTimes(Month,Year);
+            TakenTime = getTakenTimes(Month,Year);
 
             switch(new DateTime(Year, Month, 1).DayOfWeek)
             {
@@ -126,7 +126,7 @@ namespace BasicForm.Models
             DaysInMonth = DateTime.DaysInMonth(Year, Month);
 
             //Cust = new Customer();
-            TakenTime = getTakenTimes(Month, Year);
+            //TakenTime = getTakenTimes(Month, Year);
 
             switch (new DateTime(Year, Month, 1).DayOfWeek)
             {
