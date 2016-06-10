@@ -18,7 +18,20 @@ namespace BasicForm.Controllers
         public ActionResult Index()
         {
             DBCustomer dbCustomer = new DBCustomer();
-            List<string> times = dbCustomer.getTakenTimes(2, 1999);
+            List<string> times = new List<string>();//dbCustomer.getTakenTimes(2, 1999);
+            //DD_HH:MM
+            times.Add("10_15:30");
+            times.Add("12_15:30");
+            times.Add("9_09:30");
+            times.Add("10_12:30");
+            times.Add("12_16:40");
+            times.Add("10_12:00");
+            times.Add("8_15:30");
+            times.Add("7_15:30");
+            times.Add("8_09:30");
+            times.Add("9_12:30");
+            times.Add("13_16:40");
+            times.Add("14_12:00");
 
             var jsonSerialiser = new JavaScriptSerializer();
             var jsonTimes = jsonSerialiser.Serialize(times);
