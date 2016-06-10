@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace BasicForm.Controllers
 {
@@ -79,7 +80,20 @@ namespace BasicForm.Controllers
             return RedirectToAction("Index", new { cal = calCus });//View("Index","Index",calCus);
         }
 
-    
+
+        [HttpGet]
+        public ActionResult getMonthsTakenTimes(int doctorID, int month, int year)
+        {
+            DBCustomer dbCustomer = new DBCustomer();
+            List<string> times = dbCustomer.getTakenTimes(month, year);
+
+            var jsonSerialiser = new JavaScriptSerializer();
+            var jsonTimes = jsonSerialiser.Serialize(times);
+
+            
+            return Json(jsonTimes, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }
