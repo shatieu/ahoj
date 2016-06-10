@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Web;
 
 namespace BasicForm.Models
@@ -33,25 +35,31 @@ namespace BasicForm.Models
 
         }
 
-        public void CustomerWrite()
+        protected string getQueryInsertObject(Object obj, String DBName)
         {
-            
+            StringBuilder sb = new StringBuilder();
+            PropertyInfo[] propertiesOfObject = obj.GetType().GetProperties();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            sb.Append("INSERT INTO ").Append(DBName).Append(" (");
+            //creating parts with names in tables
+            foreach (var property in propertiesOfObject)
             {
-                conn.Open();
-                SqlCommand command = new SqlCommand("Select ID, Name, Surname, Email, BirthYear, Description, Phone, OrderDate, OrderTime FROM Customer", conn);
-                SqlDataReader sqlReader = command.ExecuteReader();
-                while (sqlReader.Read())
-                {
-                  /*  Console.WriteLine("{0} {1} {2} {3} {4} {5} ",
-                        sqlReader["Id"], sqlReader["Name"], sqlReader["Surname"], sqlReader["DateFrom"], sqlReader["DateTo"], sqlReader["DoctorId"]
-                        );
-                        */
-
-                }
+                sb.Append(property.Name).Append(", ");
             }
+            sb.Remove(sb.Length - 2, 2);
 
+            sb.Append(") VALUES (");
+            //attribute values
+            foreach (var property in propertiesOfObject)
+            {
+                sb.Append("@").Append(property.Name).Append(", ");
+            }
+            sb.Remove(sb.Length - 2, 2);
+
+            sb.Append(")");
+
+
+            return sb.ToString();
         }
 
         private void SetConnectionString()

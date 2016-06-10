@@ -114,7 +114,7 @@ namespace BasicForm.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                String queryInsert = string.Format("INSERT INTO {0} ({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}) VALUES (@{1} ,@{2}, @{3}, @{4}, @{5}, @{6}, @{7}, @{8}, @{9})", DBName, DBCusName, DBCusSurName, DBCusPhone, DBCusEmail, DBCusDescription, DBCusBirthYear, DBCusOrderDate, DBCusOrderTime, DBCusDocID);
+                String queryInsert = base.getQueryInsertObject(customer, DBName);//string.Format("INSERT INTO {0} ({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}) VALUES (@{1} ,@{2}, @{3}, @{4}, @{5}, @{6}, @{7}, @{8}, @{9})", DBName, DBCusName, DBCusSurName, DBCusPhone, DBCusEmail, DBCusDescription, DBCusBirthYear, DBCusOrderDate, DBCusOrderTime, DBCusDocID);
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryInsert, conn))
                 {
