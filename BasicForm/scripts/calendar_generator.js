@@ -2,6 +2,11 @@
 var d;
 var mon;
 var ye;
+var actday;
+var day = document.getElementById('divcalendartable');
+var days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+
+
 
 
 var Calendar = function (o) {
@@ -49,7 +54,14 @@ var Calendar = function (o) {
 
     mon = this.CurrentMonth;
     ye = this.CurrentYear;
+   
+
+
+   
 };
+
+
+
 
 // Goes to next month
 Calendar.prototype.nextMonth = function () {
@@ -382,6 +394,21 @@ window.onload = function () {
     getId('btnNextYr').onclick = function () {
         c.nextYear();
     };
+
+
+    for (var i = 0; i < days.length; i++) {
+        actday = d.getDate();
+        var selday = document.getElementById(actday);
+        var myday = document.getElementById(days[i]);
+
+
+        if (selday == myday) {
+            myday.style.background = 'red';
+        }
+
+    }
+
+
 }
 
 // Get element by id
@@ -395,8 +422,7 @@ function getId(id) {
 *   Selektivni funkce
 *   mesic
 */
-var days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
-var day = document.getElementById('divcalendartable');
+
 day.onclick = function (e) {
 
     for (var i = 0; i < days.length; i++) {
@@ -421,3 +447,4 @@ day.onclick = function (e) {
 
     
 };
+

@@ -85,7 +85,7 @@
 
                     <div id="c_check_box">
                         Datum: <input type="text" class="inputs"  id="date" placeholder="-" />
-                        Čas: <input type="text" class="inputs" placeholder="-" />
+                        Čas: <input type="text" class="inputs" id="hour" placeholder="-" />
                     </div>
                     <div id="c_info_time_box">
                         <div id="c_info_box">
@@ -109,13 +109,13 @@
                             @for (int i = 0; i < 6; i++)
                             {
                                 char zero = '0';
-                                <div class="c_time_hour" id="@i@zero">@i@zero</div>
+                                <div class="c_time_hour" >@i@zero</div>
                             }
                             <!-- Hours -->
                             @for (int i = 8; i < 18; i++)
                             {
                         <!-- Hours displaying-->
-                                <div class="c_time_hour" id="@i">@i</div>
+                                <div class="c_time_hour" >@i</div>
 
                         <!-- Blocks to select-->
                                 for (int j = 0; j < 6; j++)
