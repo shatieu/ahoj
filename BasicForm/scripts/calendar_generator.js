@@ -1,4 +1,8 @@
-﻿var Calendar = function (o) {
+﻿var selday;
+var d;
+
+
+var Calendar = function (o) {
     //Store div id
     this.divId = o.ParentID;
 
@@ -13,7 +17,7 @@
     console.log("this.Months == ", this.Months)
 
     // Set the current month, year
-    var d = new Date();
+    d = new Date();
 
     console.log("d == ", d)
 
@@ -40,6 +44,8 @@
     }
 
     console.log("this.f == ", this.f);
+
+    document.getElementById("date").placeholder = this.CurrentMonth +'.'+ this.CurrentYear;
 };
 
 // Goes to next month
@@ -107,9 +113,10 @@ Calendar.prototype.previousYear = function () {
     this.CurrentYear = this.CurrentYear - 1;
 
     console.log("this.CurrentYear - 1 i.e. this.CurrentYear == " + this.CurrentYear);
-
+   
     this.showCurrent();
 }
+
 
 // 
 Calendar.prototype.nextYear = function () {
@@ -388,5 +395,10 @@ day.onclick = function (e) {
         } else {
             myday.style.background = 'lightblue';
         }
+        this.CurrentMonth = d.getMonth();
+        this.CurrentYear = d.getFullYear();
+        document.getElementById("date").placeholder = selday + '.' + this.CurrentMonth + '.' + this.CurrentYear;
     }
+
+    
 };
