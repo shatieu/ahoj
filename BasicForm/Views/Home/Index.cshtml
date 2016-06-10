@@ -6,7 +6,7 @@
 }
 
 <link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
-
+<link href="~/Content/css_calendar_generator.css" rel="stylesheet" type="text/css">
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -48,47 +48,40 @@
                     </div>
                     
                     <!-- Big table with kurvadratdopicenebudutodelat days-->
-                    @{for (int rows = 0; rows < 5; rows++)
-                        {
 
-                            int dayNumber;
 
-                            <div class="c_day_row">
-                                @for (int day = 0; day < 7; day++)
-                                {
 
-                                    if ((rows * 7) + day < @Model.firstOfMonth)
-                                    {
-                                        dayNumber = @Model.DaysInLastMonth - @Model.firstOfMonth + day + 1;
-                                        <div class="c_out_month">@dayNumber</div>
-                                    }
-                                    else if ((rows * 7) + day > Model.DaysInMonth + Model.firstOfMonth - 1)
-                                    {
-                                        dayNumber = @rows * 7 + day - Model.DaysInMonth - Model.firstOfMonth + 1;
-                                        <div class="c_out_month">@dayNumber</div>
-                                    }
-                                    else if (day >= 5)
-                                    {
-                                        dayNumber = @rows * 7 + @day - Model.firstOfMonth + 1;
-                                        <div class="c_day_weekend">@dayNumber</div>
-                                    }
-                                    else
-                                    {
-                                        dayNumber = @rows * 7 + @day - Model.firstOfMonth + 1;
-                                        <div class="c_day" id="@dayNumber">@dayNumber</div>
+                   
+                        <div class="divcalendar">
 
-                                    }
+                            <div id="calendaroverallcontrols">
+                                <!-- <div id="year"></div> -->
 
-                                }
+                                <div id="calendarmonthcontrols">
+                                    <a id="btnPrevYr" href="#" title="Previous Year"><span><<</span></a>
+
+                                    <a id="btnPrev" href="#" title="Previous Month"><span><</span></a>
+
+                                    <!-- <input type="button" src="images/btnprevmonth.png" alt="Submit" id="btnPrev"/>-->
+                                    <!-- <div id="month"></div>-->
+
+                                    <div id="monthandyear"></div>
+
+                                    <!--<input type="button" src="images/btnnextmonth.png" alt="Submit" id="btnNext"/>-->
+
+                                    <a id="btnNext" href="#" title="Next Month"><span>></span></a>
+
+                                    <a id="btnNextYr" href="#" title="Next Year"><span>>></span></a>
+                                </div>
                             </div>
 
-                        }
+                            <div id="divcalendartable"></div>
+                        </div>
 
 
-                    }
+                    
                 </div>
-                </div>
-
+            </div>
 
                     <div id="c_check_box">
                         Datum: <input type="text" class="inputs" placeholder="-" />
@@ -178,6 +171,7 @@
                 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
                 <script src="~/Scripts/jquery.validate.min.js"></script>
                 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                <script type="text/javascript" language="JavaScript" src="~/Scripts/calendar_generator.js"></script>
             </div>
 
 

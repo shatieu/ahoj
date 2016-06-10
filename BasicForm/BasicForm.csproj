@@ -120,7 +120,8 @@
     <Content Include="Content\css_kalendar_m_v1.css" />
     <Content Include="Content\css_kalendar_m_v2.css" />
     <Content Include="Content\css_kalendar_w_v1.css" />
-    <Content Include="App_Data\Properties\DBproperties.txt" />
+    <Content Include="Content\css_calendar_generator.css" />
+    <Content Include="DBproperties.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\arrow_left.png" />
@@ -135,6 +136,7 @@
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\calendar_generator.js" />
     <Content Include="scripts\Calendar_jvs.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
@@ -154,11 +156,11 @@
     </Compile>
     <Compile Include="Models\CalendarCustomer.cs" />
     <Compile Include="Models\CalendarDoctor.cs" />
-    <Compile Include="Models\DatabaseContent\Objects\OCustomer.cs" />
-    <Compile Include="Models\DatabaseContent\Objects\ODateOrder.cs" />
-    <Compile Include="Models\DatabaseContent\Handlers\DBCalendar.cs" />
-    <Compile Include="Models\DatabaseContent\Handlers\DBCustomer.cs" />
-    <Compile Include="Models\DatabaseContent\Objects\OProdecure.cs" />
+    <Compile Include="App_Data\DatabaseContent\Objects\OCustomer.cs" />
+    <Compile Include="App_Data\DatabaseContent\Objects\ODateOrder.cs" />
+    <Compile Include="App_Data\DatabaseContent\Handlers\DBCalendar.cs" />
+    <Compile Include="App_Data\DatabaseContent\Handlers\DBCustomer.cs" />
+    <Compile Include="App_Data\DatabaseContent\Objects\OProdecure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
