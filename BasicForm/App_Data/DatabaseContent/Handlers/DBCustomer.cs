@@ -144,7 +144,10 @@ namespace BasicForm.Models
         public List<String> getTakenTimes(int month, int year)
         {
             List<String> takenTimes = new List<String>();
-
+            if (connectionString == null)
+            {
+                SetConnectionString();
+            }
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();

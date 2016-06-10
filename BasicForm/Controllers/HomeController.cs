@@ -17,8 +17,15 @@ namespace BasicForm.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            
-            
+            DBCustomer dbCustomer = new DBCustomer();
+            List<string> times = dbCustomer.getTakenTimes(2, 1999);
+
+            var jsonSerialiser = new JavaScriptSerializer();
+            var jsonTimes = jsonSerialiser.Serialize(times);
+
+
+            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
+
             CalendarCustomer calCus = new CalendarCustomer();
             
            // int m = calCus.Month++;

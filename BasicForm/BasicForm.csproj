@@ -117,6 +117,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DBCalendar.mdf" />
+    <Content Include="App_Data\DBCalendar_log.ldf">
+      <DependentUpon>DBCalendar.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\css_kalendar_m_v1.css" />
     <Content Include="Content\css_kalendar_m_v2.css" />
     <Content Include="Content\css_kalendar_w_v1.css" />

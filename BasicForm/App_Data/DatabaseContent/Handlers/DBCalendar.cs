@@ -95,12 +95,16 @@ namespace BasicForm.Models
             return sb.ToString();
         }
 
-        private void SetConnectionString()
+        protected void SetConnectionString()
         {
-            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder();
+            //Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jirka\Source\Repos\ahoj\BasicForm\App_Data\Calendar.mdf;Integrated Security=True
+            /*SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder();
             csb.DataSource = @"DESKTOP-JPGMG4M\SQLEXPRESS";
             csb.InitialCatalog = "DBCalendar";
             csb.IntegratedSecurity = true;
+            connectionString = csb.ConnectionString;
+            */
+            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(@"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True");
             connectionString = csb.ConnectionString;
         }
     }

@@ -381,6 +381,7 @@ window.onload = function () {
 
     getId('btnNextYr').onclick = function () {
         c.nextYear();
+        
     };
 }
 
@@ -421,3 +422,4 @@ day.onclick = function (e) {
 
     
 };
+document.write("aaaagrr");
