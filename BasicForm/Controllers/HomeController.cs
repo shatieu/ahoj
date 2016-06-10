@@ -20,9 +20,9 @@ namespace BasicForm.Controllers
             
             CalendarCustomer calCus = new CalendarCustomer();
             
-            int m = calCus.Month++;
-            ModelState.Remove("Month");
-            calCus.Month = m+1;
+           // int m = calCus.Month++;
+           // ModelState.Remove("Month");
+           // calCus.Month = m+1;
             return View(calCus);
         }
 
@@ -37,7 +37,7 @@ namespace BasicForm.Controllers
             
             if (ModelState.IsValid)
             {
-                calCus.Cust.DoctorID = 1;
+                calCus.Cust.DoctorID = 2;
                 calCus.Cust.OrderDate = new ODateOrder("1999_02_12_15:53");
                // DBcust.CustomerInsert(cust);
 

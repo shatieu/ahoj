@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 body{
 	background:#55B1EC;	/*svetle modra*/
@@ -136,7 +136,7 @@ body{
 	width:70px;
 	height:20px;
 	float:left;
-	background:#FFFFFF;
+	/*background:#FFFFFF;*/
 	text-align:center;
 	padding:10px 0 10px 0;
 	font-size:16px;
@@ -144,7 +144,7 @@ body{
 	color:#000000;
 	border-right:1px #C3C3C3 solid;
 	
-	}
+	}/*
 .c_day:hover{
 	width:70px;
 	height:20px;
@@ -157,7 +157,7 @@ body{
 	color:#FFFFFF;
 	
 	}
-.c_day:active{	/*Choosed day*/
+.c_day:active{	
 	width:70px;
 	height:20px;
 	float:left;
@@ -167,7 +167,7 @@ body{
 	font-size:16px;
 	transition:0.1s linear;
 	color:#000000;
-	}
+	}*/
 
 	
 .c_day_weekend{	/* Weekend block */
