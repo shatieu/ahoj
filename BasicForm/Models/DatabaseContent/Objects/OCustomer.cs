@@ -8,6 +8,7 @@ namespace BasicForm.Models
 {
     public class OCustomer
     {
+        public int ID { get; set; }
         [Required(ErrorMessage = "Tohle je potreba")]
         public String Name { get; set; }
         [Required(ErrorMessage = "A tohle taky")]
@@ -22,7 +23,6 @@ namespace BasicForm.Models
         public ODateOrder OrderDate { get; set; }
         public int ProcedureID { get; set; }
         public int DoctorID { get; set; }
-        public int ID { get; set; }
         public string DescriptionDoctor { get; set; }
 
 

@@ -104,9 +104,10 @@ namespace BasicForm.Models
         {
 
             int check;
+            System.Reflection.PropertyInfo[] fieldsOfCustomer = customer.GetType().GetProperties();
 
             //check mandatory fields
-            if(customer.OrderDate == null || customer.Email == null )
+            if (customer.OrderDate == null || customer.Email == null )
             {
                 return false;
             }
@@ -114,8 +115,7 @@ namespace BasicForm.Models
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                String queryInsert = string.Format("INSERT INTO {0} ({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}) VALUES (@{1} ,@{2}, @{3}, @{4}, @{5}, @{6}, @{7}, @{8}, @{9})", DBName, DBCusName, DBCusSurName, DBCusPhone, DBCusEmail, DBCusDescription, DBCusBirthYear, DBCusOrderDate, DBCusOrderTime, DBCusDocID);
-
+                String queryInsert = base.queryInsertObject(customer, this.GetType().Name);
                 using (SqlCommand sqlCommand = new SqlCommand(queryInsert, conn))
                 {
                     sqlCommand.Parameters.AddWithValue("@"+ DBCusName,customer.Name);
