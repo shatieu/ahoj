@@ -1,4 +1,10 @@
-﻿var Calendar = function (o) {
+﻿var selday;
+var d;
+var mon;
+var ye;
+
+
+var Calendar = function (o) {
     //Store div id
     this.divId = o.ParentID;
 
@@ -13,7 +19,7 @@
     console.log("this.Months == ", this.Months)
 
     // Set the current month, year
-    var d = new Date();
+    d = new Date();
 
     console.log("d == ", d)
 
@@ -40,6 +46,9 @@
     }
 
     console.log("this.f == ", this.f);
+
+    mon = this.CurrentMonth;
+    ye = this.CurrentYear;
 };
 
 // Goes to next month
@@ -67,6 +76,8 @@ Calendar.prototype.nextMonth = function () {
     }
 
     this.showCurrent();
+    mon = this.CurrentMonth;
+    ye = this.CurrentYear;
 };
 
 // Goes to previous month
@@ -94,6 +105,8 @@ Calendar.prototype.previousMonth = function () {
     }
 
     this.showCurrent();
+    mon = this.CurrentMonth;
+    ye = this.CurrentYear;
 };
 
 // 
@@ -107,9 +120,12 @@ Calendar.prototype.previousYear = function () {
     this.CurrentYear = this.CurrentYear - 1;
 
     console.log("this.CurrentYear - 1 i.e. this.CurrentYear == " + this.CurrentYear);
-
+   
     this.showCurrent();
+    mon = this.CurrentMonth;
+    ye = this.CurrentYear;
 }
+
 
 // 
 Calendar.prototype.nextYear = function () {
@@ -124,6 +140,8 @@ Calendar.prototype.nextYear = function () {
     console.log("this.CurrentYear - 1 i.e. this.CurrentYear == " + this.CurrentYear);
 
     this.showCurrent();
+    mon = this.CurrentMonth;
+    ye = this.CurrentYear;
 }
 
 // Show current month
@@ -137,6 +155,8 @@ Calendar.prototype.showCurrent = function () {
     console.log("this.CurrentMonth == ", this.CurrentMonth);
 
     this.Calendar(this.CurrentYear, this.CurrentMonth);
+    mon = this.CurrentMonth;
+    ye = this.CurrentYear;
 };
 
 // Show month (year, month)
@@ -319,6 +339,7 @@ Calendar.prototype.Calendar = function (y, m) {
     document.getElementById("monthandyear").innerHTML = monthandyearhtml;
 
     document.getElementById(this.divId).innerHTML = html;
+   
 };
 
 // On Load of the window
@@ -388,5 +409,15 @@ day.onclick = function (e) {
         } else {
             myday.style.background = 'lightblue';
         }
+        var mont = (mon + 1);
+        if (selday >=1 && selday <=31) {
+            document.getElementById("date").placeholder = selday + '.' + mont + '.' + ye;
+        } else {
+            document.getElementById("date").placeholder = '-';
+        }
+        
+       
     }
+
+    
 };
