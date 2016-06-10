@@ -120,6 +120,7 @@
     <Content Include="Content\css_kalendar_m_v1.css" />
     <Content Include="Content\css_kalendar_m_v2.css" />
     <Content Include="Content\css_kalendar_w_v1.css" />
+    <Content Include="Content\css_calendar_generator.css" />
     <Content Include="DBproperties.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -135,6 +136,7 @@
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\calendar_generator.js" />
     <Content Include="scripts\Calendar_jvs.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
