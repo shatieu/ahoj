@@ -5,9 +5,19 @@ var ye;
 var actday;
 var day = document.getElementById('divcalendartable');
 var days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
+            '0900', '0910', '0920', '0930', '0940', '0950',
+            '1000', '1010', '1020', '1030', '1040', '1050',
+            '1100', '1110', '1120', '1130', '1140','1150',
+            '1200', '1210', '1220', '1230', '1240', '1250',
+            '1300', '1310', '1320', '1330', '1340', '1350',
+            '1400', '1410', '1420', '1430', '1440', '1450',
+            '1500', '1510', '1520', '1530', '1540', '1550',
+            '1600', '1610', '1620', '1630', '1640', '1650'];
 
-
-
+var hourminfull = [10 + '0800', 10 + '0810', 5 + '0820', 2 + '0830', 2 + '0840', 2 + '0850',
+                   5 + '0900', 1 + '0910', 6 + '0920', 6 + '0930', 6 + '0940', 6 + '0950',
+                   2 + '1000', 5 + '1010', 1 + '1020', 6 + '1030', 10 + '1040', 10 + '1050'];
 
 var Calendar = function (o) {
     //Store div id
@@ -394,18 +404,44 @@ window.onload = function () {
     getId('btnNextYr').onclick = function () {
         c.nextYear();
     };
+actday = d.getDate();
+
+    // hodiny dne
+var hourmin = [actday + hours[0], actday + hours[1], actday + hours[2], actday + hours[3], actday + hours[4], actday + hours[5],
+            actday + hours[6], actday + hours[7], actday + hours[8], actday + hours[9], actday + hours[10], actday + hours[11],
+            actday + hours[12], actday + hours[13], actday + hours[14], actday + hours[15], actday + hours[16], actday + hours[17]];
 
 
     for (var i = 0; i < days.length; i++) {
-        actday = d.getDate();
+        
         var selday = document.getElementById(actday);
         var myday = document.getElementById(days[i]);
-
-
         if (selday == myday) {
             myday.style.background = 'red';
+
+            for (var y = 0; y < hours.length; y++) {
+                
+                var identfmin = actday + hours[y];
+                
+                var fmin = document.getElementById(hours[y]);
+                alert(hourmin[y]);
+                if (identfmin === hourmin[y]) {
+                    if (identfmin === hourminfull[y]) {
+                        fmin.style.background = 'gold';
+                    } else {
+                        hourmin[y]++;
+                    }
+                } else {
+                    hourmin[y]++;
+                }
+               
+            }
+
+
         }
 
+        
+        
     }
 
 
@@ -442,6 +478,32 @@ day.onclick = function (e) {
             document.getElementById("date").placeholder = '-';
         }
         
+        // hodiny dne
+        var hourmin = [selday + hours[0], selday + hours[1], selday + hours[2], selday + hours[3], selday + hours[4], selday + hours[5],
+                    selday + hours[6], selday + hours[7], selday + hours[8], selday + hours[9], selday + hours[10], selday + hours[11],
+                    selday + hours[12], selday + hours[13], selday + hours[14], selday + hours[15], selday + hours[16], selday + hours[17]];       
+
+        for (var y = 0; y < hours.length; y++) {
+            var identfmin = selday + hours[y];
+
+            var fmin = document.getElementById(hours[y]);
+            if (identfmin === hourmin[y]) {
+
+                if (identfmin === hourminfull[y]) {
+                    fmin.style.background = 'gold';
+                } else {
+                    hourmin[y]++;
+                    fmin.style.background = '#3C9ADF';
+
+                }
+            } else {
+                hourmin[y]++;
+
+            }
+
+        }
+
+
        
     }
 
