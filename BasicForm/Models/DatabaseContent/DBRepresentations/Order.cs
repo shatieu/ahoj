@@ -6,10 +6,10 @@ using System.Web;
 
 namespace BasicForm.Models.DBRepresentations
 {
-    public class Order : IRepresentation
+    public class Order : ARepresentation
     {
         [Key]
-        public int ID { get; set; }
+        public override int ID { get; set; }
         public int CustomerID { get; set; }
         public int ProcedureID { get; set; }
         public int OfficeID { get; set; }
@@ -17,11 +17,13 @@ namespace BasicForm.Models.DBRepresentations
         public DateTime DateAndTime { get; set; }
         public string DescProvider { get; set; }
         public string DescCustomer { get; set; }
+        public static string DBName = "Order";
 
-        public IRepresentation getNewInstance()
+        public override ARepresentation getNewInstance()
         {
             return new Order();
         }
+        
 
     }
 }

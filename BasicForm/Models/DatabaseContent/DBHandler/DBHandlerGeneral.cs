@@ -48,22 +48,64 @@ namespace BasicForm.Models.DBHandler
         /// <param name="sqlCommand"></param>
         /// <param name="representation"></param>
         /// <param name="DBName"></param>
-        protected List<IRepresentation> dBGetAll(IRepresentation representation, String DBName)
+        protected List<ARepresentation> dBGetAll(ARepresentation representation, String DBName)
         {
-            
+         
             string querySelectAll = this.getQuerySelectAll(DBName);
-            List<IRepresentation> repres = new List<IRepresentation>();
+            List<ARepresentation> repres = new List<ARepresentation>();
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString)) {
                 sqlConnection.Open();
                 using (SqlCommand sqlCommand = new SqlCommand(querySelectAll, sqlConnection))
                 {
-                    SqlDataReader sqlReader = sqlCommand.ExecuteReader();
-                    while (sqlReader.Read())
+                    using (SqlDataReader sqlReader = sqlCommand.ExecuteReader())
                     {
-                        IRepresentation toAdd = representation.getNewInstance();
-                        dBReadOneRepre(sqlReader, toAdd);
-                        repres.Add(toAdd);
+                        while (sqlReader.Read())
+                        {
+                            ARepresentation toAdd = representation.getNewInstance();
+                            dBReadOneRepre(sqlReader, toAdd);
+                            repres.Add(toAdd);
+                        }
+                    }
+                }
+            }
+
+            return repres;
+
+        }
+
+        /// <summary>
+        /// This takes all represantaion. 
+        /// Find only by where part
+        /// 
+        /// </summary>
+        /// <param name="sqlCommand">whole query containing SELECT * FROM DBName WHERE ...</param>
+        /// <param name="representation">object to should be taken</param>
+        protected List<ARepresentation> dBGetAllWhere(String sqlQuery, ARepresentation representation)
+        {
+
+            string querySelectAll = sqlQuery;
+            List<ARepresentation> repres = new List<ARepresentation>();
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand sqlCommand = new SqlCommand(querySelectAll, sqlConnection))
+                {
+                    try
+                    {
+                        using (SqlDataReader sqlReader = sqlCommand.ExecuteReader())
+                        {
+                            while (sqlReader.Read())
+                            {
+                                ARepresentation toAdd = representation.getNewInstance();
+                                dBReadOneRepre(sqlReader, toAdd);
+                                repres.Add(toAdd);
+                            }
+                        }
+                    }catch(Exception e)
+                    {
+                        CustomLogger.Log(CustomLogger.Level.ERROR, "Wrong command\n" + e.ToString());
                     }
                 }
             }
@@ -78,7 +120,7 @@ namespace BasicForm.Models.DBHandler
         /// <param name="sqlReader">To get data from DB</param>
         /// <param name="representation">to fill data into</param>
         /// <returns>true if everything is OK</returns>
-        private Boolean dBReadOneRepre(SqlDataReader sqlReader, IRepresentation representation)
+        private Boolean dBReadOneRepre(SqlDataReader sqlReader, ARepresentation representation)
         {
             PropertyInfo[] propertiesOfRep = representation.GetType().GetProperties();
             Boolean noError = true;
@@ -92,50 +134,6 @@ namespace BasicForm.Models.DBHandler
                 {
                     noError = false;
                 }
-                /*
-                 * Type typeOfVariable = property.PropertyType;
-                int row = sqlReader.GetOrdinal(property.Name);
-                //checks if row is null. If yes, no need to continue with code below for this row
-                if (sqlReader.IsDBNull(row))
-                {
-                    continue;
-                }
-
-                try
-                {
-                    dynamic valueToSet = "";
-                    //setting value of every property in customer object
-                    switch (typeOfVariable.Name)
-                    {
-
-                        case nameof(Int32):
-                            valueToSet = sqlReader.GetInt32(row);//Convert.ToInt32(sqlReader[property.Name]);//Int32.Parse(sqlReader[property.Name].ToString());
-                            break;
-                        case nameof(Boolean):
-                            valueToSet = sqlReader.GetBoolean(row);// Convert.ToBoolean(sqlReader[property.Name]);
-                            break;
-                        case nameof(TimeSpan):
-                            valueToSet = sqlReader.GetTimeSpan(row);//(TimeSpan) sqlReader[property.Name];
-                            break;
-                        case nameof(DateTime):
-                            valueToSet = sqlReader.GetDateTime(row);
-                            break;
-                        case nameof(String):
-                            valueToSet = sqlReader.GetString(row);//sqlReader[property.Name].ToString();
-                            break;
-                        //default is string    
-                        default:
-                            valueToSet = sqlReader[property.Name].ToString();
-                            break;
-                    }
-                    
-                    property.SetValue(representation, valueToSet);
-                }
-                catch (Exception e)
-                {
-                    CustomLogger.Log(CustomLogger.Level.WARN, "Cannot take "+property.Name+" from DB /n"+e.ToString());
-                    noError = false;
-                }*/
             }
 
             return noError;
@@ -147,7 +145,7 @@ namespace BasicForm.Models.DBHandler
         /// <param name="sqlReader">To get data from DB</param>
         /// <param name="representation">to fill data into</param>
         /// <returns>true if everything is OK</returns>
-        private Boolean dBReadOneProperty(SqlDataReader sqlReader,IRepresentation representation, PropertyInfo property)
+        private Boolean dBReadOneProperty(SqlDataReader sqlReader, ARepresentation representation, PropertyInfo property)
         {
             
             Boolean noError = true;
@@ -208,7 +206,7 @@ namespace BasicForm.Models.DBHandler
         /// <returns>String with query for taking all customers and its customers</returns>
         protected string getQuerySelectAll(string DBName)
         {
-            return string.Format("Select * FROM {0}", DBName);
+            return string.Format("Select * FROM [{0}]", DBName);
         }
 
 
@@ -229,46 +227,5 @@ namespace BasicForm.Models.DBHandler
         }
     }
 
-    /// <summary>
-    /// This is switch function which works with types
-    /// </summary>
-    /*
-    public static class TypeSwitch
-    {
-        public static Switch<TSource> On<TSource>(TSource value)
-        {
-            return new Switch<TSource>(value);
-        }
-
-        public sealed class Switch<TSource>
-        {
-            private readonly TSource value;
-            private bool handled = false;
-
-            internal Switch(TSource value)
-            {
-                this.value = value;
-            }
-
-            public Switch<TSource> Case<TTarget>(Action<TTarget> action)
-                where TTarget : TSource
-            {
-                if (!this.handled && this.value is TTarget)
-                {
-                    action((TTarget)this.value);
-                    this.handled = true;
-                }
-                return this;
-            }
-
-            public void Default(Action<TSource> action)
-            {
-                if (!this.handled)
-                    action(this.value);
-            }
-        }
-    }
-    */
-
-   
+    
 }

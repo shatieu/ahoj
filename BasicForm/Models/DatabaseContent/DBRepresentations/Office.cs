@@ -6,17 +6,19 @@ using System.Web;
 
 namespace BasicForm.Models.DBRepresentations
 {
-    public class Office : IRepresentation
+    public class Office : ARepresentation
     {
         [Key]
-        public int ID { get; set; }
+        public override int ID { get; set; }
         public int ProviderID { get; set; }
         public TimeSpan OpensAt { get; set; }
         public TimeSpan ClosesAt { get; set; }
+        public static string DBName = "Office";
 
-        public IRepresentation getNewInstance()
+        public override ARepresentation getNewInstance()
         {
             return new Office();
         }
+        
     }
 }

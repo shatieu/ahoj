@@ -8,6 +8,7 @@ namespace BasicForm.Models.DBHandler
 {
     public class DBHandlerCustomer: DBHandlerGeneral
     {
+
         public List<Customer> getAll()
         {
             Customer cust = new Customer();
@@ -15,5 +16,7 @@ namespace BasicForm.Models.DBHandler
 
             return custs;
         }
+
+
     }
 }

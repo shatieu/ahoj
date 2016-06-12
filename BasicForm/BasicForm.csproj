@@ -163,8 +163,12 @@
     <Compile Include="App_Data\DatabaseContent\Objects\OProdecure.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerCustomer.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerGeneral.cs" />
+    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerOffice.cs" />
+    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerOrder.cs" />
+    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerProcedure.cs" />
+    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerProvider.cs" />
+    <Compile Include="Models\DatabaseContent\DBRepresentations\ARepresentation.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Customer.cs" />
-    <Compile Include="Models\DatabaseContent\DBRepresentations\IRepresentation.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Office.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Order.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Procedure.cs" />

@@ -6,10 +6,10 @@ using System.Web;
 
 namespace BasicForm.Models.DBRepresentations
 {
-    public class Customer: IRepresentation
+    public class Customer: ARepresentation
     {
         [Key]
-        public int ID { get; set; }
+        public override int ID { get; set; }
         [Required(ErrorMessage = "Tohle je potreba")]
         public String Name { get; set; }
         [Required(ErrorMessage = "A tohle taky")]
@@ -22,12 +22,14 @@ namespace BasicForm.Models.DBRepresentations
         [Required(ErrorMessage = "Cislo je pozadovano")]
         public String Phone { get; set; }
         [Required(ErrorMessage = "A chci vsechno!")]
-        public string BirthYear { get; set; }
+        public int BirthYear { get; set; }
         public static string DBName = "Customer";
 
-        public IRepresentation getNewInstance()
+        public override ARepresentation getNewInstance()
         {
             return new Customer();
         }
+        
+
     }
 }
