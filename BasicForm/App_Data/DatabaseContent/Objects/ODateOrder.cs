@@ -7,6 +7,7 @@ namespace BasicForm.Models
 {
     public class ODateOrder
     {
+        public static string DBName = "DateOrder";
         private int _day;
         public int Day
         {

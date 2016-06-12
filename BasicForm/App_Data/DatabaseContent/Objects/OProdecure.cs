@@ -11,6 +11,7 @@ namespace BasicForm.Models
         public string Name { get; set; }
         public int TimeTenMinutes { get; set; }
         public int DoctorID { get; set; }
+        public static string DBName = "Procedure";
 
         /// <summary>
         /// Takes string from database and parse it into object

@@ -13,6 +13,7 @@ namespace BasicForm.Models
         [Required(ErrorMessage = "A tohle taky")]
         public String Surname { get; set; }
         [Required(ErrorMessage = "Dej mi i tohle")]
+        [RegularExpression("^(.+@.+[.].+)$", ErrorMessage = "Invalid email address")]
         public String Email { get; set; }
         [Required(ErrorMessage = "Cislo je pozadovano")]
         public String Phone { get; set; }
@@ -24,6 +25,7 @@ namespace BasicForm.Models
         public int DoctorID { get; set; }
         public int ID { get; set; }
         public string DescriptionDoctor { get; set; }
+        public static string DBName = "Customer";
 
 
         public OCustomer()

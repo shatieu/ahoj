@@ -11,8 +11,11 @@ namespace BasicForm.Models
     public class DBCalendar
     {
 
-        protected String connectionString = null;
-
+        static protected String connectionString = null;
+        
+        /// <summary>
+        /// Sets connection string
+        /// </summary>
         public DBCalendar()
         {
             if (connectionString == null)
@@ -21,19 +24,24 @@ namespace BasicForm.Models
             }
         }
 
-        public void DBconnect()
+        /// <summary>
+        /// Saving connection string into variable
+        /// </summary>
+        protected void SetConnectionString()
         {
-            if (connectionString == null)
-            {
-                SetConnectionString();
-            }
+            //Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jirka\Source\Repos\ahoj\BasicForm\App_Data\Calendar.mdf;Integrated Security=True
+            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder();
+            csb.DataSource = @"localhost\SQLEXPRESS";
+            csb.InitialCatalog = "DBCalendar";
+            csb.IntegratedSecurity = true;
+            connectionString = csb.ConnectionString;
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-            }
-
+            /*
+            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(@"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True");
+            connectionString = csb.ConnectionString;
+            */
         }
+
 
         /// <summary>
         /// Sets into command all parametres of object. 
@@ -95,19 +103,17 @@ namespace BasicForm.Models
             return sb.ToString();
         }
 
-        protected void SetConnectionString()
+        
+        protected void getCommandSelectAll(SqlCommand sqlCommand, Object representation, String DBName)
         {
-            //Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jirka\Source\Repos\ahoj\BasicForm\App_Data\Calendar.mdf;Integrated Security=True
-            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder();
-            csb.DataSource = @"localhost\SQLEXPRESS";
-            csb.InitialCatalog = "DBCalendar";
-            csb.IntegratedSecurity = true;
-            connectionString = csb.ConnectionString;
+            PropertyInfo[] propertiesOfObject = representation.GetType().GetProperties();
+
+            foreach (var property in propertiesOfObject)
+            {
+                sqlCommand.Parameters.AddWithValue("@" + property.Name, property.GetValue(representation).ToString());
+            }
+
             
-            /*
-            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(@"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True");
-            connectionString = csb.ConnectionString;
-            */
         }
     }
 }

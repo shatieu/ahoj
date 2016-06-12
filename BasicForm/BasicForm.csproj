@@ -117,10 +117,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DBCalendar.mdf" />
-    <Content Include="App_Data\DBCalendar_log.ldf">
-      <DependentUpon>DBCalendar.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\css_kalendar_m_v1.css" />
     <Content Include="Content\css_kalendar_m_v2.css" />
     <Content Include="Content\css_kalendar_w_v1.css" />
@@ -165,6 +161,15 @@
     <Compile Include="App_Data\DatabaseContent\Handlers\DBCalendar.cs" />
     <Compile Include="App_Data\DatabaseContent\Handlers\DBCustomer.cs" />
     <Compile Include="App_Data\DatabaseContent\Objects\OProdecure.cs" />
+    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerCustomer.cs" />
+    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerGeneral.cs" />
+    <Compile Include="Models\DatabaseContent\DBRepresentations\Customer.cs" />
+    <Compile Include="Models\DatabaseContent\DBRepresentations\IRepresentation.cs" />
+    <Compile Include="Models\DatabaseContent\DBRepresentations\Office.cs" />
+    <Compile Include="Models\DatabaseContent\DBRepresentations\Order.cs" />
+    <Compile Include="Models\DatabaseContent\DBRepresentations\Procedure.cs" />
+    <Compile Include="Models\DatabaseContent\DBRepresentations\Provider.cs" />
+    <Compile Include="Models\Logger\CustomLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
