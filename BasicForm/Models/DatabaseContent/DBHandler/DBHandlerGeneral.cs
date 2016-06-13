@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Web;
 
 namespace BasicForm.Models.DBHandler
@@ -50,11 +51,12 @@ namespace BasicForm.Models.DBHandler
         /// <param name="DBName"></param>
         protected List<ARepresentation> dBGetAll(ARepresentation representation, String DBName)
         {
-         
+
             string querySelectAll = this.getQuerySelectAll(DBName);
             List<ARepresentation> repres = new List<ARepresentation>();
 
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString)) {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
                 sqlConnection.Open();
                 using (SqlCommand sqlCommand = new SqlCommand(querySelectAll, sqlConnection))
                 {
@@ -83,10 +85,10 @@ namespace BasicForm.Models.DBHandler
         /// <param name="representation">object to should be taken</param>
         protected List<ARepresentation> dBGetAllWhere(String sqlQuery, ARepresentation representation)
         {
-            if(!sqlQuery.StartsWith("SELECT * FROM"))
+            if (!sqlQuery.StartsWith("SELECT * FROM"))
             {
                 CustomLogger.Log(CustomLogger.Level.WARN, "Command should starts with SELECT * FROM. Current command is " + sqlQuery);
-            }            
+            }
 
             List<ARepresentation> repres = new List<ARepresentation>();
 
@@ -106,7 +108,8 @@ namespace BasicForm.Models.DBHandler
                                 repres.Add(toAdd);
                             }
                         }
-                    }catch(Exception e)
+                    }
+                    catch (Exception e)
                     {
                         CustomLogger.Log(CustomLogger.Level.ERROR, "Wrong command\n" + e.ToString());
                     }
@@ -150,13 +153,13 @@ namespace BasicForm.Models.DBHandler
         /// <returns>true if everything is OK</returns>
         private Boolean dBReadOneProperty(SqlDataReader sqlReader, ARepresentation representation, PropertyInfo property)
         {
-            
+
             Boolean noError = true;
 
-            
+
             Type typeOfVariable = property.PropertyType;
             int row = sqlReader.GetOrdinal(property.Name);
-                //checks if row is null. If yes, no need to continue with code below for this row
+            //checks if row is null. If yes, no need to continue with code below for this row
             if (sqlReader.IsDBNull(row))
             {
                 return noError;
@@ -197,7 +200,7 @@ namespace BasicForm.Models.DBHandler
                 CustomLogger.Log(CustomLogger.Level.WARN, "Cannot take " + property.Name + " from DB /n" + e.ToString());
                 noError = false;
             }
-            
+
 
             return noError;
         }
@@ -228,7 +231,75 @@ namespace BasicForm.Models.DBHandler
                 sqlCommand.Parameters.AddWithValue("@" + property.Name, property.GetValue(obj).ToString());
             }
         }
-    }
 
-    
+        
+        /// <summary>
+        /// creates new string with query to insert object with all properties
+        /// </summary>
+        /// <param name="obj">properties will be taken in this</param>
+        /// <param name="DBName">name of database that will be inserting into</param>
+        /// <returns></returns>
+        private string getQueryInsertRepr(ARepresentation representation, String DBName)
+        {
+            StringBuilder sb = new StringBuilder();
+            PropertyInfo[] properties = representation.GetType().GetProperties();
+
+            sb.Append("INSERT INTO [").Append(DBName).Append("] (");
+            //creating parts with names in tables
+            foreach (var property in properties)
+            {
+                if (!property.Name.Equals("ID"))
+                {
+                    sb.Append("[").Append(property.Name).Append("]").Append(", ");
+                }
+            }
+            sb.Remove(sb.Length - 2, 2);
+
+            sb.Append(") VALUES (");
+            //attribute values
+            foreach (var property in properties)
+            {
+                if (!property.Name.Equals("ID"))
+                {
+                    sb.Append("@").Append(property.Name).Append(", ");
+                }
+            }
+            sb.Remove(sb.Length - 2, 2);
+
+            sb.Append(")");
+
+
+            return sb.ToString();
+        }
+
+
+        protected Boolean dBInsertRepresentation(ARepresentation representation, String DBName)
+        {
+            string sqlQuery = getQueryInsertRepr(representation, DBName);
+            Boolean check = false;
+
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                {
+                    sqlConnection.Open();
+                    using (SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
+                    {
+                        setCommandParametersOfRepresAll(sqlCommand, representation);
+                        check = sqlCommand.ExecuteNonQuery() == 1;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                CustomLogger.Log(CustomLogger.Level.ERROR, "Cannot insert into " + DBName + " database\n" + e.ToString());
+                return check;
+            }
+
+            return check;
+        }
+
+
+
+    }
 }

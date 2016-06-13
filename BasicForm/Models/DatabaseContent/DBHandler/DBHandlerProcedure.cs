@@ -12,6 +12,11 @@ namespace BasicForm.Models.DBHandler
     {
         private string DBName = Procedure.DBName;
 
+        public bool insert(Procedure procedure)
+        {
+            return base.dBInsertRepresentation(procedure, DBName);
+        }
+
         public Procedure getByID(int ID)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);

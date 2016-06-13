@@ -13,6 +13,11 @@ namespace BasicForm.Models.DBHandler
 
         private string DBName = Provider.DBName;
 
+        public bool insert(Provider provider)
+        {
+            return base.dBInsertRepresentation(provider, DBName);
+        }
+
         public Provider getByID(int ID)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);

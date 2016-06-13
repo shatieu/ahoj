@@ -12,6 +12,11 @@ namespace BasicForm.Models.DBHandler
     {
         private string DBName = Office.DBName;
 
+        public bool insert(Office office)
+        {
+            return base.dBInsertRepresentation(office, DBName);
+        }
+
         public Office getByID(int ID)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);

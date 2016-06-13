@@ -17,6 +17,11 @@ namespace BasicForm.Models.DBHandler
             return executeQuery(sqlQuery);
         }
 
+        public bool insert(Customer customer)
+        {
+            return base.dBInsertRepresentation(customer, DBName);
+        }
+
         public Customer getByID(int ID)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);

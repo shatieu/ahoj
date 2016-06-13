@@ -13,6 +13,11 @@ namespace BasicForm.Models.DBHandler
     {
         private string DBName = Order.DBName;
 
+        public bool insert(Order order)
+        {
+            return base.dBInsertRepresentation(order, DBName);
+        }
+
         public Order getByID(int ID)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);
