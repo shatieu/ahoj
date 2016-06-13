@@ -12,8 +12,25 @@ namespace BasicForm.Models.DBRepresentations
         public override int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Lasts { get; set; }
+        private int lasts;
+        public int Lasts {
+            get
+            {
+                if (lasts % 10 != 0)
+                {
+                    return (lasts - lasts % 10) + 10;
+                }else {
+                    return lasts;
+                }
+                
+            }
+            set
+            {
+                lasts = value;
+            }
+        }
         public int OfficeID { get; set; }
+        public Boolean Active { get; set; }
         public static string DBName = "Procedure";
 
 

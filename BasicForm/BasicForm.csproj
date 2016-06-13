@@ -151,6 +151,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -161,6 +162,7 @@
     <Compile Include="App_Data\DatabaseContent\Handlers\DBCalendar.cs" />
     <Compile Include="App_Data\DatabaseContent\Handlers\DBCustomer.cs" />
     <Compile Include="App_Data\DatabaseContent\Objects\OProdecure.cs" />
+    <Compile Include="Models\CalendarOrder.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerCustomer.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerGeneral.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerOffice.cs" />
@@ -185,8 +187,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -197,6 +200,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

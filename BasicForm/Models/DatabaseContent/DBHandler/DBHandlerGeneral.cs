@@ -83,14 +83,17 @@ namespace BasicForm.Models.DBHandler
         /// <param name="representation">object to should be taken</param>
         protected List<ARepresentation> dBGetAllWhere(String sqlQuery, ARepresentation representation)
         {
+            if(!sqlQuery.StartsWith("SELECT * FROM"))
+            {
+                CustomLogger.Log(CustomLogger.Level.WARN, "Command should starts with SELECT * FROM. Current command is " + sqlQuery);
+            }            
 
-            string querySelectAll = sqlQuery;
             List<ARepresentation> repres = new List<ARepresentation>();
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 sqlConnection.Open();
-                using (SqlCommand sqlCommand = new SqlCommand(querySelectAll, sqlConnection))
+                using (SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
                 {
                     try
                     {

@@ -10,15 +10,56 @@ namespace BasicForm.Models.DBHandler
 {
     class DBHandlerOffice : DBHandlerGeneral
     {
+        private string DBName = Office.DBName;
+
+        public Office getByID(int ID)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);
+            return executeQuery(sqlQuery).ElementAt(0);
+        }
 
         public List<Office> getAll()
         {
             Office office = new Office();
-            List<Office> offices = base.dBGetAll(office, Office.DBName).Cast<Office>().ToList();
+            List<Office> offices = base.dBGetAll(office, DBName).Cast<Office>().ToList();
 
             return offices;
         }
 
+        private List<Office> executeQuery(string sqlQuery)
+        {
+            Office office = new Office();
+            List<Office> offices = base.dBGetAllWhere(sqlQuery, office).Cast<Office>().ToList();
 
+            return offices;
+        }
+
+        private List<Office> getAllActiveOrInactiveBasedOnParam(bool resultActive)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "Active", resultActive ? "1" : "0");
+            return executeQuery(sqlQuery);
+        }
+
+        private List<Office> getByProviderIDActiveOrInactiveBasedOnParam(int providerID, bool resultActive)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2} AND [{3}] = {4}", DBName, "ProviderID", providerID, "Active", resultActive ? "1" : "0");
+            return executeQuery(sqlQuery);
+        }
+
+        public List<Office> getAllActive()
+        {
+            return getAllActiveOrInactiveBasedOnParam(true);
+        }
+
+        public List<Office> getByProviderIDActive()
+        {
+            return getAllActiveOrInactiveBasedOnParam(true);
+        }
+
+        public List<Office> getByProviderIDAll(int providerID)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ProviderID", providerID);
+            return executeQuery(sqlQuery);
+        }
     }
 }

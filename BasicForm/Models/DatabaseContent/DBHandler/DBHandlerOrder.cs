@@ -11,26 +11,39 @@ namespace BasicForm.Models.DBHandler
 {
     class DBHandlerOrder : DBHandlerGeneral
     {
+        private string DBName = Order.DBName;
+
+        public Order getByID(int ID)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);
+            return executeQuery(sqlQuery).ElementAt(0);
+        }
 
         public List<Order> getAll()
         {
-
-            Order order = new Order();
-            List<Order> orders = base.dBGetAll(order, Order.DBName).Cast<Order>().ToList();
-
-            return orders;
-            
+            string sqlQuery = string.Format("SELECT * FROM [{0}]", DBName);
+            return executeQuery(sqlQuery);
         }
 
-        public List<Order> getInMonthYear(int month, int year)
+        private List<Order> executeQuery(string sqlQuery)
         {
-            Order order = new Order(); 
-            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE MONTH([{3}]) = {1} AND YEAR([{3}]) = {2}", Order.DBName, month, year, "DateAndTime");
+            Order order = new Order();
             List<Order> orders = base.dBGetAllWhere(sqlQuery, order).Cast<Order>().ToList();
 
             return orders;
         }
 
+        private List<Order> getInMonthYear(int month, int year)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE MONTH([{3}]) = {1} AND YEAR([{3}]) = {2}", Order.DBName, month, year, "DateAndTime");
+            return executeQuery(sqlQuery);
+        }
+
+        public List<Order> getByOfficeIDInMonthYear(int officeID, int month, int year)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{4}] = {5} AND MONTH([{3}]) = {1} AND YEAR([{3}]) = {2}", Order.DBName, month, year, "DateAndTime", "OfficeID", officeID);
+            return executeQuery(sqlQuery);
+        }
 
     }
 }
