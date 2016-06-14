@@ -14,15 +14,14 @@ namespace BasicForm.Models.DBRepresentations
         public String Name { get; set; }
         [Required(ErrorMessage = "A tohle taky")]
         public String Surname { get; set; }
-        [Key]
-        [Required(ErrorMessage = "Dej mi i tohle")]
         [EmailAddress]
         public String Email { get; set; }
         [Phone]
         [Required(ErrorMessage = "Cislo je pozadovano")]
         public String Phone { get; set; }
         [Required(ErrorMessage = "A chci vsechno!")]
-        public int BirthYear { get; set; }
+        [RegularExpression(@"^([0-9]{6}[/][0-9]{4})$")]
+        public string PersonalNumber { get; set; }
         public static string DBName = "Customer";
 
         public override ARepresentation getNewInstance()

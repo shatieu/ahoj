@@ -11,13 +11,13 @@ namespace BasicForm.Controllers
     
     public class HomeController : Controller
     {
-        private DBCustomer DBcust = new DBCustomer();
+       // private DBCustomer DBcust = new DBCustomer();
 
         // GET: Home
         [HttpGet]
         public ActionResult Index()
         {
-            DBCustomer dbCustomer = new DBCustomer();
+           // DBCustomer dbCustomer = new DBCustomer();
             List<string> times = new List<string>();//dbCustomer.getTakenTimes(2, 1999);
             //DD_HH:MM
             times.Add("10_15:30");
@@ -55,34 +55,28 @@ namespace BasicForm.Controllers
         
         public ActionResult Index(CalendarCustomer calCus)
         {
-            
+            /*
             if (ModelState.IsValid)
             {
                 calCus.Cust.DoctorID = 2;
-                calCus.Cust.OrderDate = new ODateOrder("1999_02_12_15:53");
+               // calCus.Cust.OrderDate = new ODateOrder("1999_02_12_15:53");
                // DBcust.CustomerInsert(cust);
 
-                List<OCustomer> customers = DBcust.CustomerGetAll();
+               // List<OCustomer> customers = DBcust.CustomerGetAll();
                 
-                foreach (OCustomer customer in customers) {
-                    calCus.Cust.Description += customer.ToString();
-                }
+               // foreach (OCustomer customer in customers) {
+               //     calCus.Cust.Description += customer.ToString();
+              //  }
                 calCus.reSetValues();
-                /*if(calCus.Month > 5)
-                {
-                    calCus.Month = 3;
-                }else
-                {
-                    calCus.Month = 8;
-                }*/
+                
 
 
-            }
+            }*/
 
             return View(calCus);
         }
 
-        
+        /*
         public ActionResult increaseMonth(CalendarCustomer calCus)
         {
 
@@ -106,14 +100,15 @@ namespace BasicForm.Controllers
         {
             DBCustomer dbCustomer = new DBCustomer();
             List<string> times = dbCustomer.getTakenTimes(month, year);
-
+           
             var jsonSerialiser = new JavaScriptSerializer();
             var jsonTimes = jsonSerialiser.Serialize(times);
 
             
             return Json(jsonTimes, JsonRequestBehavior.AllowGet);
+            
         }
-
+        */
 
     }
 }

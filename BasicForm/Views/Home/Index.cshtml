@@ -94,9 +94,9 @@
                     Telefon:*
                     @Html.EditorFor(model => model.customer.Phone, new { htmlAttributes = new { @class = "inputs", @placeholder = "+420" } })
                     @Html.ValidationMessageFor(model => model.customer.Phone, "", new { @class = "text-danger" })
-                    Ročník narození:*
-                    @Html.EditorFor(model => model.customer.BirthYear, new { htmlAttributes = new { @class = "inputs" } })
-                    @Html.ValidationMessageFor(model => model.customer.BirthYear, "", new { @class = "text-danger" })
+                    Rodné číslo:*
+                    @Html.EditorFor(model => model.customer.PersonalNumber, new { htmlAttributes = new { @class = "inputs" } })
+                    @Html.ValidationMessageFor(model => model.customer.PersonalNumber, "", new { @class = "text-danger" })
                 </div>
                 <!-- Day calendar -->
                 <div id="c_time_box">
