@@ -94,9 +94,9 @@
                     Telefon:*
                     @Html.EditorFor(model => model.customer.Phone, new { htmlAttributes = new { @class = "inputs", @placeholder = "+420" } })
                     @Html.ValidationMessageFor(model => model.customer.Phone, "", new { @class = "text-danger" })
-                    Ročník narození:*
-                    @Html.EditorFor(model => model.customer.BirthYear, new { htmlAttributes = new { @class = "inputs" } })
-                    @Html.ValidationMessageFor(model => model.customer.BirthYear, "", new { @class = "text-danger" })
+                    Rodné číslo:*
+                    @Html.EditorFor(model => model.customer.PersonalNumber, new { htmlAttributes = new { @class = "inputs" } })
+                    @Html.ValidationMessageFor(model => model.customer.PersonalNumber, "", new { @class = "text-danger" })
                 </div>
                 <!-- Day calendar -->
                 <div id="c_time_box">
@@ -112,16 +112,15 @@
                     {
                         <!-- Hours displaying-->
                         <div class="c_time_hour">@i</div>
-                      
-                            <!-- Blocks to select-->
+
+                        <!-- Blocks to select-->
                         for (int j = 0; j < 6; j++)
                         {
                             string codeHour = i < 10 ? ("0") : "";
                             codeHour = codeHour + i;
                             char zeroMinute = '0';
-                           
-                                <div class="c_time_minute" id="@codeHour@j@zeroMinute"></div>
-                            
+
+                            <div class="c_time_minute" id="@codeHour@j@zeroMinute"></div>
                         }
                     }
                 </div>
@@ -160,11 +159,5 @@
         <script type="text/javascript" language="JavaScript" src="~/Scripts/calendar_generator.js"></script>
     </div>
 
-
-
-
-
-    <div></div>
-
-
 }
+<div>JSON.parse(text [, reviver])</div>

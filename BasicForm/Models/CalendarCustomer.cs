@@ -7,7 +7,7 @@ namespace BasicForm.Models
 {
     public class CalendarCustomer
     {
-        public OCustomer Cust { get; set; }
+        //public OCustomer Cust { get; set; }
         public String Date { get; set; }
         public String Time { get; set; }
         public int Year { get; set; }
@@ -19,7 +19,7 @@ namespace BasicForm.Models
         
         //private SortedSet<String> TakenTimes;
 
-
+/*
         public CalendarCustomer()
         {
             Month = DateTime.Today.Month;
@@ -170,6 +170,6 @@ namespace BasicForm.Models
             Month++;
 
         }
-
+        */
     }
 }

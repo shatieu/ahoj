@@ -31,12 +31,30 @@ namespace BasicForm.Models.DBHandler
         protected void SetConnectionString()
         {
             //Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jirka\Source\Repos\ahoj\BasicForm\App_Data\Calendar.mdf;Integrated Security=True
-            SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder();
-            csb.DataSource = @"localhost\MSSQLSERVER";
+             SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder();
+             string pathApp_Data = HttpContext.Current.Server.MapPath("~/App_Data/DBProperties.txt");
+             using (System.IO.StreamReader sr = new System.IO.StreamReader(pathApp_Data))
+             {
+                 String line = sr.ReadToEnd();
+                 String[] commands = line.Split('}');
+                 connectionString = commands.Where(x => x.Contains("{ConnectionString:")).First().Split(':')[1].Replace("}","");
+
+             }
+             /*
+            string pathApp_Data = HttpContext.Current.Server.MapPath("~/App_Data/DBProperties.xml");
+
+            System.Xml.Linq.XDocument xdoc = System.Xml.Linq.XDocument.Load(pathApp_Data);
+            connectionString =
+                (from property in xdoc.Descendants("property")
+                 where property.Attribute("name").Name == "connectionString"
+                 select property.Value).First();
+                       */        
+            /*
+            csb.DataSource = @"localhost\SQLEXPRESS";
             csb.InitialCatalog = "Calendar";
             csb.IntegratedSecurity = true;
-            connectionString = "Data Source=PC-KOUKAL;Initial Catalog=Calendar;Integrated Security=True";//csb.ConnectionString;
-            // 
+            connectionString = csb.ConnectionString;
+            */
             /*
             SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(@"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True");
             connectionString = csb.ConnectionString;
