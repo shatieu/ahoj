@@ -15,9 +15,6 @@ var days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13',
 
 var minOpen = mini;// misto cisla se napise promena ktera bude urcovat pocatecni mrtku generatoru
 var maxOpen = maxi; // zde to stejne akorad konecnou mrtku
-for(var i= mini; i <= maxi;i=+10){
-      if(i<)
-}
 
 
 var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
