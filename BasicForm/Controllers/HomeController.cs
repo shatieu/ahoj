@@ -45,11 +45,20 @@ namespace BasicForm.Controllers
                 jTimes.Add(jt);
             }
 
+            System.Text.StringBuilder mujJson = new System.Text.StringBuilder("[");
+            for (int i = 0; i < 10; i++)
+            {
+                mujJson.Append("{\"hour\":\"").Append(times.ElementAt(i)).Append("\"},");
+            }
+            mujJson.Remove(mujJson.Length-2,1);
+            mujJson.Append("]");
+
             var jsonSerialiser = new JavaScriptSerializer();
             var jsonTimes = jsonSerialiser.Serialize(jTimes);
+            ViewBag.JsonRaw = jsonTimes.ToString();
+            ViewBag.MujJson = mujJson.ToString();
 
-
-            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet).Data;
+            ViewBag.Json = Json(jTimes, JsonRequestBehavior.AllowGet);
 
        
 
