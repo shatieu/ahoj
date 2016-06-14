@@ -21,6 +21,10 @@ namespace BasicForm.Controllers
         {
            // DBCustomer dbCustomer = new DBCustomer();
             List<string> times = new List<string>();//dbCustomer.getTakenTimes(2, 1999);
+            List<JsonTimes> jTimes = new List<JsonTimes>();
+
+            JsonTimes jt;
+            
             //DD_HH:MM
             times.Add("10_15:30");
             times.Add("12_15:30");
@@ -35,11 +39,17 @@ namespace BasicForm.Controllers
             times.Add("13_16:40");
             times.Add("14_12:00");
 
+            for (int i = 0; i < 10; i++)
+            {
+                jt = new JsonTimes(times.ElementAt(i));
+                jTimes.Add(jt);
+            }
+
             var jsonSerialiser = new JavaScriptSerializer();
-            var jsonTimes = jsonSerialiser.Serialize(times);
+            var jsonTimes = jsonSerialiser.Serialize(jTimes);
 
 
-            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
+            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet).Data;
 
             CalendarOrder calendar = new CalendarOrder(2);
 
@@ -103,12 +113,13 @@ namespace BasicForm.Controllers
             UtilityOrder uOrder = new UtilityOrder();
 
             List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
-           
+            
+                    
             var jsonSerialiser = new JavaScriptSerializer();
             var jsonTimes = jsonSerialiser.Serialize(times);
 
             
-            return Json(jsonTimes, JsonRequestBehavior.AllowGet);
+            return Json(jsonTimes,JsonRequestBehavior.AllowGet);
             
         }
         

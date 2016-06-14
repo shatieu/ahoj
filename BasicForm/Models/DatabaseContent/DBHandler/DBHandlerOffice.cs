@@ -17,13 +17,13 @@ namespace BasicForm.Models.DBHandler
             return base.dBInsertRepresentation(office, DBName);
         }
 
-        private secure
+        //private secure
 
         public Office getByID(int ID)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);
-            Office[] toReturn = executeQuery(sqlQuery);
-            return .ElementAt(0);
+            List<Office> toReturn = executeQuery(sqlQuery);
+            return toReturn.ElementAt(0);
         }
 
         public List<Office> getAll()
