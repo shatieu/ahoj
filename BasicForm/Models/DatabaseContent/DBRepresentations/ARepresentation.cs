@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// :P
+/// </summary>
 namespace BasicForm.Models.DBRepresentations
 {
     public abstract class ARepresentation
