@@ -1,4 +1,6 @@
 ﻿using BasicForm.Models;
+using BasicForm.Models.DBHandler;
+using BasicForm.Models.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,10 @@ namespace BasicForm.Controllers
         {
            // DBCustomer dbCustomer = new DBCustomer();
             List<string> times = new List<string>();//dbCustomer.getTakenTimes(2, 1999);
+            List<JsonTimes> jTimes = new List<JsonTimes>();
+
+            JsonTimes jt;
+            
             //DD_HH:MM
             times.Add("10_15:30");
             times.Add("12_15:30");
@@ -33,8 +39,14 @@ namespace BasicForm.Controllers
             times.Add("13_16:40");
             times.Add("14_12:00");
 
+            for (int i = 0; i < 10; i++)
+            {
+                jt = new JsonTimes(times.ElementAt(i));
+                jTimes.Add(jt);
+            }
+
             var jsonSerialiser = new JavaScriptSerializer();
-            var jsonTimes = jsonSerialiser.Serialize(times);
+            var jsonTimes = jsonSerialiser.Serialize(jTimes);
 
 
             ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet).Data;
@@ -94,21 +106,23 @@ namespace BasicForm.Controllers
             return RedirectToAction("Index", new { cal = calCus });//View("Index","Index",calCus);
         }
 
-
+    */
         [HttpGet]
-        public ActionResult getMonthsTakenTimes(int doctorID, int month, int year)
+        public ActionResult getTakenTimes(int officeID, int month, int year)
         {
-            DBCustomer dbCustomer = new DBCustomer();
-            List<string> times = dbCustomer.getTakenTimes(month, year);
-           
+            UtilityOrder uOrder = new UtilityOrder();
+
+            List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
+            
+                    
             var jsonSerialiser = new JavaScriptSerializer();
             var jsonTimes = jsonSerialiser.Serialize(times);
 
             
-            return Json(jsonTimes, JsonRequestBehavior.AllowGet);
+            return Json(jsonTimes,JsonRequestBehavior.AllowGet);
             
         }
-        */
+        
 
     }
 }
