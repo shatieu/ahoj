@@ -26,18 +26,18 @@ namespace BasicForm.Controllers
             JsonTimes jt;
             
             //DD_HH:MM
-            times.Add("10_15:30");
-            times.Add("12_15:30");
-            times.Add("9_09:30");
-            times.Add("10_12:30");
-            times.Add("12_16:40");
-            times.Add("10_12:00");
-            times.Add("8_15:30");
-            times.Add("7_15:30");
-            times.Add("8_09:30");
-            times.Add("9_12:30");
-            times.Add("13_16:40");
-            times.Add("14_12:00");
+            times.Add("101530");
+            times.Add("121530");
+            times.Add("90930");
+            times.Add("101230");
+            times.Add("121640");
+            times.Add("101200");
+            times.Add("81530");
+            times.Add("71530");
+            times.Add("80930");
+            times.Add("91230");
+            times.Add("131640");
+            times.Add("141200");
 
             for (int i = 0; i < 10; i++)
             {
@@ -50,6 +50,8 @@ namespace BasicForm.Controllers
 
 
             ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet).Data;
+
+       
 
             CalendarOrder calendar = new CalendarOrder(2);
 
