@@ -172,6 +172,8 @@
     <Compile Include="Models\DatabaseContent\DBRepresentations\Procedure.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Provider.cs" />
     <Compile Include="Models\Logger\CustomLogger.cs" />
+    <Compile Include="Models\Utility\UtilityOrder.cs" />
+    <Compile Include="Models\Utility\UtilityProcedure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

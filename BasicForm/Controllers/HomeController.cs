@@ -1,4 +1,6 @@
 ﻿using BasicForm.Models;
+using BasicForm.Models.DBHandler;
+using BasicForm.Models.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,12 +96,13 @@ namespace BasicForm.Controllers
             return RedirectToAction("Index", new { cal = calCus });//View("Index","Index",calCus);
         }
 
-
+    */
         [HttpGet]
-        public ActionResult getMonthsTakenTimes(int doctorID, int month, int year)
+        public ActionResult getTakenTimes(int officeID, int month, int year)
         {
-            DBCustomer dbCustomer = new DBCustomer();
-            List<string> times = dbCustomer.getTakenTimes(month, year);
+            UtilityOrder uOrder = new UtilityOrder();
+
+            List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
            
             var jsonSerialiser = new JavaScriptSerializer();
             var jsonTimes = jsonSerialiser.Serialize(times);
@@ -108,7 +111,7 @@ namespace BasicForm.Controllers
             return Json(jsonTimes, JsonRequestBehavior.AllowGet);
             
         }
-        */
+        
 
     }
 }
