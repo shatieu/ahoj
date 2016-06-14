@@ -160,5 +160,25 @@
     </div>
 
 }
-<div>well fuck zou you idiot</div>
+<div>@ViewBag.MujJson</div>
+<div>@ViewBag.JsonRaw</div>
+<div onclick="haha(@Html.Raw(Json.Encode(@ViewBag.Json)))">well fuck zou you idiot</div>
 <div>@ViewBag.Json</div>
+
+<script>
+    function haha(data){
+        var text = '[{ "hour": "10_15:30" }, { "hour": "12_15:30" }, { "hour": "9_09:30" }, { "hour": "10_12:30" }, { "hour": "12_16:40" }, { "hour": "10_12:00" }, { "hour": "8_15:30" }, { "hour": "7_15:30" }, { "hour": "8_09:30" }, { "hour": "9_12:30" }]';
+        /*'{"employees":[' +
+'{"firstName":"John","lastName":"Doe" },' +
+'{"firstName":"Anna","lastName":"Smith" },' +
+'{"firstName":"Peter","lastName":"Jones" }]}';
+*/
+  //      var vb = '@ViewBag.Json';
+        //      var ahoj = JSON.parse(vb);*/
+       // var data = @Html.Raw(Json.Encode(@ViewBag.Json));
+        //var skoro = JSON.parse(data);
+        alert(JSON.stringify(data.Data));
+       // alert(ahoj[0].hour);
+    }
+
+</script>
