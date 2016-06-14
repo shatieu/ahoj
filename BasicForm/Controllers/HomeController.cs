@@ -39,7 +39,7 @@ namespace BasicForm.Controllers
 
             ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
 
-            CalendarOrder calendar = new CalendarOrder(1);
+            CalendarOrder calendar = new CalendarOrder(2);
 
             // int m = calCus.Month++;
             // ModelState.Remove("Month");

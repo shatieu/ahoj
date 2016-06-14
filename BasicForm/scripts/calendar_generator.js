@@ -424,7 +424,6 @@ var hourmin = [actday + hours[0], actday + hours[1], actday + hours[2], actday +
                 var identfmin = actday + hours[y];
                 
                 var fmin = document.getElementById(hours[y]);
-                alert(hourmin[y]);
                 if (identfmin === hourmin[y]) {
                     if (identfmin === hourminfull[y]) {
                         fmin.style.background = 'gold';
