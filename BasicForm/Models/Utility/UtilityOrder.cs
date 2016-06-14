@@ -1,5 +1,7 @@
 ﻿using BasicForm.Models.DBHandler;
 using BasicForm.Models.DBRepresentations;
+using BasicForm.Models.Logger;
+using Elmah;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,24 +28,32 @@ namespace BasicForm.Models.Utility
             DBHandlerOrder hOrder = new DBHandlerOrder();
             UtilityProcedure uProcedure = new UtilityProcedure();
 
-            Dictionary<int, Procedure> proceduresDic =  uProcedure.getProceduresAsDictionary( hProcedure.getByOfficeIDActive(officeID));
-            
+            Dictionary<int, Procedure> proceduresDic = uProcedure.getProceduresAsDictionary(hProcedure.getByOfficeIDAll(officeID));
+
             List<Order> ordersInDate = hOrder.getByOfficeIDInMonthYear(officeID, month, year);
-
-            foreach (Order order in ordersInDate)
+            try
             {
-                for (int i = 0; i < proceduresDic[order.ProcedureID].Lasts; i = i + 10)
+                foreach (Order order in ordersInDate)
                 {
-                    time = order.DateAndTime;
-                    time = time.AddMinutes(i);
+                    for (int i = 0; i < proceduresDic[order.ProcedureID].Lasts; i = i + 10)
+                    {
+                        time = order.DateAndTime;
+                        time = time.AddMinutes(i);
 
-                    sb.Clear();
-                    sb.Append(time.Day).Append("_").Append(time.Hour).Append(":").Append(time.Minute);
-                    formatedOrders.Add(sb.ToString());
+                        sb.Clear();
+                        sb.Append(time.Day).Append("_").Append(time.Hour).Append(":").Append(time.Minute);
+                        formatedOrders.Add(sb.ToString());
+                    }
                 }
+            }catch(Exception e)
+            {
+                ErrorSignal.FromCurrentContext().Raise(e);
+                CustomLogger.Log(CustomLogger.Level.ERROR, e.ToString());
+                Console.WriteLine(e.ToString());
             }
 
             return formatedOrders;
         }
+
     }
 }

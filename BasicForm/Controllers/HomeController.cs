@@ -1,5 +1,6 @@
 ﻿using BasicForm.Models;
 using BasicForm.Models.DBHandler;
+using BasicForm.Models.Logger;
 using BasicForm.Models.Utility;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,25 @@ namespace BasicForm.Controllers
     
     public class HomeController : Controller
     {
-       // private DBCustomer DBcust = new DBCustomer();
+        // private DBCustomer DBcust = new DBCustomer();
+
+        [HandleError()]
+        public ActionResult SomeError()
+        {
+            throw new Exception("test");
+        }
 
         // GET: Home
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int officeID = 2)
         {
            // DBCustomer dbCustomer = new DBCustomer();
             List<string> times = new List<string>();//dbCustomer.getTakenTimes(2, 1999);
             List<JsonTimes> jTimes = new List<JsonTimes>();
 
             JsonTimes jt;
-            
+
+            CustomLogger.Log(CustomLogger.Level.FINEST, "Starting...");
             //DD_HH:MM
             times.Add("10_15:30");
             times.Add("12_15:30");
@@ -60,7 +68,7 @@ namespace BasicForm.Controllers
 
             ViewBag.Json = Json(jTimes, JsonRequestBehavior.AllowGet);
 
-            CalendarOrder calendar = new CalendarOrder(2);
+            CalendarOrder calendar = new CalendarOrder(officeID);
 
             // int m = calCus.Month++;
             // ModelState.Remove("Month");
@@ -115,18 +123,31 @@ namespace BasicForm.Controllers
             return RedirectToAction("Index", new { cal = calCus });//View("Index","Index",calCus);
         }
 
-    */
+    *//*
         [HttpGet]
-        public ActionResult getTakenTimes(int officeID, int month, int year)
+        public JsonResult getTakenTimes()
         {
-            UtilityOrder uOrder = new UtilityOrder();
+            return getTakenTimes(1,6,2016);
 
-            List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
+        }*/
+
+        [HttpGet]
+        public JsonResult getTakenTimes(int officeID = 1, int month = 6, int year = 2016)
+        {
             
-                    
-            var jsonSerialiser = new JavaScriptSerializer();
-            var jsonTimes = jsonSerialiser.Serialize(times);
+            string jsonTimes;
+            UtilityOrder uOrder = new UtilityOrder();
+            try
+            {
+                List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
 
+
+                var jsonSerialiser = new JavaScriptSerializer();
+                jsonTimes = jsonSerialiser.Serialize(times);
+            }catch(ArgumentException e)
+            {
+                jsonTimes = "[{\"erorr\":\""+e.ToString()+"\"}]";
+            }
             
             return Json(jsonTimes,JsonRequestBehavior.AllowGet);
             

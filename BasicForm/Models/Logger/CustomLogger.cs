@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -14,10 +15,13 @@ namespace BasicForm.Models.Logger
 
         public static void Log(Level level,String lines)
         {
-            using (var file = new System.IO.StreamWriter("~/custom_logs.txt", true))
-            {
-                file.WriteLine("[{0}]({1}) - {2}", level.ToString(), DateTime.Now.ToString(), lines);
-            }
+            
+            string logFIlePath = HttpContext.Current.Server.MapPath("~/App_Data/custom_logs.txt"); 
+            
+                string mess = string.Format("[{0}]({1}) - {2}", level.ToString(), DateTime.Now.ToString(), lines);
+                
+                System.IO.File.WriteAllText(logFIlePath,mess);
+            
             
 
         }

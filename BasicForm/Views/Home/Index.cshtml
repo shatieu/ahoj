@@ -162,23 +162,43 @@
 }
 <div>@ViewBag.MujJson</div>
 <div>@ViewBag.JsonRaw</div>
-<div onclick="haha(@Html.Raw(Json.Encode(@ViewBag.Json)))">well fuck zou you idiot</div>
+<div onclick="hehe()">well fuck zou you idiot</div>
 <div>@ViewBag.Json</div>
 
+<button id="action-button">Click me to load info!</button>
+<div id="info">info</div>
+
 <script>
+    function hehe(){
+        var data2 = (@ViewBag.Json);
+        haha(data2);
+    }
+
     function haha(data){
         var text = '[{ "hour": "10_15:30" }, { "hour": "12_15:30" }, { "hour": "9_09:30" }, { "hour": "10_12:30" }, { "hour": "12_16:40" }, { "hour": "10_12:00" }, { "hour": "8_15:30" }, { "hour": "7_15:30" }, { "hour": "8_09:30" }, { "hour": "9_12:30" }]';
-        /*'{"employees":[' +
-'{"firstName":"John","lastName":"Doe" },' +
-'{"firstName":"Anna","lastName":"Smith" },' +
-'{"firstName":"Peter","lastName":"Jones" }]}';
-*/
-  //      var vb = '@ViewBag.Json';
-        //      var ahoj = JSON.parse(vb);*/
-       // var data = @Html.Raw(Json.Encode(@ViewBag.Json));
+        var data2 = @Html.Raw(Json.Encode(@ViewBag.Json));
+        var data3 = JSON.parse(data);
         //var skoro = JSON.parse(data);
-        alert(JSON.stringify(data.Data));
+        alert(data3.count);
        // alert(ahoj[0].hour);
     }
+
+    $('#action-button').click(function() {
+        
+   $.ajax({
+       url: "@Html.Raw(Url.Action("getTakenTimes", "Home", new { officeID = 1, month = 6, year = 2016 }))",
+       data: jsonData,
+       type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+          $('#info').html('<p>PICO</p>');
+      },
+      error: function() {
+          $('#info').html('<p>An error has occurred</p>');
+      }
+      
+   });
+        alert("BU");
+});
 
 </script>
