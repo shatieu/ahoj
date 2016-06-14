@@ -32,11 +32,11 @@ namespace BasicForm.Models.DBHandler
         {
             //Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Jirka\Source\Repos\ahoj\BasicForm\App_Data\Calendar.mdf;Integrated Security=True
             SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder();
-            csb.DataSource = @"localhost\SQLEXPRESS";
+            csb.DataSource = @"localhost\MSSQLSERVER";
             csb.InitialCatalog = "Calendar";
             csb.IntegratedSecurity = true;
-            connectionString = csb.ConnectionString;
-
+            connectionString = "Data Source=PC-KOUKAL;Initial Catalog=Calendar;Integrated Security=True";//csb.ConnectionString;
+            // 
             /*
             SqlConnectionStringBuilder csb = new SqlConnectionStringBuilder(@"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=True");
             connectionString = csb.ConnectionString;

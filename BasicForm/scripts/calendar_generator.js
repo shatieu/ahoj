@@ -1,10 +1,16 @@
 ﻿var selday;
 var d;
+var y;
 var mon;
 var ye;
 var actday;
 var day = document.getElementById('divcalendartable');
+var minutes = document.getElementById('c_time_box');
 var days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+
+var minOpen = '0800';// misto cisla se napise promena ktera bude urcovat pocatecni mrtku generatoru
+var maxOpen = '1750'; // zde to stejne akorad konecnou mrtku
+
 var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
             '0900', '0910', '0920', '0930', '0940', '0950',
             '1000', '1010', '1020', '1030', '1040', '1050',
@@ -13,10 +19,14 @@ var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
             '1300', '1310', '1320', '1330', '1340', '1350',
             '1400', '1410', '1420', '1430', '1440', '1450',
             '1500', '1510', '1520', '1530', '1540', '1550',
-            '1600', '1610', '1620', '1630', '1640', '1650'];
+            '1600', '1610', '1620', '1630', '1640', '1650',
+            '1700', '1710', '1720', '1730', '1740', '1750'];
 
 var hourminfull = [10 + '0800', 10 + '0810', 5 + '0820', 2 + '0830', 2 + '0840', 2 + '0850',
                    5 + '0900', 1 + '0910', 6 + '0920', 6 + '0930', 6 + '0940', 6 + '0950',
+                   17 + '0900', 17 + '0910', 17 + '0920', 16 + '0930', 16 + '0940', 16 + '0950',
+                   18 + '0900', 18 + '0910', 18 + '0920', 15 + '0930', 15 + '0940', 14 + '0950',
+                   14 + '0900', 14 + '0910', 14 + '0920', 14 + '0930', 14 + '0940', 15 + '0950',
                    2 + '1000', 5 + '1010', 1 + '1020', 6 + '1030', 10 + '1040', 10 + '1050'];
 
 var Calendar = function (o) {
@@ -372,16 +382,16 @@ window.onload = function () {
         ParentID: "divcalendartable",
 
         DaysOfWeek: [
-        'MON',
-        'TUE',
-        'WED',
-        'THU',
-        'FRI',
-        'SAT',
-        'SUN'
+        'PO',
+        'ÚT',
+        'ST',
+        'ČT',
+        'PÁ',
+        'SO',
+        'NE'
         ],
 
-        Months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        Months: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
 
         Format: 'dd/mm/yyyy'
     });
@@ -407,9 +417,20 @@ window.onload = function () {
 actday = d.getDate();
 
     // hodiny dne
+
+    
 var hourmin = [actday + hours[0], actday + hours[1], actday + hours[2], actday + hours[3], actday + hours[4], actday + hours[5],
             actday + hours[6], actday + hours[7], actday + hours[8], actday + hours[9], actday + hours[10], actday + hours[11],
-            actday + hours[12], actday + hours[13], actday + hours[14], actday + hours[15], actday + hours[16], actday + hours[17]];
+            actday + hours[12], actday + hours[13], actday + hours[14], actday + hours[15], actday + hours[16], actday + hours[17],
+            actday + hours[18], actday + hours[19], actday + hours[20], actday + hours[21], actday + hours[22], actday + hours[23],
+            actday + hours[24], actday + hours[25], actday + hours[26], actday + hours[27], actday + hours[28], actday + hours[29],
+            actday + hours[30], actday + hours[31], actday + hours[32], actday + hours[33], actday + hours[34], actday + hours[35],
+            actday + hours[36], actday + hours[37], actday + hours[38], actday + hours[39], actday + hours[40], actday + hours[41],
+            actday + hours[42], actday + hours[43], actday + hours[44], actday + hours[45], actday + hours[46], actday + hours[47],
+            actday + hours[48], actday + hours[49], actday + hours[50], actday + hours[51], actday + hours[52], actday + hours[53],
+            actday + hours[54], actday + hours[55], actday + hours[56], actday + hours[57], actday + hours[58], actday + hours[59]];
+            
+            
 
 
     for (var i = 0; i < days.length; i++) {
@@ -417,14 +438,14 @@ var hourmin = [actday + hours[0], actday + hours[1], actday + hours[2], actday +
         var selday = document.getElementById(actday);
         var myday = document.getElementById(days[i]);
         if (selday == myday) {
-            myday.style.background = 'red';
+            myday.style.background = '#3C9ADF';
 
-            for (var y = 0; y < hours.length; y++) {
+            for (y = 0; y < hours.length; y++) {
                 
                 var identfmin = actday + hours[y];
                 
                 var fmin = document.getElementById(hours[y]);
-                alert(hourmin[y]);
+               
                 if (identfmin === hourmin[y]) {
                     if (identfmin === hourminfull[y]) {
                         fmin.style.background = 'gold';
@@ -467,9 +488,9 @@ day.onclick = function (e) {
         var myday = document.getElementById(days[i]);
 
         if (seleday == myday) {
-            myday.style.background = 'red';
+            myday.style.background = '#3C9ADF';
         } else {
-            myday.style.background = 'lightblue';
+            myday.style.background = 'white';
         }
         var mont = (mon + 1);
         if (selday >=1 && selday <=31) {
@@ -480,10 +501,19 @@ day.onclick = function (e) {
         
         // hodiny dne
         var hourmin = [selday + hours[0], selday + hours[1], selday + hours[2], selday + hours[3], selday + hours[4], selday + hours[5],
-                    selday + hours[6], selday + hours[7], selday + hours[8], selday + hours[9], selday + hours[10], selday + hours[11],
-                    selday + hours[12], selday + hours[13], selday + hours[14], selday + hours[15], selday + hours[16], selday + hours[17]];       
+            selday + hours[6], selday + hours[7], selday + hours[8], selday + hours[9], selday + hours[10], selday + hours[11],
+            selday + hours[12], selday + hours[13], selday + hours[14], selday + hours[15], selday + hours[16], selday + hours[17],
+            selday + hours[18], selday + hours[19], selday + hours[20], selday + hours[21], selday + hours[22], selday + hours[23],
+            selday + hours[24], selday + hours[25], selday + hours[26], selday + hours[27], selday + hours[28], selday + hours[29],
+            selday + hours[30], selday + hours[31], selday + hours[32], selday + hours[33], selday + hours[34], selday + hours[35],
+            selday + hours[36], selday + hours[37], selday + hours[38], selday + hours[39], selday + hours[40], selday + hours[41],
+            selday + hours[42], selday + hours[43], selday + hours[44], selday + hours[45], selday + hours[46], selday + hours[47],
+            selday + hours[48], selday + hours[49], selday + hours[50], selday + hours[51], selday + hours[52], selday + hours[53],
+            selday + hours[54], selday + hours[55], selday + hours[56], selday + hours[57], selday + hours[58], selday + hours[59],
+            selday + hours[60], selday + hours[61], selday + hours[62], selday + hours[63], selday + hours[64], selday + hours[65],
+            selday + hours[66], selday + hours[67], selday + hours[68], selday + hours[69], selday + hours[70], selday + hours[71]];
 
-        for (var y = 0; y < hours.length; y++) {
+        for (y = 0; y < hours.length; y++) {
             var identfmin = selday + hours[y];
 
             var fmin = document.getElementById(hours[y]);
@@ -510,3 +540,32 @@ day.onclick = function (e) {
     
 };
 
+
+minutes.onclick = function (e) {
+
+    for (var i = 0; i < hours.length; i++) {
+        var mymin = e.target.id;
+        var mymin2 = document.getElementById(mymin);
+        var mymin3 = document.getElementById(hours[i]);
+      
+
+        if (mymin2 == mymin3) {
+            mymin3.style.background = 'gold';
+        } else {
+            mymin3.style.background = '#3C9ADF';
+        }
+
+        if (mymin >= 1 && mymin <= 1750) {
+            document.getElementById("hour").placeholder = mymin[0] + mymin[1] + ':' + mymin[2] + mymin[3];
+        } else{
+            document.getElementById("hour").placeholder = '-';
+        }
+            
+        
+        
+           
+        
+
+    }
+    
+    }
