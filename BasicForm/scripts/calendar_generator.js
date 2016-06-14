@@ -4,7 +4,8 @@ var y;
 var mon;
 var ye;
 var actday;
-
+var mini = '0800'
+var maxi = '1750'
 
 
 
@@ -12,8 +13,12 @@ var day = document.getElementById('divcalendartable');
 var minutes = document.getElementById('c_time_box');
 var days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 
-var minOpen = '0800';// misto cisla se napise promena ktera bude urcovat pocatecni mrtku generatoru
-var maxOpen = '1750'; // zde to stejne akorad konecnou mrtku
+var minOpen = mini;// misto cisla se napise promena ktera bude urcovat pocatecni mrtku generatoru
+var maxOpen = maxi; // zde to stejne akorad konecnou mrtku
+for(var i= mini; i <= maxi;i=+10){
+      if(i<)
+}
+
 
 var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
             '0900', '0910', '0920', '0930', '0940', '0950',
@@ -25,15 +30,22 @@ var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
             '1500', '1510', '1520', '1530', '1540', '1550',
             '1600', '1610', '1620', '1630', '1640', '1650',
             '1700', '1710', '1720', '1730', '1740', '1750'];
-var hours2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ];
+    /*
+    var hours2 = [0, 0, 0, 0, 0, 0, 0,
+    [0, 0, 0, 0, 0, 0, 0,
+    [0, 0, 0, 0, 0, 0, 0,
+    [0, 0, 0, 0, 0, 0, 0,
+    [0, 0, 0, 0, 0, 0, 0,
+    [0, 0, 0, 0, 0, 0, 0,
+    [0, 0, 0, 0, 0, 0, 0,
+    [0, 0, 0, 0, 0, 0, 0];*/
 
 
 var hourminfull = [ 14 + '0800', 5 + '0810', 14 + '0820', 13 + '0830', 13 + '0840', 13 + '0850',
                     10 + '0900', 10 + '0910', 5 + '0820', 2 + '0830', 2 + '0840', 2 + '0850',
                     14 + '1200', 14 + '1210', 5 + '1220', 5 + '0830', 5 + '1240', 5 + '1250',
                     7 + '0800,'+ null +'0810'
-                   ];
+];
 
 var Calendar = function (o) {
     //Store div id
@@ -72,9 +84,9 @@ var Calendar = function (o) {
 
     if (typeof (f) == 'string') {
         this.f = f.charAt(0).toUpperCase();
-    } else {
+} else {
         this.f = 'M';
-    }
+}
 
     console.log("this.f == ", this.f);
 
@@ -89,7 +101,7 @@ var Calendar = function (o) {
 
 
 
-// Goes to next month
+    // Goes to next month
 Calendar.prototype.nextMonth = function () {
     console.log("Calendar.prototype.nextMonth = function() {");
 
@@ -105,13 +117,13 @@ Calendar.prototype.nextMonth = function () {
         this.CurrentYear = this.CurrentYear + 1;
 
         console.log("this.CurrentYear == ", this.CurrentYear);
-    } else {
+} else {
         console.log("this.CurrentMonth == ", this.CurrentMonth);
 
         this.CurrentMonth = this.CurrentMonth + 1;
 
         console.log("this.CurrentMonth + 1 == ", this.CurrentMonth);
-    }
+}
 
     this.showCurrent();
     mon = this.CurrentMonth;
@@ -266,19 +278,7 @@ Calendar.prototype.Calendar = function (y, m) {
 
     var p = dm = this.f == 'M' ? 1 : firstDayOfCurrentMonth == 0 ? -5 : 2;
 
-    /*var p, dm;
-  
-    if(this.f =='M') {
-      dm = 1;
-  
-      p = dm;
-    } else {
-      if(firstDayOfCurrentMonth == 0) {
-        firstDayOfCurrentMonth == -5;
-      } else {
-        firstDayOfCurrentMonth == 2;
-      }
-    }*/
+
 
     console.log("After conditional operator");
 
@@ -458,7 +458,7 @@ var hourmin = [actday + hours[0], actday + hours[1], actday + hours[2], actday +
                 if (identfmin === hourmin[y]) {
                     if (identfmin === hourminfull[y]) {
                         fmin.style.background = 'gold';
-                        hours2[i] = 1;
+                       // hours2[i] = 1;
                     } else {
                         hourmin[y]++;
                     }
@@ -475,8 +475,7 @@ var hourmin = [actday + hours[0], actday + hours[1], actday + hours[2], actday +
         
     }
 
-    
-    document.getElementById('bag').innerHTML ='pica';
+  
 
 }
 
@@ -534,7 +533,7 @@ day.onclick = function (e) {
 
                 if (identfmin === hourminfull[y]) {
                     fmin.style.background = 'gold';
-                    hours2[y] = 1;
+                   // hours2[y] = 1;
                    
                 } else {
                     hourmin[y]++;
@@ -569,7 +568,7 @@ minutes.onclick = function (e) {
         if (mymin2 == mymin3)
         {
             mymin3.style.background = 'gold';
-            hours2[i] = 1;
+          //  hours2[i] = 1;
            
         } else if (hours2[i] > 0) {
             mymin3.style.background = '#3C9ADF';
