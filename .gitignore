@@ -258,6 +258,6 @@ paket-files/
 .idea/
 *.sln.iml
 
-
-./BasicForm/App_Data/DBProperties.txt
-./BasicForm/App_Data/DBProperties.xml
+#login properties
+**/App_Data/DBProperties.txt
+**/App_Data/DBProperties.xml

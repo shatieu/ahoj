@@ -1,1 +1,0 @@
-﻿{ConnectionString:Data Source=DESKTOP-JPGMG4M\SQLEXPRESS;Initial Catalog=Calendar;Integrated Security=True}
