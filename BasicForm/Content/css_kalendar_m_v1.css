@@ -9,6 +9,7 @@ body{
 	height:50px;
 	}
 #c_box{
+    margin-left:200px;
 	width:500px;
 	height:auto;
 	float:left;
