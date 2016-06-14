@@ -4,6 +4,11 @@ var y;
 var mon;
 var ye;
 var actday;
+var minutefull = [];
+
+var productId = @Html.Raw(Json.Encode(ViewBag.Json));
+alert(productId);
+
 var day = document.getElementById('divcalendartable');
 var minutes = document.getElementById('c_time_box');
 var days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
@@ -22,12 +27,10 @@ var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
             '1600', '1610', '1620', '1630', '1640', '1650',
             '1700', '1710', '1720', '1730', '1740', '1750'];
 
-var hourminfull = [10 + '0800', 10 + '0810', 5 + '0820', 2 + '0830', 2 + '0840', 2 + '0850',
-                   5 + '0900', 1 + '0910', 6 + '0920', 8 + '0930', 6 + '0940', 6 + '0950',
-                   17 + '0800', 17 + '0910', 17 + '0920', 16 + '0930', 16 + '0940', 16 + '0950',
-                   18 + '0900', 18 + '0910', 18 + '0920', 15 + '0930', 15 + '0940', 14 + '0950',
-                   14 + '0900', 14 + '0910', 14 + '0920', 14 + '0930', 14 + '0940', 15 + '0950',
-                   1 + '1000', 5 + '1010', 1 + '1020', 6 + '1030', 10 + '1040', 10 + '1050'];
+var hourminfull = [ 14 + '0800', 5 + '0810', 14 + '0820', 13 + '0830', 13 + '0840', 13 + '0850',
+                    10 + '0900', 10 + '0810', 5 + '0820', 2 + '0830', 2 + '0840', 2 + '0850',
+                    14 + '1200', 14 + '1210', 5 + '1220', 5 + '0830', 5 + '1240', 5 + '1250',
+                   ];
 
 var Calendar = function (o) {
     //Store div id
@@ -439,7 +442,8 @@ var hourmin = [actday + hours[0], actday + hours[1], actday + hours[2], actday +
         var myday = document.getElementById(days[i]);
         if (selday == myday) {
             myday.style.background = '#3C9ADF';
-
+            var mont = mon + 1;
+            document.getElementById("date").placeholder = actday + '.' + mont + '.' + ye;
             for (y = 0; y < hours.length; y++) {
                 
                 var identfmin = actday + hours[y];
@@ -449,6 +453,7 @@ var hourmin = [actday + hours[0], actday + hours[1], actday + hours[2], actday +
                 if (identfmin === hourmin[y]) {
                     if (identfmin === hourminfull[y]) {
                         fmin.style.background = 'gold';
+                     
                     } else {
                         hourmin[y]++;
                     }
@@ -521,6 +526,7 @@ day.onclick = function (e) {
 
                 if (identfmin === hourminfull[y]) {
                     fmin.style.background = 'gold';
+                   
                 } else {
                     hourmin[y]++;
                     fmin.style.background = '#3C9ADF';
@@ -551,8 +557,13 @@ minutes.onclick = function (e) {
 
         if (mymin2 == mymin3) {
             mymin3.style.background = 'gold';
+          
         } else {
+
+        
             mymin3.style.background = '#3C9ADF';
+            
+
         }
 
         if (mymin >= 1 && mymin <= 1750) {

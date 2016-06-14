@@ -37,7 +37,7 @@ namespace BasicForm.Controllers
             var jsonTimes = jsonSerialiser.Serialize(times);
 
 
-            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
+            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet).Data;
 
             CalendarOrder calendar = new CalendarOrder(2);
 
