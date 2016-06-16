@@ -59,9 +59,9 @@ namespace BasicForm.Models.DBHandler
             return getAllActiveOrInactiveBasedOnParam(true);
         }
 
-        public List<Office> getByProviderIDActive()
+        public List<Office> getByProviderIDActive(int providerID)
         {
-            return getAllActiveOrInactiveBasedOnParam(true);
+            return getByProviderIDActiveOrInactiveBasedOnParam(providerID,true);
         }
 
         public List<Office> getByProviderIDAll(int providerID)

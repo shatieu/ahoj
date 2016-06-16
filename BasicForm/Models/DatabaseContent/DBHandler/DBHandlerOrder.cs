@@ -50,7 +50,11 @@ namespace BasicForm.Models.DBHandler
             return executeQuery(sqlQuery);
         }
 
-        
+        public List<Order> getByOfficeIDAll(int officeID)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2} ", Order.DBName, "OfficeID", officeID);
+            return executeQuery(sqlQuery);
+        }
 
     }
 }

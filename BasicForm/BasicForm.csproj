@@ -161,11 +161,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CalendarCustomer.cs" />
-    <Compile Include="Models\CalendarDoctor.cs" />
+    <Compile Include="Models\CalendarProvider.cs" />
     <Compile Include="Models\CalendarOrder.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerCustomer.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerGeneral.cs" />
@@ -197,6 +198,7 @@
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\SomeError.cshtml" />
+    <Content Include="Views\Provider\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -207,9 +209,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Order\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
