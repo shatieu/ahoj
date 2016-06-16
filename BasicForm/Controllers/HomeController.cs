@@ -24,7 +24,7 @@ namespace BasicForm.Controllers
 
         // GET: Home
         [HttpGet]
-        public ActionResult Index(int officeID = 2)
+        public ActionResult Index(int officeID = 1)
         {
            // DBCustomer dbCustomer = new DBCustomer();
             List<string> times = new List<string>();//dbCustomer.getTakenTimes(2, 1999);
@@ -140,7 +140,13 @@ namespace BasicForm.Controllers
             try
             {
                 List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
+                /*
+                List<JsonTimes> jTimes = new List<JsonTimes>();
 
+                foreach(string time in times)
+                {
+                    jTimes.Add(new JsonTimes(time));
+                }*/
 
                 var jsonSerialiser = new JavaScriptSerializer();
                 jsonTimes = jsonSerialiser.Serialize(times);

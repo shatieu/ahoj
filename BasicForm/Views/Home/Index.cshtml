@@ -6,6 +6,7 @@
 
 <link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
 <link href="~/Content/css_calendar_generator.css" rel="stylesheet" type="text/css">
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -151,36 +152,23 @@
 <div id="info">info</div>
 
 <script>
-    function hehe(){
-        var data2 = (@ViewBag.Json);
-        haha(data2);
-    }
-
-    function haha(data){
-        var text = '[{ "hour": "10_15:30" }, { "hour": "12_15:30" }, { "hour": "9_09:30" }, { "hour": "10_12:30" }, { "hour": "12_16:40" }, { "hour": "10_12:00" }, { "hour": "8_15:30" }, { "hour": "7_15:30" }, { "hour": "8_09:30" }, { "hour": "9_12:30" }]';
-        var data2 = @Html.Raw(Json.Encode(@ViewBag.Json));
-        var data3 = JSON.parse(data);
-        //var skoro = JSON.parse(data);
-        alert(data3.count);
-       // alert(ahoj[0].hour);
-    }
+    
 
     $('#action-button').click(function() {
-        
    $.ajax({
-       url: "@Html.Raw(Url.Action("getTakenTimes", "Home", new { officeID = 1, month = 6, year = 2016 }))",
-       data: jsonData,
+       url: '@Html.Raw(Url.Action("getTakenTimes", "Home"))',
+       data: 'officeID='+@(Model.office.ID)+'&month=6&year=2016',
        type: 'GET',
       dataType: 'json',
       success: function(data) {
-          $('#info').html('<p>PICO</p>');
+          var parsed = JSON.parse(data);
+          $('#info').html('<p>'+JSON.stringify(data)+'</p>');
       },
       error: function() {
           $('#info').html('<p>An error has occurred</p>');
       }
       
    });
-        alert("BU");
 });
 
 </script>

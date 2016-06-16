@@ -1,11 +1,13 @@
 ﻿using BasicForm.Models.DBHandler;
 using BasicForm.Models.DBRepresentations;
+using BasicForm.Models.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Services;
 
 namespace BasicForm.Models
 {
@@ -59,11 +61,23 @@ namespace BasicForm.Models
         }
 
 
-        
-        
-
-        
        
+        public List<string> getTakenTimesList(int officeID = 1, int month = 6, int year = 2016)
+        {
+
+            
+            UtilityOrder uOrder = new UtilityOrder();
+            List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
+
+
+            return times;
+
+        }
+
+
+
+
+
 
     }
 }
