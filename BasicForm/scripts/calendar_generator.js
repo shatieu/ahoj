@@ -4,17 +4,29 @@ var y;
 var mon;
 var ye;
 var actday;
-var mini = '0800'
-var maxi = '1750'
-
+var minmim_hour = 8;
+var minim_min = 0;
+var maxim_hour =17;
+var maxim_min = 50;
+var hour_array = [];
 
 
 var day = document.getElementById('divcalendartable');
 var minutes = document.getElementById('c_time_box');
 var days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 
-var minOpen = mini;// misto cisla se napise promena ktera bude urcovat pocatecni mrtku generatoru
-var maxOpen = maxi; // zde to stejne akorad konecnou mrtku
+
+for (var i = minmim_hour; i < maxim_hour + 1; i++) {
+    for (var y = minim_min; y < maxim_min + 10; y = y+10) {
+        hour_array = i + '' + y;
+       
+    }
+}
+
+
+
+
+
 
 
 var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
@@ -27,6 +39,7 @@ var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
             '1500', '1510', '1520', '1530', '1540', '1550',
             '1600', '1610', '1620', '1630', '1640', '1650',
             '1700', '1710', '1720', '1730', '1740', '1750'];
+
     /*
     var hours2 = [0, 0, 0, 0, 0, 0, 0,
     [0, 0, 0, 0, 0, 0, 0,
@@ -40,9 +53,7 @@ var hours = ['0800', '0810', '0820', '0830', '0840', '0850',
 
 var hourminfull = [ 14 + '0800', 5 + '0810', 14 + '0820', 13 + '0830', 13 + '0840', 13 + '0850',
                     10 + '0900', 10 + '0910', 5 + '0820', 2 + '0830', 2 + '0840', 2 + '0850',
-                    14 + '1200', 14 + '1210', 5 + '1220', 5 + '0830', 5 + '1240', 5 + '1250',
-                    7 + '0800,'+ null +'0810'
-];
+                    14 + '1200', 14 + '1210', 5 + '1220', 5 + '0830', 5 + '1240', 5 + '1250'];
 
 var Calendar = function (o) {
     //Store div id
@@ -379,8 +390,8 @@ Calendar.prototype.Calendar = function (y, m) {
 
 // On Load of the window
 window.onload = function () {
+   
 
-    
 
     // Start calendar
     var c = new Calendar({
