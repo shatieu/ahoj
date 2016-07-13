@@ -14,16 +14,14 @@ namespace BasicForm.Models.DBHandler
 
         public bool insert(Office office)
         {
-            return base.dBInsertRepresentation(office, DBName);
+            return base.insertRepresentation(office);
         }
 
         //private secure
 
         public Office getByID(int ID)
         {
-            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);
-            List<Office> toReturn = executeQuery(sqlQuery);
-            return toReturn.ElementAt(0);
+            return (Office)Convert.ChangeType(base.selectWhereID(ID, new Office()), typeof(Office));
         }
 
         public List<Office> getAll()
@@ -37,7 +35,7 @@ namespace BasicForm.Models.DBHandler
         private List<Office> executeQuery(string sqlQuery)
         {
             Office office = new Office();
-            List<Office> offices = base.dBGetAllWhere(sqlQuery, office).Cast<Office>().ToList();
+            List<Office> offices = base.selectByQuery(sqlQuery, office).Cast<Office>().ToList();
 
             return offices;
         }

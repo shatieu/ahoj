@@ -261,3 +261,4 @@ paket-files/
 #login properties
 **/App_Data/DBProperties.txt
 **/App_Data/DBProperties.xml
+/BasicForm/App_Data/loggs.txt

@@ -101,7 +101,7 @@ namespace BasicForm.Models.DBHandler
         /// </summary>
         /// <param name="sqlCommand">whole query containing SELECT * FROM DBName WHERE ...</param>
         /// <param name="representation">object to should be taken</param>
-        protected List<ARepresentation> dBGetAllWhere(String sqlQuery, ARepresentation representation)
+        protected List<ARepresentation> selectByQuery(String sqlQuery, ARepresentation representation)
         {
             if (!sqlQuery.StartsWith("SELECT * FROM"))
             {
@@ -240,7 +240,7 @@ namespace BasicForm.Models.DBHandler
         /// </summary>
         /// <param name="sqlCommand">command that will be pamameters added into</param>
         /// <param name="obj">object parameters which would be inseted</param>
-        protected void setCommandParametersOfRepresAll(SqlCommand sqlCommand, Object obj)
+        protected void setCommandParamsInsert(SqlCommand sqlCommand, Object obj)
         {
             PropertyInfo[] propertiesOfObject = obj.GetType().GetProperties();
 
@@ -253,17 +253,17 @@ namespace BasicForm.Models.DBHandler
 
         
         /// <summary>
-        /// creates new string with query to insert object with all properties
+        /// Creates new string with query to insert object with all properties
         /// </summary>
         /// <param name="obj">properties will be taken in this</param>
         /// <param name="DBName">name of database that will be inserting into</param>
-        /// <returns></returns>
-        private string getQueryInsertRepr(ARepresentation representation, String DBName)
+        /// <returns>Complete query for inserting whole object</returns>
+        private string getQueryInsert(ARepresentation aRepresentation)
         {
             StringBuilder sb = new StringBuilder();
-            PropertyInfo[] properties = representation.GetType().GetProperties();
+            PropertyInfo[] properties = aRepresentation.GetType().GetProperties();
 
-            sb.Append("INSERT INTO [").Append(DBName).Append("] (");
+            sb.Append("INSERT INTO [").Append(aRepresentation._DBName).Append("] (");
             //creating parts with names in tables
             foreach (var property in properties)
             {
@@ -291,10 +291,14 @@ namespace BasicForm.Models.DBHandler
             return sb.ToString();
         }
 
-
-        protected Boolean dBInsertRepresentation(ARepresentation representation, String DBName)
+        /// <summary>
+        /// Inserts into database whole object that is child of ARepresentation
+        /// </summary>
+        /// <param name="aRepresentation">to be added into database</param>
+        /// <returns>true if added</returns>
+        protected Boolean insertRepresentation(ARepresentation aRepresentation)
         {
-            string sqlQuery = getQueryInsertRepr(representation, DBName);
+            string sqlQuery = getQueryInsert(aRepresentation);
             Boolean check = false;
 
             try
@@ -304,21 +308,34 @@ namespace BasicForm.Models.DBHandler
                     sqlConnection.Open();
                     using (SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConnection))
                     {
-                        setCommandParametersOfRepresAll(sqlCommand, representation);
+                        setCommandParamsInsert(sqlCommand, aRepresentation);
                         check = sqlCommand.ExecuteNonQuery() == 1;
                     }
                 }
             }
             catch (Exception e)
             {
-                CustomLogger.Log(CustomLogger.Level.ERROR, "Cannot insert into " + DBName + " database\n" + e.ToString());
+                CustomLogger.Log(CustomLogger.Level.ERROR, "Cannot insert into " + aRepresentation._DBName + " database\n" + e.ToString());
                 return check;
             }
 
             return check;
         }
 
+        protected ARepresentation selectWhereID(int ID, ARepresentation aRepresentation)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", aRepresentation._DBName, "ID", ID);
+            List<ARepresentation> list = selectByQuery(sqlQuery, aRepresentation);
 
+            if (!list.Any())
+            {
+                return null;
+            }
+            else
+            {
+                return list.ElementAt(0);
+            }
+        }
 
     }
 }

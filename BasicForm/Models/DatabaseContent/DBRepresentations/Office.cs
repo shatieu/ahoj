@@ -16,6 +16,10 @@ namespace BasicForm.Models.DBRepresentations
         public Boolean Active { get; set; }
         public static string DBName = "Office";
 
+        public Office() : base(DBName)
+        {
+        }
+
         public override ARepresentation getNewInstance()
         {
             return new Office();

@@ -71,7 +71,7 @@ namespace BasicForm.Controllers
             CalendarOrder _model = new CalendarOrder(model.office.ID);
             DBHandlerCustomer dbHandlerCustomer = new DBHandlerCustomer();
             DBHandlerOrder dbHandlerOrder = new DBHandlerOrder();
-            List<Customer> listCustomers = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+            Customer customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
 
             if (ModelState.IsValid)
             {
@@ -82,12 +82,13 @@ namespace BasicForm.Controllers
                 _model.newOrder = model.newOrder;
 
                 _model.newOrder.OfficeID = model.office.ID;
-                if (!listCustomers.Any())
+                if (customer == null)
                 {
                     dbHandlerCustomer.insert(model.customer);
+                    customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
                 }
-                listCustomers = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
-                int IDCustomer = listCustomers.ElementAt(0).ID;
+
+                int IDCustomer = customer.ID;
                 _model.newOrder.CustomerID = IDCustomer;
                 dbHandlerOrder.insert(_model.newOrder);
 

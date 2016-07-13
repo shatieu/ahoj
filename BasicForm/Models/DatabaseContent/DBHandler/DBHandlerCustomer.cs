@@ -17,21 +17,30 @@ namespace BasicForm.Models.DBHandler
             return executeQuery(sqlQuery);
         }
 
-        public List<Customer> getByPersonaNumber(string PersonaNumber)
+        public Customer getByPersonaNumber(string PersonaNumber)
         {
+            List<Customer> list;
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = '{2}'", DBName, "PersonalNumber", PersonaNumber);
-            return executeQuery(sqlQuery);
+            list = executeQuery(sqlQuery);
+
+            if (!list.Any())
+            {
+                return null;
+            }
+            else
+            {
+                return list.ElementAt(0);
+            }
         }
 
         public bool insert(Customer customer)
         {
-            return base.dBInsertRepresentation(customer, DBName);
+            return base.insertRepresentation(customer);
         }
 
         public Customer getByID(int ID)
         {
-            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);
-            return executeQuery(sqlQuery).ElementAt(0);
+            return (Customer) Convert.ChangeType( base.selectWhereID(ID, new Customer()), typeof(Customer));
         }
 
         public List<Customer> getAll()
@@ -42,9 +51,7 @@ namespace BasicForm.Models.DBHandler
 
         private List<Customer> executeQuery(string sqlQuery)
         {
-            Customer customer = new Customer();
-            List<Customer> customers = base.dBGetAllWhere(sqlQuery, customer).Cast<Customer>().ToList();
-
+            List<Customer> customers = base.selectByQuery(sqlQuery, new Customer()).Cast<Customer>().ToList();
             return customers;
         }
 

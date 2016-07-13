@@ -165,9 +165,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CalendarCustomer.cs" />
     <Compile Include="Models\CalendarProvider.cs" />
     <Compile Include="Models\CalendarOrder.cs" />
+    <Compile Include="Models\DatabaseContent\DBHandler\DatabaseHandler.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerCustomer.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerGeneral.cs" />
     <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerOffice.cs" />

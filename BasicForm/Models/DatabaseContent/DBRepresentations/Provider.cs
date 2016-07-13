@@ -19,6 +19,10 @@ namespace BasicForm.Models.DBRepresentations
         public Boolean Payed { get; set; }
         public static string DBName = "Provider";
 
+        public Provider() : base(DBName)
+        {
+        }
+
         public override ARepresentation getNewInstance()
         {
             return new Provider();

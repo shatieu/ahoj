@@ -19,7 +19,7 @@ namespace BasicForm.Models.DBRepresentations
         public string DescCustomer { get; set; }
         public static string DBName = "Order";
 
-        public Order()
+        public Order():base(DBName)
         {
             DateAndTime = new DateTime(2000, 1, 1);
         }

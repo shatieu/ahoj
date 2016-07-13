@@ -16,7 +16,7 @@ namespace BasicForm.Models.Logger
         public static void Log(Level level,String lines)
         {
             
-            string logFIlePath = HttpContext.Current.Server.MapPath("~/App_Data/custom_logs.txt"); 
+            string logFIlePath = HttpContext.Current.Server.MapPath("~/App_Data/loggs.txt"); 
             
                 string mess = string.Format("[{0}]({1}) - {2}", level.ToString(), DateTime.Now.ToString(), lines);
                 

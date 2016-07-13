@@ -24,6 +24,10 @@ namespace BasicForm.Models.DBRepresentations
         public string PersonalNumber { get; set; }
         public static string DBName = "Customer";
 
+        public Customer() : base(DBName)
+        {
+        }
+
         public override ARepresentation getNewInstance()
         {
             return new Customer();

@@ -11,7 +11,13 @@ namespace BasicForm.Models.DBRepresentations
 {
     public abstract class ARepresentation
     {
-        public abstract int ID { get; set; }        
+        public abstract int ID { get; set; }
+        public string _DBName;
+
+        public ARepresentation(string DBName)
+        {
+            _DBName = DBName;
+        }
 
         public abstract ARepresentation getNewInstance();
 

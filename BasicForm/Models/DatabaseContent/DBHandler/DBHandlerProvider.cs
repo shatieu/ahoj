@@ -15,13 +15,12 @@ namespace BasicForm.Models.DBHandler
 
         public bool insert(Provider provider)
         {
-            return base.dBInsertRepresentation(provider, DBName);
+            return base.insertRepresentation(provider);
         }
 
         public Provider getByID(int ID)
         {
-            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);
-            return executeQuery(sqlQuery).ElementAt(0);
+            return (Provider)Convert.ChangeType(base.selectWhereID(ID, new Provider()), typeof(Provider));
         }
 
         public List<Provider> getAll()
@@ -33,7 +32,7 @@ namespace BasicForm.Models.DBHandler
         private List<Provider> executeQuery(string sqlQuery)
         {
             Provider provider = new Provider();
-            List<Provider> providers = base.dBGetAllWhere(sqlQuery, provider).Cast<Provider>().ToList();
+            List<Provider> providers = base.selectByQuery(sqlQuery, provider).Cast<Provider>().ToList();
 
             return providers;
         }

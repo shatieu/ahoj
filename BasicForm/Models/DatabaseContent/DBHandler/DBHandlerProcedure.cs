@@ -14,13 +14,12 @@ namespace BasicForm.Models.DBHandler
 
         public bool insert(Procedure procedure)
         {
-            return base.dBInsertRepresentation(procedure, DBName);
+            return base.insertRepresentation(procedure);
         }
 
         public Procedure getByID(int ID)
         {
-            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ID", ID);
-            return executeQuery(sqlQuery).ElementAt(0);
+            return (Procedure)Convert.ChangeType(base.selectWhereID(ID, new Procedure()), typeof(Procedure));
         }
 
         public List<Procedure> getAll()
@@ -32,7 +31,7 @@ namespace BasicForm.Models.DBHandler
         private List<Procedure> executeQuery(string sqlQuery)
         {
             Procedure procedure = new Procedure();
-            List<Procedure> procedures = base.dBGetAllWhere(sqlQuery, procedure).Cast<Procedure>().ToList();
+            List<Procedure> procedures = base.selectByQuery(sqlQuery, procedure).Cast<Procedure>().ToList();
 
             return procedures;
         }

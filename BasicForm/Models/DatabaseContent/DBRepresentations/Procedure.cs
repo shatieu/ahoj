@@ -33,6 +33,9 @@ namespace BasicForm.Models.DBRepresentations
         public Boolean Active { get; set; }
         public static string DBName = "Procedure";
 
+        public Procedure() : base(DBName)
+        {
+        }
 
         public override ARepresentation getNewInstance()
         {
