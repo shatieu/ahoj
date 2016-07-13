@@ -240,18 +240,48 @@ namespace BasicForm.Models.DBHandler
         /// </summary>
         /// <param name="sqlCommand">command that will be pamameters added into</param>
         /// <param name="obj">object parameters which would be inseted</param>
-        protected void setCommandParamsInsert(SqlCommand sqlCommand, Object obj)
+        private void setCommandParamsInsert(SqlCommand sqlCommand, ARepresentation representation)
         {
-            PropertyInfo[] propertiesOfObject = obj.GetType().GetProperties();
+            PropertyInfo[] propertiesOfObject = representation.GetType().GetProperties();
 
             foreach (var property in propertiesOfObject)
             {
-                var value = property.GetValue(obj);
-                sqlCommand.Parameters.AddWithValue("@" + property.Name, value == null ? (object)DBNull.Value : value.ToString());
+                var value = property.GetValue(representation);
+                object toSet;
+                toSet = setCommandParamsInsertValueToObject(value, property.PropertyType.Name);
+                sqlCommand.Parameters.AddWithValue("@" + property.Name, toSet);
             }
         }
 
-        
+
+        /// <summary>
+        /// Converting value into right format
+        /// </summary>
+        /// <param name="value">to be converted</param>
+        /// <param name="propertyTypeName">name of property type, to recognize formating</param>
+        /// <returns>value in right format for SQL command parameter</returns>
+        private object setCommandParamsInsertValueToObject(object value, string propertyTypeName)
+        {
+            object toSet;
+            if (value == null)
+            {
+                toSet = (object)DBNull.Value;
+            }
+            else if (propertyTypeName.Equals(nameof(DateTime)))
+            {
+                String format = "yyyy-MM-dd HH:mm:ss:fff";
+                String stringDate = ((DateTime)value).ToString(format);
+                toSet = DateTime.ParseExact(stringDate, format, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                toSet = value.ToString();
+            }
+
+
+            return toSet;
+        }
+
         /// <summary>
         /// Creates new string with query to insert object with all properties
         /// </summary>

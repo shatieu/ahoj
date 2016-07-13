@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 
 namespace BasicForm.Models.DBRepresentations
@@ -13,6 +15,7 @@ namespace BasicForm.Models.DBRepresentations
         public int CustomerID { get; set; }
         public int ProcedureID { get; set; }
         public int OfficeID { get; set; }
+        private DateTime _DateAndTime;
         [Key]
         public DateTime DateAndTime { get; set; }
         public string DescProvider { get; set; }
@@ -24,6 +27,7 @@ namespace BasicForm.Models.DBRepresentations
             DateAndTime = new DateTime(2000, 1, 1);
         }
 
+        
         public override ARepresentation getNewInstance()
         {
             return new Order();

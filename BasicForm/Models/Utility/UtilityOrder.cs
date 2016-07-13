@@ -18,7 +18,7 @@ namespace BasicForm.Models.Utility
         /// </summary>
         /// <param name="mounth">to be found in</param>
         /// <param name="year">to be found in</param>
-        /// <returns>Set of strings where strings are in format DD_HH:MM</returns>
+        /// <returns>Set of strings where strings are in format DD_HHMM</returns>
         public List<String> getTakenTimesMonthYear(int officeID, int month, int year)
         {
             DBHandlerProcedure hProcedure = new DBHandlerProcedure();
