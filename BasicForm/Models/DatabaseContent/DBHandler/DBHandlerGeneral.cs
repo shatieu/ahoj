@@ -246,7 +246,8 @@ namespace BasicForm.Models.DBHandler
 
             foreach (var property in propertiesOfObject)
             {
-                sqlCommand.Parameters.AddWithValue("@" + property.Name, property.GetValue(obj).ToString());
+                var value = property.GetValue(obj);
+                sqlCommand.Parameters.AddWithValue("@" + property.Name, value == null ? (object)DBNull.Value : value.ToString());
             }
         }
 

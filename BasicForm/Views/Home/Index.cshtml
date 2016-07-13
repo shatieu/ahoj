@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "View";
+    
 }
 
 <link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
@@ -14,7 +15,7 @@
     <div class="form-horizontal">
         <h4>Customer</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+        @Html.HiddenFor(model => model.office.ID);
         <br />
 
 
@@ -64,7 +65,7 @@
 
             <div id="c_check_box">
                 Datum: @Html.EditorFor(model => model.formDate, new { htmlAttributes = new { @class = "inputs", type = "text", id="date", placeholder="-" }})
-                Čas: @Html.EditorFor(model => model.formDate, new { htmlAttributes = new { @class = "inputs", type = "text", id = "hour", placeholder = "-" } })
+                Čas: @Html.EditorFor(model => model.formHour, new { htmlAttributes = new { @class = "inputs", type = "text", id = "hour", placeholder = "-" } })
             </div>
             <div id="c_info_time_box">
                 <div id="c_info_box">
@@ -115,8 +116,8 @@
                         Procedura:<br />
                         
                         
-                        @Html.DropDownListFor(model => model.newOrder.ProcedureID, new SelectList(Model.procedures, "ID", "Name"), new { @class = "select" } )
-                        
+                        @Html.DropDownListFor(model => model.newOrder.ProcedureID, new SelectList(Model.procedures, "ID", "Name",Model.procedures.First().ID) )
+
                         <br /><br />
                         <input type="submit" value="Send" class="btn btn-default" />
                         <!-- <a href="#"><div class="send">Objednat se</div></a>-->
@@ -124,10 +125,8 @@
                     </div>
                     <div id="c_right_send">
                         Poznámka:<br />
-                        <textarea class="txtarea"></textarea>
-
-
-                       
+                        @Html.TextAreaFor(model => model.newOrder.DescCustomer, new { @class = "txtarea" } )
+                        
                     </div>
                 </div>
             </div>
@@ -143,7 +142,6 @@
     </div>
 
 }
-<div>@ViewBag.MujJson</div>
 <div>@ViewBag.JsonRaw</div>
 <div onclick="hehe()">well fuck zou you idiot</div>
 <div>@ViewBag.Json</div>

@@ -20,7 +20,7 @@ namespace BasicForm.Models.Logger
             
                 string mess = string.Format("[{0}]({1}) - {2}", level.ToString(), DateTime.Now.ToString(), lines);
                 
-                System.IO.File.WriteAllText(logFIlePath,mess);
+                //System.IO.File.WriteAllText(logFIlePath,mess);
             
             
 

@@ -1,5 +1,6 @@
 ﻿using BasicForm.Models;
 using BasicForm.Models.DBHandler;
+using BasicForm.Models.DBRepresentations;
 using BasicForm.Models.Logger;
 using BasicForm.Models.Utility;
 using System;
@@ -26,110 +27,78 @@ namespace BasicForm.Controllers
         [HttpGet]
         public ActionResult Index(int officeID = 1)
         {
-           // DBCustomer dbCustomer = new DBCustomer();
-            List<string> times = new List<string>();//dbCustomer.getTakenTimes(2, 1999);
-            List<JsonTimes> jTimes = new List<JsonTimes>();
 
-            JsonTimes jt;
-
-            CustomLogger.Log(CustomLogger.Level.FINEST, "Starting...");
-            //DD_HH:MM
-            times.Add("10_15:30");
-            times.Add("12_15:30");
-            times.Add("9_09:30");
-            times.Add("10_12:30");
-            times.Add("12_16:40");
-            times.Add("10_12:00");
-            times.Add("8_15:30");
-            times.Add("7_15:30");
-            times.Add("8_09:30");
-            times.Add("9_12:30");
-            times.Add("13_16:40");
-            times.Add("14_12:00");
-
-            for (int i = 0; i < 10; i++)
+            //TEST - implicit json to test AJAX
+            string jsonTimes;
+            UtilityOrder uOrder = new UtilityOrder();
+            try
             {
-                jt = new JsonTimes(times.ElementAt(i));
-                jTimes.Add(jt);
-            }
+                List<string> times = uOrder.getTakenTimesMonthYear(officeID, 7, 2016);
+                /*
+                List<JsonTimes> jTimes = new List<JsonTimes>();
 
-            System.Text.StringBuilder mujJson = new System.Text.StringBuilder("[");
-            for (int i = 0; i < 10; i++)
+                foreach(string time in times)
+                {
+                    jTimes.Add(new JsonTimes(time));
+                }*/
+
+                var jsonSerialiser = new JavaScriptSerializer();
+                jsonTimes = jsonSerialiser.Serialize(times);
+            }
+            catch (ArgumentException e)
             {
-                mujJson.Append("{\"hour\":\"").Append(times.ElementAt(i)).Append("\"},");
+                jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
             }
-            mujJson.Remove(mujJson.Length-2,1);
-            mujJson.Append("]");
-
-            var jsonSerialiser = new JavaScriptSerializer();
-            var jsonTimes = jsonSerialiser.Serialize(jTimes);
+            
+            //TEST - implicit json to test AJAX
             ViewBag.JsonRaw = jsonTimes.ToString();
-            ViewBag.MujJson = mujJson.ToString();
+            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
 
-            ViewBag.Json = Json(jTimes, JsonRequestBehavior.AllowGet);
-
+            //init new object to view
             CalendarOrder calendar = new CalendarOrder(officeID);
-
-            // int m = calCus.Month++;
-            // ModelState.Remove("Month");
-            // calCus.Month = m+1;
+            
             return View(calendar);
         }
 
-        public ActionResult Details(CalendarCustomer calCus)
+        public ActionResult Details(CalendarOrder model)
         {
-            return View(calCus);
+            return View(model);
         }
 
-        
-        public ActionResult Index(CalendarCustomer calCus)
+        [HttpPost]
+        public ActionResult Index(CalendarOrder model)
         {
-            /*
-            if (ModelState.IsValid)
-            {
-                calCus.Cust.DoctorID = 2;
-               // calCus.Cust.OrderDate = new ODateOrder("1999_02_12_15:53");
-               // DBcust.CustomerInsert(cust);
-
-               // List<OCustomer> customers = DBcust.CustomerGetAll();
-                
-               // foreach (OCustomer customer in customers) {
-               //     calCus.Cust.Description += customer.ToString();
-              //  }
-                calCus.reSetValues();
-                
-
-
-            }*/
-
-            return View(calCus);
-        }
-
-        /*
-        public ActionResult increaseMonth(CalendarCustomer calCus)
-        {
+            CalendarOrder _model = new CalendarOrder(model.office.ID);
+            DBHandlerCustomer dbHandlerCustomer = new DBHandlerCustomer();
+            DBHandlerOrder dbHandlerOrder = new DBHandlerOrder();
+            List<Customer> listCustomers = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
 
             if (ModelState.IsValid)
             {
                 
+
+                //taking data from post and complete with data from database
+                _model.customer = model.customer;
+                _model.newOrder = model.newOrder;
+
+                _model.newOrder.OfficeID = model.office.ID;
+                if (!listCustomers.Any())
+                {
+                    dbHandlerCustomer.insert(model.customer);
+                }
+                listCustomers = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+                int IDCustomer = listCustomers.ElementAt(0).ID;
+                _model.newOrder.CustomerID = IDCustomer;
+                dbHandlerOrder.insert(_model.newOrder);
+
             }
-            int m = calCus.Month;
-            ModelState.Remove("month");
-            calCus.Month = m + 3;
-            calCus.reSetValues();
-            calCus.Cust.Surname = "vrbka" + m;
 
 
-            return RedirectToAction("Index", new { cal = calCus });//View("Index","Index",calCus);
+
+            return View("Details",_model);
         }
 
-    *//*
-        [HttpGet]
-        public JsonResult getTakenTimes()
-        {
-            return getTakenTimes(1,6,2016);
-
-        }*/
+       
 
         [HttpGet]
         public JsonResult getTakenTimes(int officeID = 1, int month = 6, int year = 2016)

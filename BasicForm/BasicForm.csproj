@@ -181,7 +181,6 @@
     <Compile Include="Models\DatabaseContent\DBRepresentations\Procedure.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Provider.cs" />
     <Compile Include="Models\Logger\CustomLogger.cs" />
-    <Compile Include="Models\Helpers\JsonTimes.cs" />
     <Compile Include="Models\Utility\UtilityOrder.cs" />
     <Compile Include="Models\Utility\UtilityProcedure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -195,10 +194,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\SomeError.cshtml" />
     <Content Include="Views\Provider\Index.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -209,7 +208,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\Helpers\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

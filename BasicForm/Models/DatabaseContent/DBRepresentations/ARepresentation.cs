@@ -20,7 +20,7 @@ namespace BasicForm.Models.DBRepresentations
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
             //Do something like this: Object 1  == Type.Name ID
-            sb.Append(this.GetType().Name).Append(" ").Append(this.GetType().GetProperty("ID").GetValue(this)).Append("\n");
+            sb.Append(this.GetType().Name).Append(" ").Append(this.GetType().GetProperty("ID").GetValue(this)).Append(",\n");
             foreach (var property in this.GetType().GetProperties())
             {
                 sb.Append(property.Name).Append(": ").Append(property.GetValue(this) == null ? "NULL" : property.GetValue(this)).Append(", ");

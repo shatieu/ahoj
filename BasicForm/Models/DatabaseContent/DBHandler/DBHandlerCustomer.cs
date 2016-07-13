@@ -17,6 +17,12 @@ namespace BasicForm.Models.DBHandler
             return executeQuery(sqlQuery);
         }
 
+        public List<Customer> getByPersonaNumber(string PersonaNumber)
+        {
+            string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = '{2}'", DBName, "PersonalNumber", PersonaNumber);
+            return executeQuery(sqlQuery);
+        }
+
         public bool insert(Customer customer)
         {
             return base.dBInsertRepresentation(customer, DBName);
