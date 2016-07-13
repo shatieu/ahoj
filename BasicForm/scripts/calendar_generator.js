@@ -515,9 +515,9 @@ day.onclick = function (e) {
         }
         var mont = (mon + 1);
         if (selday >=1 && selday <=31) {
-            document.getElementById("date").placeholder = selday + '.' + mont + '.' + ye;
+            document.getElementById("date").value = selday + '.' + mont + '.' + ye;
         } else {
-            document.getElementById("date").placeholder = '-';
+            document.getElementById("date").value = '-';
         }
         
         // hodiny dne

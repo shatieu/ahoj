@@ -25,7 +25,7 @@ namespace BasicForm.Controllers
 
         // GET: Home
         [HttpGet]
-        public ActionResult Index(int officeID = 1)
+        public ActionResult Index(int officeID = 2)
         {
 
             //TEST - implicit json to test AJAX
