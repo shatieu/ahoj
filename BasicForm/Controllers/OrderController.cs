@@ -63,12 +63,12 @@ namespace BasicForm.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(CalendarOrder model)
+        public ActionResult Index(BasicForm.Models.CalendarOrder model)
         {
             CalendarOrder _model = new CalendarOrder(model.office.ID);
             DBHandlerCustomer dbHandlerCustomer = new DBHandlerCustomer();
             DBHandlerOrder dbHandlerOrder = new DBHandlerOrder();
-            Customer customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+            BasicForm.Models.DBRepresentations.Customer customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
 
             if (ModelState.IsValid)
             {

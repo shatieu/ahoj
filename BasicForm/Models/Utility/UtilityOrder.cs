@@ -28,12 +28,12 @@ namespace BasicForm.Models.Utility
             DBHandlerOrder hOrder = new DBHandlerOrder();
             UtilityProcedure uProcedure = new UtilityProcedure();
 
-            Dictionary<int, Procedure> proceduresDic = uProcedure.getProceduresAsDictionary(hProcedure.getByOfficeIDAll(officeID));
+            Dictionary<int, BasicForm.Models.DBRepresentations.Procedure> proceduresDic = uProcedure.getProceduresAsDictionary(hProcedure.getByOfficeIDAll(officeID));
 
-            List<Order> ordersInDate = hOrder.getByOfficeIDInMonthYear(officeID, month, year);
+            List<BasicForm.Models.DBRepresentations.Order> ordersInDate = hOrder.getByOfficeIDInMonthYear(officeID, month, year);
             try
             {
-                foreach (Order order in ordersInDate)
+                foreach (BasicForm.Models.DBRepresentations.Order order in ordersInDate)
                 {
                     for (int i = 0; i < proceduresDic[order.ProcedureID].Lasts; i = i + 10)
                     {

@@ -10,56 +10,56 @@ namespace BasicForm.Models.DBHandler
 {
     class DBHandlerProcedure : DBHandlerGeneral
     {
-        private string DBName = Procedure.DBName;
+        private string DBName = BasicForm.Models.DBRepresentations.Procedure.DBName;
 
-        public bool insert(Procedure procedure)
+        public bool insert(BasicForm.Models.DBRepresentations.Procedure procedure)
         {
             return base.insertRepresentation(procedure);
         }
 
-        public Procedure getByID(int ID)
+        public BasicForm.Models.DBRepresentations.Procedure getByID(int ID)
         {
-            return (Procedure)Convert.ChangeType(base.selectWhereID(ID, new Procedure()), typeof(Procedure));
+            return (BasicForm.Models.DBRepresentations.Procedure)Convert.ChangeType(base.selectWhereID(ID, new BasicForm.Models.DBRepresentations.Procedure()), typeof(BasicForm.Models.DBRepresentations.Procedure));
         }
 
-        public List<Procedure> getAll()
+        public List<BasicForm.Models.DBRepresentations.Procedure> getAll()
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}]", DBName);
             return executeQuery(sqlQuery);
         }
 
-        private List<Procedure> executeQuery(string sqlQuery)
+        private List<BasicForm.Models.DBRepresentations.Procedure> executeQuery(string sqlQuery)
         {
-            Procedure procedure = new Procedure();
-            List<Procedure> procedures = base.selectByQuery(sqlQuery, procedure).Cast<Procedure>().ToList();
+            BasicForm.Models.DBRepresentations.Procedure procedure = new BasicForm.Models.DBRepresentations.Procedure();
+            List<BasicForm.Models.DBRepresentations.Procedure> procedures = base.selectByQuery(sqlQuery, procedure).Cast<BasicForm.Models.DBRepresentations.Procedure>().ToList();
 
             return procedures;
         }
 
-        private List<Procedure> getAllActiveOrInactiveBasedOnParam(bool resultActive)
+        private List<BasicForm.Models.DBRepresentations.Procedure> getAllActiveOrInactiveBasedOnParam(bool resultActive)
         {
 
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "Active", resultActive ? "1" : "0");
             return executeQuery(sqlQuery);
         }
 
-        private List<Procedure> getByOfficeIDActiveOrInactiveBasedOnParam(int officeID, bool resultActive)
+        private List<BasicForm.Models.DBRepresentations.Procedure> getByOfficeIDActiveOrInactiveBasedOnParam(int officeID, bool resultActive)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2} AND [{3}] = {4}", DBName, "OfficeID", officeID, "Active", resultActive ? "1" : "0");
             return executeQuery(sqlQuery);
         }
 
-        public List<Procedure> getAllActive()
+        public List<BasicForm.Models.DBRepresentations.Procedure> getAllActive()
         {
             return getAllActiveOrInactiveBasedOnParam(true);
         }
 
-        public List<Procedure> getByOfficeIDActive(int officeID)
+        public List<BasicForm.Models.DBRepresentations.Procedure> getByOfficeIDActive(int officeID)
         {
             return getByOfficeIDActiveOrInactiveBasedOnParam(officeID, true);
         }
 
-        public List<Procedure> getByOfficeIDAll(int officeID)
+        public List<BasicForm.Models.DBRepresentations.Procedure> getByOfficeIDAll(int officeID)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "OfficeID", officeID);
             return executeQuery(sqlQuery);

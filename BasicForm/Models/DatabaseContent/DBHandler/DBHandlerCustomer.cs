@@ -9,17 +9,17 @@ namespace BasicForm.Models.DBHandler
     public class DBHandlerCustomer: DBHandlerGeneral
     {
 
-        private string DBName = Customer.DBName;
+        private string DBName = BasicForm.Models.DBRepresentations.Customer.DBName;
 
-        public List<Customer> getByEmail(string email)
+        public List<BasicForm.Models.DBRepresentations.Customer> getByEmail(string email)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = '{2}'", DBName, "Email", email);
             return executeQuery(sqlQuery);
         }
 
-        public Customer getByPersonaNumber(string PersonaNumber)
+        public BasicForm.Models.DBRepresentations.Customer getByPersonaNumber(string PersonaNumber)
         {
-            List<Customer> list;
+            List<BasicForm.Models.DBRepresentations.Customer> list;
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = '{2}'", DBName, "PersonalNumber", PersonaNumber);
             list = executeQuery(sqlQuery);
 
@@ -33,25 +33,25 @@ namespace BasicForm.Models.DBHandler
             }
         }
 
-        public bool insert(Customer customer)
+        public bool insert(BasicForm.Models.DBRepresentations.Customer customer)
         {
             return base.insertRepresentation(customer);
         }
 
-        public Customer getByID(int ID)
+        public BasicForm.Models.DBRepresentations.Customer getByID(int ID)
         {
-            return (Customer) Convert.ChangeType( base.selectWhereID(ID, new Customer()), typeof(Customer));
+            return (BasicForm.Models.DBRepresentations.Customer) Convert.ChangeType( base.selectWhereID(ID, new BasicForm.Models.DBRepresentations.Customer()), typeof(BasicForm.Models.DBRepresentations.Customer));
         }
 
-        public List<Customer> getAll()
+        public List<BasicForm.Models.DBRepresentations.Customer> getAll()
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}]", DBName);
             return executeQuery(sqlQuery);
         }
 
-        private List<Customer> executeQuery(string sqlQuery)
+        private List<BasicForm.Models.DBRepresentations.Customer> executeQuery(string sqlQuery)
         {
-            List<Customer> customers = base.selectByQuery(sqlQuery, new Customer()).Cast<Customer>().ToList();
+            List<BasicForm.Models.DBRepresentations.Customer> customers = base.selectByQuery(sqlQuery, new BasicForm.Models.DBRepresentations.Customer()).Cast<BasicForm.Models.DBRepresentations.Customer>().ToList();
             return customers;
         }
 

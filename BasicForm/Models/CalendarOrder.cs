@@ -14,10 +14,10 @@ namespace BasicForm.Models
 {
     public class CalendarOrder
     {
-        public Customer customer { get; set; }
-        public Order newOrder { get; set; }
-        public Office office { get; set; }
-        public List<Procedure> procedures { get; set; }
+        public BasicForm.Models.DBRepresentations.Customer customer { get; set; }
+        public BasicForm.Models.DBRepresentations.Order newOrder { get; set; }
+        public BasicForm.Models.DBRepresentations.Office office { get; set; }
+        public List<BasicForm.Models.DBRepresentations.Procedure> procedures { get; set; }
         [Required]
         [RegularExpression(@"^([0-9]{1,2}[.][0-9]{1,2}[.][0-9]{4})$", ErrorMessage = "Date has to be in format DD.MM.YYYY")]
         public string formDate {
@@ -46,9 +46,9 @@ namespace BasicForm.Models
 
         public CalendarOrder()
         {
-            procedures = new List<Procedure>();
-            newOrder = new Order();
-            customer = new Customer();
+            procedures = new List<BasicForm.Models.DBRepresentations.Procedure>();
+            newOrder = new BasicForm.Models.DBRepresentations.Order();
+            customer = new BasicForm.Models.DBRepresentations.Customer();
         }
 
         public CalendarOrder(int officeID)
@@ -59,19 +59,19 @@ namespace BasicForm.Models
             DBHandlerProcedure hProcedure = new DBHandlerProcedure();
             procedures = hProcedure.getByOfficeIDActive(officeID);
 
-            newOrder = new Order();
-            customer = new Customer(); 
+            newOrder = new BasicForm.Models.DBRepresentations.Order();
+            customer = new BasicForm.Models.DBRepresentations.Customer(); 
         }
 
 
-       
+
         public List<string> getTakenTimesList(int officeID = 1, int month = 6, int year = 2016)
         {
 
-            
+
             UtilityOrder uOrder = new UtilityOrder();
             List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
-
+            
 
             return times;
 

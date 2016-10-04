@@ -8,11 +8,11 @@ namespace BasicForm.Models.Utility
 {
     public class UtilityProcedure
     {
-        public Dictionary<int, Procedure> getProceduresAsDictionary(List<Procedure> procedures)
+        public Dictionary<int, BasicForm.Models.DBRepresentations.Procedure> getProceduresAsDictionary(List<BasicForm.Models.DBRepresentations.Procedure> procedures)
         {
 
-            Dictionary<int, Procedure> proceduresDic = new Dictionary<int, Procedure>();
-            foreach (Procedure proc in procedures)
+            Dictionary<int, BasicForm.Models.DBRepresentations.Procedure> proceduresDic = new Dictionary<int, BasicForm.Models.DBRepresentations.Procedure>();
+            foreach (BasicForm.Models.DBRepresentations.Procedure proc in procedures)
             {
                 proceduresDic.Add(proc.ID, proc);
             }

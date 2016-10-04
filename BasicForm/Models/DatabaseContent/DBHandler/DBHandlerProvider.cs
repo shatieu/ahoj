@@ -11,28 +11,28 @@ namespace BasicForm.Models.DBHandler
     class DBHandlerProvider : DBHandlerGeneral
     {
 
-        private string DBName = Provider.DBName;
+        private string DBName = BasicForm.Models.DBRepresentations.Provider.DBName;
 
-        public bool insert(Provider provider)
+        public bool insert(BasicForm.Models.DBRepresentations.Provider provider)
         {
             return base.insertRepresentation(provider);
         }
 
-        public Provider getByID(int ID)
+        public BasicForm.Models.DBRepresentations.Provider getByID(int ID)
         {
-            return (Provider)Convert.ChangeType(base.selectWhereID(ID, new Provider()), typeof(Provider));
+            return (BasicForm.Models.DBRepresentations.Provider)Convert.ChangeType(base.selectWhereID(ID, new BasicForm.Models.DBRepresentations.Provider()), typeof(BasicForm.Models.DBRepresentations.Provider));
         }
 
-        public List<Provider> getAll()
+        public List<BasicForm.Models.DBRepresentations.Provider> getAll()
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}]", DBName);
             return executeQuery(sqlQuery);
         }
 
-        private List<Provider> executeQuery(string sqlQuery)
+        private List<BasicForm.Models.DBRepresentations.Provider> executeQuery(string sqlQuery)
         {
-            Provider provider = new Provider();
-            List<Provider> providers = base.selectByQuery(sqlQuery, provider).Cast<Provider>().ToList();
+            BasicForm.Models.DBRepresentations.Provider provider = new BasicForm.Models.DBRepresentations.Provider();
+            List<BasicForm.Models.DBRepresentations.Provider> providers = base.selectByQuery(sqlQuery, provider).Cast<BasicForm.Models.DBRepresentations.Provider>().ToList();
 
             return providers;
         }

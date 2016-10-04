@@ -14,8 +14,11 @@ namespace BasicForm.Models.DBRepresentations
         public string Surname { get; set; }
         [Key]
         [EmailAddress]
+        [Required(ErrorMessage = "Please Provide Username", AllowEmptyStrings = false)]
         public string Email { get; set; }
         public string PassHashed { get; set; }
+        [Required(ErrorMessage = "Please provide password", AllowEmptyStrings = false)]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
         public Boolean Payed { get; set; }
         public static string DBName = "Provider";
 

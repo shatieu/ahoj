@@ -9,10 +9,10 @@ namespace BasicForm.Models
 {
     public class CalendarProvider
     {
-        public List<Order> orders;
-        public List<Office> offices;
-        public Provider provider;
-        public Office currentOffice;
+        public List<BasicForm.Models.DBRepresentations.Order> orders;
+        public List<BasicForm.Models.DBRepresentations.Office> offices;
+        public BasicForm.Models.DBRepresentations.Provider provider;
+        public BasicForm.Models.DBRepresentations.Office currentOffice;
 
         public CalendarProvider(int providerID)
         {
@@ -23,6 +23,16 @@ namespace BasicForm.Models
             offices = hOffice.getByProviderIDActive(provider.ID);
 
             currentOffice = offices.Any() ? offices.ElementAt(0) : null;
+
+            //using(CalendarEntities cal = new CalendarEntities())
+            //{
+            //    Provider provider = cal.Providers.Where(x => x.ID.Equals(providerID)).Select(x => x).SingleOrDefault();
+
+            //                      /*  (from prov in cal.Providers
+            //                        where (prov.ID.Equals(providerID))
+            //                        select prov).SingleOrDefault();*/
+                              
+            //}
             
         }
 

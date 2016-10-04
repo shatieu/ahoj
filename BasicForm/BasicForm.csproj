@@ -47,6 +47,14 @@
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -80,6 +88,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -123,6 +133,16 @@
   <ItemGroup>
     <Content Include="App_Data\DBProperties.txt" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="CalendarEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CalendarEntity.edmx</DependentUpon>
+      <LastGenOutput>CalendarEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CalendarEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CalendarEntity.edmx</DependentUpon>
+      <LastGenOutput>CalendarEntity.cs</LastGenOutput>
+    </Content>
     <Content Include="Content\css_kalendar_m_v1.css" />
     <Content Include="Content\css_kalendar_m_v2.css" />
     <Content Include="Content\css_kalendar_w_v1.css" />
@@ -139,6 +159,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <EntityDeploy Include="CalendarEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CalendarEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="CalendarEntity.edmx.diagram">
+      <DependentUpon>CalendarEntity.edmx</DependentUpon>
+    </Content>
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
@@ -158,10 +185,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CalendarEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CalendarEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalendarEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CalendarEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalendarEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CalendarEntity.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
+    <Compile Include="Customer.cs">
+      <DependentUpon>CalendarEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,7 +229,19 @@
     <Compile Include="Models\Logger\CustomLogger.cs" />
     <Compile Include="Models\Utility\UtilityOrder.cs" />
     <Compile Include="Models\Utility\UtilityProcedure.cs" />
+    <Compile Include="Office.cs">
+      <DependentUpon>CalendarEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>CalendarEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Procedure.cs">
+      <DependentUpon>CalendarEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider.cs">
+      <DependentUpon>CalendarEntity.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -202,6 +260,7 @@
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Shared\Error404.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -214,6 +273,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Helpers\" />
+    <Folder Include="Views\Error\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

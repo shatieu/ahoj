@@ -1,7 +1,45 @@
-﻿
+﻿@model BasicForm.Models.DBRepresentations.Provider
+
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    //this  is for create form tag
+    @Html.AntiForgeryToken()          // this is for prevent CSRF attack
+                                    @Html.ValidationSummary(true)
+    if (@ViewBag.Message != null)
+    {
+        <div style="border: 1px solid red">
+            @ViewBag.Message
+        </div>
+    }
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.Email)</td>
+            <td>@Html.TextBoxFor(model => model.Email)</td>
+            <td>@Html.ValidationMessageFor(model => model.Email)</td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PassHashed)
+            </td>
+            <td>
+                @Html.PasswordFor(model => model.PassHashed)
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model => model.PassHashed)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Login" />
+            </td>
+            <td></td>
+        </tr>
+    </table>
+}

@@ -5,7 +5,12 @@
     
 }
 
-<link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
+<div>Ahoj</div>
+<a href=@Url.Action("Index","Order")>Order calendar</a>
+<a href=@Url.Action("Index","Provider")>Provider calendar</a>
+<a href=@Url.Action("Index","Login")>Login area</a>
+
+@*<link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
 <link href="~/Content/css_calendar_generator.css" rel="stylesheet" type="text/css">
 <script src="~/scripts/jquery-1.10.2.min.js"></script>
 @using (Html.BeginForm())
@@ -139,9 +144,9 @@
         <script src="~/Scripts/jquery.validate.min.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
         <script type="text/javascript" language="JavaScript" src="~/Scripts/calendar_generator.js"></script>
-    </div>
+    </div>*@
 
-}
+@*}
 <div>@ViewBag.JsonRaw</div>
 <div onclick="hehe()">well fuck zou you idiot</div>
 <div>@ViewBag.Json</div>
@@ -169,4 +174,4 @@
    });
 });
 
-</script>
+</script>*@

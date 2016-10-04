@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+}
+
+<h2>Error occurs</h2>
+
+@{ 
+    if(ViewBag.description != null)
+    {
+        <div>@ViewBag.description</div>
+    }else
+    {
+        <div>Error: Unknown <br/>No description avaliable</div>
+    }
+}
+
+

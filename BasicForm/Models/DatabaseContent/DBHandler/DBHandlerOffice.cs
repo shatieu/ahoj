@@ -10,59 +10,59 @@ namespace BasicForm.Models.DBHandler
 {
     class DBHandlerOffice : DBHandlerGeneral
     {
-        private string DBName = Office.DBName;
+        private string DBName = BasicForm.Models.DBRepresentations.Office.DBName;
 
-        public bool insert(Office office)
+        public bool insert(BasicForm.Models.DBRepresentations.Office office)
         {
             return base.insertRepresentation(office);
         }
 
         //private secure
 
-        public Office getByID(int ID)
+        public BasicForm.Models.DBRepresentations.Office getByID(int ID)
         {
-            return (Office)Convert.ChangeType(base.selectWhereID(ID, new Office()), typeof(Office));
+            return (BasicForm.Models.DBRepresentations.Office)Convert.ChangeType(base.selectWhereID(ID, new BasicForm.Models.DBRepresentations.Office()), typeof(BasicForm.Models.DBRepresentations.Office));
         }
 
-        public List<Office> getAll()
+        public List<BasicForm.Models.DBRepresentations.Office> getAll()
         {
-            Office office = new Office();
-            List<Office> offices = base.dBGetAll(office, DBName).Cast<Office>().ToList();
+            BasicForm.Models.DBRepresentations.Office office = new BasicForm.Models.DBRepresentations.Office();
+            List<BasicForm.Models.DBRepresentations.Office> offices = base.dBGetAll(office, DBName).Cast<BasicForm.Models.DBRepresentations.Office>().ToList();
 
             return offices;
         }
 
-        private List<Office> executeQuery(string sqlQuery)
+        private List<BasicForm.Models.DBRepresentations.Office> executeQuery(string sqlQuery)
         {
-            Office office = new Office();
-            List<Office> offices = base.selectByQuery(sqlQuery, office).Cast<Office>().ToList();
+            BasicForm.Models.DBRepresentations.Office office = new BasicForm.Models.DBRepresentations.Office();
+            List<BasicForm.Models.DBRepresentations.Office> offices = base.selectByQuery(sqlQuery, office).Cast<BasicForm.Models.DBRepresentations.Office>().ToList();
 
             return offices;
         }
 
-        private List<Office> getAllActiveOrInactiveBasedOnParam(bool resultActive)
+        private List<BasicForm.Models.DBRepresentations.Office> getAllActiveOrInactiveBasedOnParam(bool resultActive)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "Active", resultActive ? "1" : "0");
             return executeQuery(sqlQuery);
         }
 
-        private List<Office> getByProviderIDActiveOrInactiveBasedOnParam(int providerID, bool resultActive)
+        private List<BasicForm.Models.DBRepresentations.Office> getByProviderIDActiveOrInactiveBasedOnParam(int providerID, bool resultActive)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2} AND [{3}] = {4}", DBName, "ProviderID", providerID, "Active", resultActive ? "1" : "0");
             return executeQuery(sqlQuery);
         }
 
-        public List<Office> getAllActive()
+        public List<BasicForm.Models.DBRepresentations.Office> getAllActive()
         {
             return getAllActiveOrInactiveBasedOnParam(true);
         }
 
-        public List<Office> getByProviderIDActive(int providerID)
+        public List<BasicForm.Models.DBRepresentations.Office> getByProviderIDActive(int providerID)
         {
             return getByProviderIDActiveOrInactiveBasedOnParam(providerID,true);
         }
 
-        public List<Office> getByProviderIDAll(int providerID)
+        public List<BasicForm.Models.DBRepresentations.Office> getByProviderIDAll(int providerID)
         {
             string sqlQuery = string.Format("SELECT * FROM [{0}] WHERE [{1}] = {2}", DBName, "ProviderID", providerID);
             return executeQuery(sqlQuery);
