@@ -15,7 +15,7 @@ namespace BasicForm.Models.DBRepresentations
         public int CustomerID { get; set; }
         public int ProcedureID { get; set; }
         public int OfficeID { get; set; }
-        private DateTime _DateAndTime;
+        //private DateTime _DateAndTime;
         [Key]
         public DateTime DateAndTime { get; set; }
         public string DescProvider { get; set; }

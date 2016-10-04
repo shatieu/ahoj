@@ -1,0 +1,172 @@
+﻿@model BasicForm.Models.CalendarOrder
+
+@{
+    ViewBag.Title = "View";
+
+}
+
+<link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
+<link href="~/Content/css_calendar_generator.css" rel="stylesheet" type="text/css">
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.office.ID);
+        <br />
+
+
+
+
+
+        <div id="c_box">
+            <div id="c_days_new">
+                <div id="c_days_box">
+
+
+                    <!-- Big table with kurvadratdopicenebudutodelat days-->
+
+
+
+
+                    <div class="divcalendar">
+
+                        <div id="calendaroverallcontrols">
+                            <!-- <div id="year"></div> -->
+
+                            <div id="calendarmonthcontrols">
+                                <a id="btnPrevYr" href="#" title="Previous Year"><span><<</span></a>
+
+                                <a id="btnPrev" href="#" title="Previous Month"><span><</span></a>
+
+                                <!-- <input type="button" src="images/btnprevmonth.png" alt="Submit" id="btnPrev"/>-->
+                                <!-- <div id="month"></div>-->
+
+                                <div id="monthandyear"></div>
+
+                                <!--<input type="button" src="images/btnnextmonth.png" alt="Submit" id="btnNext"/>-->
+
+                                <a id="btnNext" href="#" title="Next Month"><span>></span></a>
+
+                                <a id="btnNextYr" href="#" title="Next Year"><span>>></span></a>
+                            </div>
+                        </div>
+
+                        <div id="divcalendartable"></div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div id="c_check_box">
+                Datum: @Html.EditorFor(model => model.formDate, new { htmlAttributes = new { @class = "inputs", type = "text", id = "date", placeholder = "-", value = "6" } })
+                Čas: @Html.EditorFor(model => model.formHour, new { htmlAttributes = new { @class = "inputs", type = "text", id = "hour", placeholder = "-", value = "-" } })
+            </div>
+            <div id="c_info_time_box">
+                <div id="c_info_box">
+                    Jméno:*
+                    @Html.EditorFor(model => model.customer.Name, new { htmlAttributes = new { @class = "inputs" } })
+                    @Html.ValidationMessageFor(model => model.customer.Name, "", new { @class = "text-danger" })
+                    Příjmení:*
+                    @Html.EditorFor(model => model.customer.Surname, new { htmlAttributes = new { @class = "inputs" } })
+                    @Html.ValidationMessageFor(model => model.customer.Surname, "", new { @class = "text-danger" })
+                    Telefon:*
+                    @Html.EditorFor(model => model.customer.Phone, new { htmlAttributes = new { @class = "inputs", @placeholder = "+420" } })
+                    @Html.ValidationMessageFor(model => model.customer.Phone, "", new { @class = "text-danger" })
+                    Rodné číslo:*
+                    @Html.EditorFor(model => model.customer.PersonalNumber, new { htmlAttributes = new { @class = "inputs" } })
+                    @Html.ValidationMessageFor(model => model.customer.PersonalNumber, "", new { @class = "text-danger" })
+                </div>
+                <!-- Day calendar -->
+                <div id="c_time_box">
+                    <!-- Minutes -->
+                    <div class="c_time_hour"></div>
+                    @for (int i = 0; i < 6; i++)
+                    {
+                        char zero = '0';
+                        <div class="c_time_hour">@i@zero</div>
+                    }
+                    <!-- Hours -->
+                    @for (int i = 8; i < 18; i++)
+                    {
+                        <!-- Hours displaying-->
+                        <div class="c_time_hour">@i</div>
+
+                        <!-- Blocks to select-->
+                        for (int j = 0; j < 6; j++)
+                        {
+                            string codeHour = i < 10 ? ("0") : "";
+                            codeHour = codeHour + i;
+                            char zeroMinute = '0';
+
+                            <div class="c_time_minute" id="@codeHour@j@zeroMinute"></div>
+                        }
+                    }
+                </div>
+                <div id="c_send_box">
+                    <div id="c_left_send">
+                        E-mail:*<br />
+                        @Html.EditorFor(model => model.customer.Email, new { htmlAttributes = new { @class = "inputs_grt" } })
+                        @Html.ValidationMessageFor(model => model.customer.Email, "", new { @class = "text-danger" })
+                        Procedura:<br />
+
+
+                        @Html.DropDownListFor(model => model.newOrder.ProcedureID, new SelectList(Model.procedures, "ID", "Name", Model.procedures.First().ID))
+
+                        <br /><br />
+                        <input type="submit" value="Send" class="btn btn-default" />
+                        <!-- <a href="#"><div class="send">Objednat se</div></a>-->
+                        <br />
+                    </div>
+                    <div id="c_right_send">
+                        Poznámka:<br />
+                        @Html.TextAreaFor(model => model.newOrder.DescCustomer, new { @class = "txtarea" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <script type="text/javascript" language="JavaScript" src="~/Scripts/Calendar_jvs.js"></script>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script type="text/javascript" language="JavaScript" src="~/Scripts/calendar_generator.js"></script>
+    </div>
+
+}
+<div>@ViewBag.JsonRaw</div>
+<div onclick="hehe()">well fuck zou you idiotasdasdasdasdasdasasdsddasda</div>
+<div>@ViewBag.Json</div>
+
+<button id="action-button">Click me to load info!</button>
+<div id="info">info</div>
+
+<script>
+
+
+    $('#action-button').click(function() {
+   $.ajax({
+       url: '@Html.Raw(Url.Action("getTakenTimes", "Home"))',
+       data: 'officeID='+@(Model.office.ID)+'&month=6&year=2016',
+       type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+          var parsed = JSON.parse(data);
+          $('#info').html('<p>'+JSON.stringify(data)+'</p>');
+      },
+      error: function() {
+          $('#info').html('<p>An error has occurred</p>');
+      }
+
+   });
+});
+
+</script>

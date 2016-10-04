@@ -1,93 +1,133 @@
 ﻿using BasicForm.Models;
+using BasicForm.Models.DBHandler;
+using BasicForm.Models.DBRepresentations;
+using BasicForm.Models.Logger;
+using BasicForm.Models.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace BasicForm.Controllers
 {
     public class OrderController : Controller
     {
-        // GET: Order
-        public ActionResult Index()
+        [HandleError()]
+        public ActionResult SomeError()
         {
-            CalendarOrder calendar = new CalendarOrder(1);
+            throw new Exception("test");
+        }
+
+        // GET: Home
+        [HttpGet]
+        public ActionResult Index(int id = 2)
+        {
+
+            //TEST - implicit json to test AJAX
+            string jsonTimes;
+            UtilityOrder uOrder = new UtilityOrder();
+            try
+            {
+                List<string> times = uOrder.getTakenTimesMonthYear(id, 7, 2016);
+                /*
+                List<JsonTimes> jTimes = new List<JsonTimes>();
+
+                foreach(string time in times)
+                {
+                    jTimes.Add(new JsonTimes(time));
+                }*/
+
+                var jsonSerialiser = new JavaScriptSerializer();
+                jsonTimes = jsonSerialiser.Serialize(times);
+            }
+            catch (ArgumentException e)
+            {
+                jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
+            }
+
+            //TEST - implicit json to test AJAX
+            ViewBag.JsonRaw = jsonTimes.ToString();
+            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
+
+            //init new object to view
+            CalendarOrder calendar = new CalendarOrder(id);
 
             return View(calendar);
         }
 
-        // GET: Order/Details/5
-        public ActionResult Details()
+        public ActionResult Details(CalendarOrder model)
         {
-            CalendarOrder calendar = new CalendarOrder(1);
-            return View(calendar);
+            return View(model);
         }
 
-        // GET: Order/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Order/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Index(CalendarOrder model)
         {
+            CalendarOrder _model = new CalendarOrder(model.office.ID);
+            DBHandlerCustomer dbHandlerCustomer = new DBHandlerCustomer();
+            DBHandlerOrder dbHandlerOrder = new DBHandlerOrder();
+            Customer customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+
+            if (ModelState.IsValid)
+            {
+
+
+                //taking data from post and complete with data from database
+                _model.customer = model.customer;
+                _model.newOrder = model.newOrder;
+
+                _model.newOrder.OfficeID = model.office.ID;
+                if (customer == null)
+                {
+                    dbHandlerCustomer.insert(model.customer);
+                    customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+                }
+
+                int IDCustomer = customer.ID;
+                _model.newOrder.CustomerID = IDCustomer;
+                dbHandlerOrder.insert(_model.newOrder);
+
+            }
+
+
+
+            return View("Details", _model);
+        }
+
+
+
+        [HttpGet]
+        public JsonResult getTakenTimes(int officeID = 1, int month = 6, int year = 2016)
+        {
+
+            string jsonTimes;
+            UtilityOrder uOrder = new UtilityOrder();
             try
             {
-                // TODO: Add insert logic here
+                List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
+                /*
+                List<JsonTimes> jTimes = new List<JsonTimes>();
 
-                return RedirectToAction("Index");
+                foreach(string time in times)
+                {
+                    jTimes.Add(new JsonTimes(time));
+                }*/
+
+                var jsonSerialiser = new JavaScriptSerializer();
+                jsonTimes = jsonSerialiser.Serialize(times);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
             }
+
+            return Json(jsonTimes, JsonRequestBehavior.AllowGet);
+
         }
 
-        // GET: Order/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: Order/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Order/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Order/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
+
