@@ -11,11 +11,11 @@ namespace BasicForm.Controllers
         /// <summary>
         /// GET - returns error page with description that its Invalid model state
         /// </summary>
-        /// <param name="desc">To describe error with some more details. Added to general description</param>
+        /// <param name="details">To describe error with some more details. Added to general description</param>
         /// <returns>Error view</returns>
-        public ActionResult InvalidState(String desc = "No description")
+        public ActionResult InvalidState(String details = "No description")
         {
-            ViewBag.description = "Error: Invalid model state <br/>"+desc;
+            ViewBag.description = "Error: Invalid model state <br/>"+details;
             return View("Error");
         }
     }

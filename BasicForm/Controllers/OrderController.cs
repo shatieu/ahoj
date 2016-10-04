@@ -25,31 +25,31 @@ namespace BasicForm.Controllers
         public ActionResult Index(int id = 2)
         {
 
-            //TEST - implicit json to test AJAX
-            string jsonTimes;
-            UtilityOrder uOrder = new UtilityOrder();
-            try
-            {
-                List<string> times = uOrder.getTakenTimesMonthYear(id, 7, 2016);
-                /*
-                List<JsonTimes> jTimes = new List<JsonTimes>();
+            ////TEST - implicit json to test AJAX
+            //string jsonTimes;
+            //UtilityOrder uOrder = new UtilityOrder();
+            //try
+            //{
+            //    List<string> times = uOrder.getTakenTimesMonthYear(id, 7, 2016);
+            //    /*
+            //    List<JsonTimes> jTimes = new List<JsonTimes>();
 
-                foreach(string time in times)
-                {
-                    jTimes.Add(new JsonTimes(time));
-                }*/
+            //    foreach(string time in times)
+            //    {
+            //        jTimes.Add(new JsonTimes(time));
+            //    }*/
 
-                var jsonSerialiser = new JavaScriptSerializer();
-                jsonTimes = jsonSerialiser.Serialize(times);
-            }
-            catch (ArgumentException e)
-            {
-                jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
-            }
+            //    var jsonSerialiser = new JavaScriptSerializer();
+            //    jsonTimes = jsonSerialiser.Serialize(times);
+            //}
+            //catch (ArgumentException e)
+            //{
+            //    jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
+            //}
 
-            //TEST - implicit json to test AJAX
-            ViewBag.JsonRaw = jsonTimes.ToString();
-            ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
+            ////TEST - implicit json to test AJAX
+            //ViewBag.JsonRaw = jsonTimes.ToString();
+            //ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
 
             //init new object to view
             CalendarOrder calendar = new CalendarOrder(id);

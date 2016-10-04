@@ -8,10 +8,10 @@
 @{ 
     if(ViewBag.description != null)
     {
-        <div>@ViewBag.description</div>
+        <div>@Html.Raw(ViewBag.description)</div>
     }else
     {
-        <div>Error: Unknown <br/>No description avaliable</div>
+        <div>Error: Unknown <br/>No details avaliable</div>
     }
 }
 
