@@ -6,11 +6,11 @@
 
 <h2>Index</h2>
 
-@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
 {
     //this  is for create form tag
     @Html.AntiForgeryToken()          // this is for prevent CSRF attack
-                                    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(true)
     if (@ViewBag.Message != null)
     {
         <div style="border: 1px solid red">

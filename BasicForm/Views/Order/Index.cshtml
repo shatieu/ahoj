@@ -8,7 +8,7 @@
 <link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
 <link href="~/Content/css_calendar_generator.css" rel="stylesheet" type="text/css">
 <script src="~/scripts/jquery-1.10.2.min.js"></script>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Order",FormMethod.Post, new { onsubmit = "return rewriteDateHourIntoDatetime()" }))
 {
     @Html.AntiForgeryToken()
 
@@ -116,7 +116,7 @@
                         Procedura:<br />
 
 
-                        @Html.DropDownListFor(model => model.newOrder.ProcedureID, new SelectList(Model.procedures, "ID", "Name", Model.procedures.First().ID))
+                        @Html.DropDownListFor(model => model.newOrder.ProcedureID, new SelectList( Model.getActiveProcedures(), "ID", "Name"))
 
                         <br /><br />
                         <input type="submit" value="Send" class="btn btn-default" />
@@ -125,7 +125,7 @@
                     </div>
                     <div id="c_right_send">
                         Poznámka:<br />
-                        @Html.TextAreaFor(model => model.newOrder.DescCustomer, new { @class = "txtarea" })
+                        @Html.TextAreaFor(model => model.newOrder.DescCustomer, new { @class = "txtarea", value = "" })
 
                     </div>
                 </div>
@@ -170,3 +170,4 @@
 });
 
 </script>
+

@@ -1,0 +1,57 @@
+﻿@model BasicForm.Provider
+
+@{
+    ViewBag.Title = "Logged";
+}
+
+<h2>Logged</h2>
+
+<div>
+    <h1>Hello my friend!</h1>
+    <h4>Provider</h4>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassHashed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassHashed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Payed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Payed)
+        </dd>
+
+    </dl>
+</div>
+

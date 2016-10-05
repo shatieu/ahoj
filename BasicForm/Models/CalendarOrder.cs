@@ -44,17 +44,27 @@ namespace BasicForm.Models
             }
         }
 
+        public int OfficeID { get; set; }
+        public Order NewOrder { get; set; }
+        public Customer NewCustomer { get; set; }
+
+
         public CalendarOrder()
         {
-            procedures = new List<BasicForm.Models.DBRepresentations.Procedure>();
+            procedures = new List<DBRepresentations.Procedure>();
             newOrder = new BasicForm.Models.DBRepresentations.Order();
             customer = new BasicForm.Models.DBRepresentations.Customer();
+
+            NewOrder = new Order();
+            NewCustomer = new Customer();
         }
+
 
         public CalendarOrder(int officeID)
         {
             DBHandlerOffice hOffice = new DBHandlerOffice();
             office = hOffice.getByID(officeID);
+            OfficeID = officeID;
 
             DBHandlerProcedure hProcedure = new DBHandlerProcedure();
             procedures = hProcedure.getByOfficeIDActive(officeID);
@@ -63,7 +73,19 @@ namespace BasicForm.Models
             customer = new BasicForm.Models.DBRepresentations.Customer(); 
         }
 
+        public List<Procedure> getActiveProcedures()
+        {
+            List<Procedure> proceduresActive;
 
+            using (CalendarEntities entities = new CalendarEntities())
+            {
+                proceduresActive = (from p in entities.Procedures
+                                    where (p.OfficeID.Equals(OfficeID) && p.Active == true)
+                                    select p).ToList();
+            }
+
+            return proceduresActive;
+        }
 
         public List<string> getTakenTimesList(int officeID = 1, int month = 6, int year = 2016)
         {
