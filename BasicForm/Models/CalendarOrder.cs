@@ -43,20 +43,22 @@ namespace BasicForm.Models
                 newOrder.DateAndTime = newOrder.DateAndTime.AddMinutes(Int32.Parse(splits[1]));
             }
         }
-
+        
         public int OfficeID { get; set; }
+        /*
         public Order NewOrder { get; set; }
         public Customer NewCustomer { get; set; }
-
+        */
 
         public CalendarOrder()
         {
             procedures = new List<DBRepresentations.Procedure>();
             newOrder = new BasicForm.Models.DBRepresentations.Order();
             customer = new BasicForm.Models.DBRepresentations.Customer();
-
+            /*
             NewOrder = new Order();
             NewCustomer = new Customer();
+            */
         }
 
 
