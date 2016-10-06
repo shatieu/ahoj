@@ -147,6 +147,7 @@
     <Content Include="Content\css_kalendar_m_v2.css" />
     <Content Include="Content\css_kalendar_w_v1.css" />
     <Content Include="Content\css_calendar_generator.css" />
+    <Content Include="Content\sandboxondra.css" />
     <Content Include="DBproperties.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -179,6 +180,7 @@
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="scripts\sandboxondra.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -262,6 +264,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Login\Logged.cshtml" />
+    <Content Include="Views\Home\SANDBOXONDRA.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

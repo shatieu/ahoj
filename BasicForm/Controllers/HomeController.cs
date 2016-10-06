@@ -22,6 +22,11 @@ namespace BasicForm.Controllers
             return View();
         }
 
+        public ActionResult SANDBOXONDRA()
+        {
+
+            return View();
+        }
         // private DBCustomer DBcust = new DBCustomer();
 
         //[HandleError()]
@@ -56,14 +61,14 @@ namespace BasicForm.Controllers
         //    {
         //        jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
         //    }
-            
+
         //    TEST - implicit json to test AJAX
         //    ViewBag.JsonRaw = jsonTimes.ToString();
         //    ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
 
         //    init new object to view
         //    CalendarOrder calendar = new CalendarOrder(id);
-            
+
         //    return View(calendar);
         //}
 
@@ -79,7 +84,7 @@ namespace BasicForm.Controllers
 
         //    if (ModelState.IsValid)
         //    {
-                
+
         //        DBHandlerCustomer dbHandlerCustomer = new DBHandlerCustomer();
         //        DBHandlerOrder dbHandlerOrder = new DBHandlerOrder();
 
@@ -115,12 +120,12 @@ namespace BasicForm.Controllers
         //    return View("Details",_model);
         //}
 
-       
+
 
         //[HttpGet]
         //public JsonResult getTakenTimes(int officeID = 1, int month = 6, int year = 2016)
         //{
-            
+
         //    string jsonTimes;
         //    UtilityOrder uOrder = new UtilityOrder();
         //    try
@@ -140,11 +145,11 @@ namespace BasicForm.Controllers
         //    {
         //        jsonTimes = "[{\"erorr\":\""+e.ToString()+"\"}]";
         //    }
-            
+
         //    return Json(jsonTimes,JsonRequestBehavior.AllowGet);
-            
+
         //}
-        
+
 
     }
 }
