@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 body{
 	background:#55B1EC;	/*svetle modra*/
@@ -395,6 +395,14 @@ body{
 	
 #c_send_box{
 	
-	}	
-	
-	
+	}
+
+#c_info_box_left{
+    float:left;
+    width:500px;
+}	
+
+#c_info_box_right{
+    float:left;
+    width:488px;
+}
