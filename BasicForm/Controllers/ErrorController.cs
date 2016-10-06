@@ -8,6 +8,7 @@ namespace BasicForm.Controllers
 {
     public class ErrorController : Controller
     {
+        //
         /// <summary>
         /// GET - returns error page with description that its Invalid model state
         /// </summary>
