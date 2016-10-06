@@ -14,13 +14,13 @@ namespace BasicForm.Models
         public BasicForm.Models.DBRepresentations.Provider provider;
         public BasicForm.Models.DBRepresentations.Office currentOffice;
 
-        public CalendarProvider(int providerID)
+        public CalendarProvider(int providerID = 2)
         {
             DBHandlerProvider hProvider = new DBHandlerProvider();
             provider = hProvider.getByID(providerID);
 
             DBHandlerOffice hOffice = new DBHandlerOffice();
-            offices = hOffice.getByProviderIDActive(provider.ID);
+            offices = hOffice.getByProviderIDActive(2);
 
             currentOffice = offices.Any() ? offices.ElementAt(0) : null;
 
