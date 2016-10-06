@@ -79,6 +79,7 @@ namespace BasicForm.Models
 
             using (CalendarEntities entities = new CalendarEntities())
             {
+                
                 proceduresActive = (from p in entities.Procedures
                                     where (p.OfficeID.Equals(OfficeID) && p.Active == true)
                                     select p).ToList();
