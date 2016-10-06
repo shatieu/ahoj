@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "View";
-    
+
 }
 
 <link href="~/Content/css_kalendar_m_v1.css" rel="stylesheet" type="text/css">
@@ -23,9 +23,9 @@
 
 
         <div id="c_box">
-               <div id="c_days_new">
+            <div id="c_days_new">
                 <div id="c_days_box">
-                
+
 
                     <!-- Big table with kurvadratdopicenebudutodelat days-->
 
@@ -64,7 +64,7 @@
             </div>
 
             <div id="c_check_box">
-                Datum: @Html.EditorFor(model => model.formDate, new { htmlAttributes = new { @class = "inputs", type = "text", id="date", placeholder="-", value= "6" }})
+                Datum: @Html.EditorFor(model => model.formDate, new { htmlAttributes = new { @class = "inputs", type = "text", id = "date", placeholder = "-", value = "6" } })
                 Čas: @Html.EditorFor(model => model.formHour, new { htmlAttributes = new { @class = "inputs", type = "text", id = "hour", placeholder = "-", value = "-" } })
             </div>
             <div id="c_info_time_box">
@@ -114,9 +114,9 @@
                         @Html.EditorFor(model => model.customer.Email, new { htmlAttributes = new { @class = "inputs_grt" } })
                         @Html.ValidationMessageFor(model => model.customer.Email, "", new { @class = "text-danger" })
                         Procedura:<br />
-                        
-                        
-                        @Html.DropDownListFor(model => model.newOrder.ProcedureID, new SelectList(Model.procedures, "ID", "Name",Model.procedures.First().ID) )
+
+
+                        @Html.DropDownListFor(model => model.newOrder.ProcedureID, new SelectList(Model.procedures, "ID", "Name", Model.procedures.First().ID))
 
                         <br /><br />
                         <input type="submit" value="Send" class="btn btn-default" />
@@ -125,8 +125,8 @@
                     </div>
                     <div id="c_right_send">
                         Poznámka:<br />
-                        @Html.TextAreaFor(model => model.newOrder.DescCustomer, new { @class = "txtarea" } )
-                        
+                        @Html.TextAreaFor(model => model.newOrder.DescCustomer, new { @class = "txtarea" })
+
                     </div>
                 </div>
             </div>
@@ -143,14 +143,14 @@
 
 }
 <div>@ViewBag.JsonRaw</div>
-<div onclick="hehe()">well fuck zou you idiot</div>
+<div onclick="hehe()">well fuck zou you idiotasdasdasdasdasdasasdsddasda</div>
 <div>@ViewBag.Json</div>
 
 <button id="action-button">Click me to load info!</button>
 <div id="info">info</div>
 
 <script>
-    
+
 
     $('#action-button').click(function() {
    $.ajax({
@@ -165,7 +165,7 @@
       error: function() {
           $('#info').html('<p>An error has occurred</p>');
       }
-      
+
    });
 });
 

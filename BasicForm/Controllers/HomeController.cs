@@ -25,7 +25,7 @@ namespace BasicForm.Controllers
 
         // GET: Home
         [HttpGet]
-        public ActionResult Index(int officeID = 1)
+        public ActionResult Index(int id = 2)
         {
 
             //TEST - implicit json to test AJAX
@@ -33,7 +33,7 @@ namespace BasicForm.Controllers
             UtilityOrder uOrder = new UtilityOrder();
             try
             {
-                List<string> times = uOrder.getTakenTimesMonthYear(officeID, 7, 2016);
+                List<string> times = uOrder.getTakenTimesMonthYear(id, 7, 2016);
                 /*
                 List<JsonTimes> jTimes = new List<JsonTimes>();
 
@@ -55,7 +55,7 @@ namespace BasicForm.Controllers
             ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
 
             //init new object to view
-            CalendarOrder calendar = new CalendarOrder(officeID);
+            CalendarOrder calendar = new CalendarOrder(id);
             
             return View(calendar);
         }

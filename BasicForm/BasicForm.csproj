@@ -121,7 +121,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\custom_logs.txt" />
     <Content Include="App_Data\DBProperties.txt" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\css_kalendar_m_v1.css" />
@@ -160,6 +159,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,6 +198,10 @@
     <Content Include="Views\Home\SomeError.cshtml" />
     <Content Include="Views\Provider\Index.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
