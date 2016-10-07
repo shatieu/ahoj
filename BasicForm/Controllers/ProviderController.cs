@@ -10,11 +10,11 @@ namespace BasicForm.Controllers
     public class ProviderController : Controller
     {
         // GET: Provider
-        public ActionResult Index()
+        public ActionResult Index(int providerID = 1)
         {
-            CalendarProvider cProvider = new CalendarProvider(1);
+            CalendarProvider calProvider = new CalendarProvider(providerID);
 
-            return View(cProvider);
+            return View(calProvider);
         }
 
         // GET: Provider/Details/5
