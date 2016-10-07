@@ -99,51 +99,7 @@ namespace BasicForm.Models
         /// <returns>Set of strings where strings are in format DD_HH:MM</returns>
         public List<string> getTakenTimesList( int month = 6, int year = 2016)
         {
-
-            //old code with use of Utility hepler 
-            //UtilityOrder uOrder = new UtilityOrder();
-            //List<string> times = uOrder.getTakenTimesMonthYear(OfficeID, month, year);
-
-            
-            List<string> _times = new List<string>();
-
-            using (CalendarEntities db = new CalendarEntities())
-            {
-
-                //potencional request for cheange to faster the code....
-                //<Date, ID of procedure> of Office is specified month and year
-                Dictionary<DateTime, int> _ordersInDate = (from p in db.Orders
-                                     where (p.OfficeID.Equals(OfficeID) && p.DateAndTime.Year.Equals(year) && p.DateAndTime.Month.Equals(month))
-                                     select p).ToDictionary(p => p.DateAndTime, p => p.ProcedureID);
-
-                //<id of procedure, lasts> of Office with Active status
-                Dictionary<int, int> proceduresActive = (from p in db.Procedures
-                                                         where (p.OfficeID.Equals(OfficeID) && p.Active == true)
-                                                         select p).ToDictionary(p => p.ID, p => p.Lasts);
-
-                //to get faster adding in cycle
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-                //parsing DateTime and Lasts into string
-                foreach(KeyValuePair<DateTime, int> order in _ordersInDate)
-                {
-                    for (int i = 0; i < proceduresActive[order.Value]/10; i++)
-                    {
-                        DateTime time;
-                        time = order.Key;
-                        time = time.AddMinutes(i);
-
-                        sb.Clear();
-                        sb.Append(time.Day).Append("_").Append(time.Hour).Append(":").Append(time.Minute);
-                        _times.Add(sb.ToString());
-                    }
-                }
-            }
-
-
-
-            return _times;
-
+            return UtilityOrder.getTakenTimesByMonthYear(OfficeID, month, year); 
         }
 
 

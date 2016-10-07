@@ -1,13 +1,4 @@
-﻿using BasicForm.Models;
-using BasicForm.Models.DBHandler;
-using BasicForm.Models.DBRepresentations;
-using BasicForm.Models.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
+﻿using System.Web.Mvc;
 
 namespace BasicForm.Controllers
 {
@@ -15,6 +6,10 @@ namespace BasicForm.Controllers
     public class HomeController : Controller
     {
 
+        /// <summary>
+        /// Page with basic information about project
+        /// </summary>
+        /// <returns>Page with redirect menu</returns>
         public ActionResult Index()
         {
 

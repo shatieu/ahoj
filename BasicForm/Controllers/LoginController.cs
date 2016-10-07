@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BasicForm.Controllers
 {
     public class LoginController : Controller
     {
+        /// <summary>
+        /// Checks if first try with login and additively write warning when not
+        /// </summary>
+        /// <param name="firstTry">Param that say if warning should be shown</param>
+        /// <returns>Page with login</returns>
         [HttpGet]
         public ActionResult Index(bool firstTry = true)
         {
@@ -19,6 +22,11 @@ namespace BasicForm.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Checks if data for loggin are correct.
+        /// </summary>
+        /// <param name="provider">Data with credentials</param>
+        /// <returns> If so, create session, if not, redirect back to login form</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(BasicForm.Models.DBRepresentations.Provider provider)
@@ -42,6 +50,10 @@ namespace BasicForm.Controllers
             
         }
 
+        /// <summary>
+        /// Page with info that you are logged
+        /// </summary>
+        /// <returns>Page with success text</returns>
         public ActionResult Logged()
         {
             if (Session["LogedUserID"] != null)
@@ -64,27 +76,6 @@ namespace BasicForm.Controllers
             
         }
 
-        /*
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(User u)
-        {
-            // this action is for handle post (login)
-            if (ModelState.IsValid) // this is check validity
-            {
-                using (MyDatabaseEntities dc = new MyDatabaseEntities())
-                {
-                    var v = dc.Users.Where(a => a.Username.Equals(u.Username) && a.Password.Equals(u.Password)).FirstOrDefault();
-                    if (v != null)
-                    {
-                        Session["LogedUserID"] = v.UserID.ToString();
-                        Session["LogedUserFullname"] = v.FullName.ToString();
-                        return RedirectToAction("AfterLogin");
-                    }
-                }
-            }
-            return View(u);
-        }
-        */
+       
     }
 }

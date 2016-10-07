@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BasicForm.Models.Utility
 {
-    public class UtilityOrder
+    public static class UtilityOrder
     {
 
         /// <summary>
@@ -13,7 +13,7 @@ namespace BasicForm.Models.Utility
         /// <param name="mounth">to be found in</param>
         /// <param name="year">to be found in</param>
         /// <returns>Set of strings where strings are in format DD_HH:MM</returns>
-        public List<String> getTakenTimesMonthYear(int officeID, int month, int year)
+        public static List<String> getTakenTimesByMonthYear(int officeID, int month, int year)
         {
             //old code - delete after proof that entity framework recreation works properly
             //DBHandlerProcedure hProcedure = new DBHandlerProcedure();
@@ -83,6 +83,7 @@ namespace BasicForm.Models.Utility
                     }
                 }
             }
+
 
             return _times;
         }
