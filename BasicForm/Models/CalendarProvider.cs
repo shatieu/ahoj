@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BasicForm.Models.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -34,7 +35,17 @@ namespace BasicForm.Models
             
         }
 
-
+        /// <summary>
+        /// Returns all times that are in specified day, month and year for specific provider
+        /// </summary>
+        /// <param name="month">specify month that times will be taken from</param>
+        /// <param name="year">specify year that times will be taken from</param>
+        /// <param name="day">specify day that times will be taken from</param>
+        /// <returns>Set of strings where strings are in format DD_HH:MM</returns>
+        public List<string> getTakenTimesListDay(int day = 1, int month = 6, int year = 2016)
+        {
+            return UtilityOrder.getTakenTimesByMonthYearDay(currentOffice.ID, month, year, day);
+        }
 
 
     }

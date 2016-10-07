@@ -8,7 +8,7 @@ namespace BasicForm.Models.Utility
     {
 
         /// <summary>
-        /// takes mounth and year and return list of taken times in this date
+        /// takes mounth and year and return list of taken times in this month
         /// </summary>
         /// <param name="mounth">to be found in</param>
         /// <param name="year">to be found in</param>
@@ -88,5 +88,52 @@ namespace BasicForm.Models.Utility
             return _times;
         }
 
+        /// <summary>
+        /// takes day, mounth and year and return list of taken times in this day
+        /// </summary>
+        /// <param name="mounth">to be found in</param>
+        /// <param name="year">to be found in</param>
+        /// <param name="day">to be found in</param>
+        /// <returns>Set of strings where strings are in format DD_HH:MM</returns>
+        public static List<String> getTakenTimesByMonthYearDay(int officeID,int day, int month, int year)
+        {
+            List<string> _times = new List<string>();
+
+            using (CalendarEntities db = new CalendarEntities())
+            {
+
+                //potencional request for cheange to faster the code....
+                //<Date, ID of procedure> of Office is specified month and year
+                Dictionary<DateTime, int> _ordersInDate = (from p in db.Orders
+                                                           where (p.OfficeID.Equals(officeID) && p.DateAndTime.Year.Equals(year) && p.DateAndTime.Month.Equals(month) && p.DateAndTime.Day.Equals(day))
+                                                           select p).ToDictionary(p => p.DateAndTime, p => p.ProcedureID);
+
+                //<id of procedure, lasts> of Office with Active status
+                Dictionary<int, int> proceduresActive = (from p in db.Procedures
+                                                         where (p.OfficeID.Equals(officeID) && p.Active == true)
+                                                         select p).ToDictionary(p => p.ID, p => p.Lasts);
+
+                //to get faster adding in cycle
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+                //parsing DateTime and Lasts into string
+                foreach (KeyValuePair<DateTime, int> order in _ordersInDate)
+                {
+                    for (int i = 0; i < proceduresActive[order.Value] / 10; i++)
+                    {
+                        DateTime time;
+                        time = order.Key;
+                        time = time.AddMinutes(i);
+
+                        sb.Clear();
+                        sb.Append(time.Day).Append("_").Append(time.Hour).Append(":").Append(time.Minute);
+                        _times.Add(sb.ToString());
+                    }
+                }
+            }
+
+
+            return _times;
+        }
     }
 }
