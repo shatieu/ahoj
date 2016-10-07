@@ -207,7 +207,11 @@
                     @{
                         foreach (Order order in Model.orders)
                         {
-                            <input type=checkbox /><a href="#">@order.DateAndTime, @order.Customer.Name @order.Customer.Surname, @order.Procedure</a><br />
+                            DateTime time = order.DateAndTime;
+                            String name = order.Customer.Name;
+                            String surname = order.Customer.Surname;
+                            String procedure = order.Procedure.Name;
+                            <input type=checkbox /><a href="#"a>@order.DateAndTime.ToString("dd.MM.yy HH:mm"), @order.Customer.Name @order.Customer.Surname, @order.Procedure.Name</a><br />
                         }
                     }
 

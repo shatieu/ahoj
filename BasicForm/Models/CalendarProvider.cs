@@ -30,8 +30,22 @@ namespace BasicForm.Models
             //                      /*  (from prov in cal.Providers
             //                        where (prov.ID.Equals(providerID))
             //                        select prov).SingleOrDefault();*/
-                              
+
             //}
+            
+
+            using (CalendarEntities db = new CalendarEntities())
+            {
+                provider = db.Providers.Where(x => x.ID.Equals(providerID)).SingleOrDefault();
+                offices = db.Offices.Where(x => x.ProviderID.Equals(providerID)).ToList();
+                currentOffice = offices.FirstOrDefault();
+                if(currentOffice == null)
+                {
+                    //vymyslet
+                }
+                orders =  db.Orders.Include("Customer").Include("Procedure").Where(x => x.OfficeID.Equals(currentOffice.ID)).ToList();
+            }
+                
             
         }
 
