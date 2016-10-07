@@ -12,32 +12,55 @@
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model.office)
+            @Html.DisplayNameFor(model => model.OfficeID)
         </dt>
 
         <dd>
-            @Model.office
+            @Model.OfficeID
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.newOrder)
+            @Html.DisplayNameFor(model => model.NewOrder)
         </dt>
 
         <dd>
-            @Model.newOrder
+            ID
+            @Model.NewOrder.ID
+            OfficeID
+            @Model.NewOrder.OfficeID
+            ProcedureID
+            @Model.NewOrder.ProcedureID
+            CustomerID
+            @Model.NewOrder.CustomerID
+            DateAndTime
+            @Model.NewOrder.DateAndTime
+            DescCustomer
+            @Model.NewOrder.DescCustomer
+            DescProvider
+            @Model.NewOrder.DescProvider
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.customer)
+            @Html.DisplayNameFor(model => model.Customer)
         </dt>
 
         <dd>
-            @Model.customer
+            ID
+            @Model.Customer.ID
+            Name
+            @Model.Customer.Name
+            Surname
+            @Model.Customer.Surname
+            PersonalNumber
+            @Model.Customer.PersonalNumber
+            Phone
+            @Model.Customer.Phone
+            Email
+            @Model.Customer.Email
         </dd>
        
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

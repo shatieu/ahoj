@@ -205,6 +205,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
+    <Compile Include="Controllers\SanboxesController.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>CalendarEntity.tt</DependentUpon>
     </Compile>
@@ -226,7 +227,6 @@
     <Compile Include="Models\DatabaseContent\DBRepresentations\Order.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Procedure.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Provider.cs" />
-    <Compile Include="Models\Logger\CustomLogger.cs" />
     <Compile Include="Models\Utility\UtilityOrder.cs" />
     <Compile Include="Models\Utility\UtilityProcedure.cs" />
     <Compile Include="Office.cs">
@@ -253,9 +253,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\SomeError.cshtml" />
     <Content Include="Views\Provider\Index.cshtml" />
-    <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Shared\Error404.cshtml" />
@@ -263,6 +261,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Login\Logged.cshtml" />
     <Content Include="Views\Provider\Settings.cshtml" />
+    <Content Include="Views\Sanboxes\Index.cshtml" />
+    <Content Include="Views\Sanboxes\Ondra.cshtml" />
+    <Content Include="Views\Sanboxes\Jenda.cshtml" />
+    <Content Include="Views\Sanboxes\Jirka.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -65,35 +65,38 @@ namespace BasicForm.Controllers
         [HttpPost]
         public ActionResult Index(BasicForm.Models.CalendarOrder model)
         {
-            CalendarOrder _model = new CalendarOrder(model.office.ID);
-            DBHandlerCustomer dbHandlerCustomer = new DBHandlerCustomer();
-            DBHandlerOrder dbHandlerOrder = new DBHandlerOrder();
-            BasicForm.Models.DBRepresentations.Customer customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+            CalendarOrder calOrder = new CalendarOrder(model.OfficeID);
 
             if (ModelState.IsValid)
             {
-
-
-                //taking data from post and complete with data from database
-                _model.customer = model.customer;
-                _model.newOrder = model.newOrder;
-
-                _model.newOrder.OfficeID = model.office.ID;
-                if (customer == null)
+                using (CalendarEntities db = new CalendarEntities())
                 {
-                    dbHandlerCustomer.insert(model.customer);
-                    customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+                    calOrder.NewOrder = model.NewOrder;
+
+                    Customer _customer = db.Customers.Where(x => x.PersonalNumber.Equals(model.Customer.PersonalNumber)).SingleOrDefault();
+
+                    //creating customer if not existing
+                    if (_customer == null)
+                    {
+                        _customer = model.Customer;
+                        db.Customers.Add(_customer);
+                        // ID to _customer automatically added here
+                        db.SaveChanges();
+                    }
+
+                    //To get values in detail page
+                    calOrder.Customer = _customer;
+
+                    //necessary values to insert
+                    calOrder.NewOrder.CustomerID = _customer.ID;
+                    calOrder.NewOrder.OfficeID = model.OfficeID;
+                    db.Orders.Add(calOrder.NewOrder);
+
+                    db.SaveChanges();
                 }
-
-                int IDCustomer = customer.ID;
-                _model.newOrder.CustomerID = IDCustomer;
-                dbHandlerOrder.insert(_model.newOrder);
-
             }
-
-
-
-            return View("Details", _model);
+            
+            return View("Details", calOrder);
         }
 
 

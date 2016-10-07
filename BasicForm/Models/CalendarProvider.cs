@@ -1,6 +1,4 @@
-﻿using BasicForm.Models.DBHandler;
-using BasicForm.Models.DBRepresentations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,20 +7,20 @@ namespace BasicForm.Models
 {
     public class CalendarProvider
     {
-        public List<BasicForm.Models.DBRepresentations.Order> orders;
-        public List<BasicForm.Models.DBRepresentations.Office> offices;
-        public BasicForm.Models.DBRepresentations.Provider provider;
-        public BasicForm.Models.DBRepresentations.Office currentOffice;
+        public List<Order> orders;
+        public List<Office> offices;
+        public Provider provider;
+        public Office currentOffice;
 
         public CalendarProvider(int providerID = 2)
         {
-            DBHandlerProvider hProvider = new DBHandlerProvider();
-            provider = hProvider.getByID(providerID);
+            //DBHandlerProvider hProvider = new DBHandlerProvider();
+            //provider = hProvider.getByID(providerID);
 
-            DBHandlerOffice hOffice = new DBHandlerOffice();
-            offices = hOffice.getByProviderIDActive(2);
+            //DBHandlerOffice hOffice = new DBHandlerOffice();
+            //offices = hOffice.getByProviderIDActive(2);
 
-            currentOffice = offices.Any() ? offices.ElementAt(0) : null;
+            //currentOffice = offices.Any() ? offices.ElementAt(0) : null;
 
             //using(CalendarEntities cal = new CalendarEntities())
             //{
