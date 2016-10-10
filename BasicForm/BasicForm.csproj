@@ -33,6 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -265,6 +266,7 @@
     <Content Include="Views\Sanboxes\Ondra.cshtml" />
     <Content Include="Views\Sanboxes\Jenda.cshtml" />
     <Content Include="Views\Sanboxes\Jirka.cshtml" />
+    <Content Include="Views\Provider\EditOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
