@@ -1,12 +1,8 @@
 ﻿using BasicForm.Models;
-using BasicForm.Models.DBHandler;
-using BasicForm.Models.DBRepresentations;
-using BasicForm.Models.Logger;
 using BasicForm.Models.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -20,7 +16,11 @@ namespace BasicForm.Controllers
             throw new Exception("test");
         }
 
-        // GET: Home
+        /// <summary>
+        /// Creates new form for order
+        /// </summary>
+        /// <param name="id">ID of office for order</param>
+        /// <returns>View with order form</returns>
         [HttpGet]
         public ActionResult Index(int id = 2)
         {
@@ -57,64 +57,76 @@ namespace BasicForm.Controllers
             return View(calendar);
         }
 
+        /// <summary>
+        /// Controller to write out data about model
+        /// </summary>
+        /// <param name="model">Calendar with data</param>
+        /// <returns>Detail page with saved values</returns>
         public ActionResult Details(CalendarOrder model)
         {
             return View(model);
         }
 
+        /// <summary>
+        /// Handle post method of form. 
+        /// Create new instance of order. 
+        /// Create new instance of customer if not created already
+        /// </summary>
+        /// <param name="model">Getting data from: OfficeID, Order, Customer</param>
+        /// <returns>Detail page with saved values</returns>
         [HttpPost]
-        public ActionResult Index(BasicForm.Models.CalendarOrder model)
+        public ActionResult Index(CalendarOrder model)
         {
-            CalendarOrder _model = new CalendarOrder(model.office.ID);
-            DBHandlerCustomer dbHandlerCustomer = new DBHandlerCustomer();
-            DBHandlerOrder dbHandlerOrder = new DBHandlerOrder();
-            BasicForm.Models.DBRepresentations.Customer customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+            CalendarOrder calOrder = new CalendarOrder(model.OfficeID);
 
             if (ModelState.IsValid)
             {
-
-
-                //taking data from post and complete with data from database
-                _model.customer = model.customer;
-                _model.newOrder = model.newOrder;
-
-                _model.newOrder.OfficeID = model.office.ID;
-                if (customer == null)
+                using (CalendarEntities db = new CalendarEntities())
                 {
-                    dbHandlerCustomer.insert(model.customer);
-                    customer = dbHandlerCustomer.getByPersonaNumber(model.customer.PersonalNumber);
+                    calOrder.NewOrder = model.NewOrder;
+
+                    Customer _customer = db.Customers.Where(x => x.PersonalNumber.Equals(model.Customer.PersonalNumber)).SingleOrDefault();
+
+                    //creating customer if not existing
+                    if (_customer == null)
+                    {
+                        _customer = model.Customer;
+                        db.Customers.Add(_customer);
+                        // ID to _customer automatically added here
+                        db.SaveChanges();
+                    }
+
+                    //To get values in detail page
+                    calOrder.Customer = _customer;
+
+                    //necessary values to insert
+                    calOrder.NewOrder.CustomerID = _customer.ID;
+                    calOrder.NewOrder.OfficeID = model.OfficeID;
+                    db.Orders.Add(calOrder.NewOrder);
+
+                    db.SaveChanges();
                 }
-
-                int IDCustomer = customer.ID;
-                _model.newOrder.CustomerID = IDCustomer;
-                dbHandlerOrder.insert(_model.newOrder);
-
             }
-
-
-
-            return View("Details", _model);
+            
+            return View("Details", calOrder);
         }
 
 
-
+        /// <summary>
+        /// Create JSON with times with orded
+        /// </summary>
+        /// <param name="officeID">to be search in</param>
+        /// <param name="month">specify month that times will be taken from</param>
+        /// <param name="year">specify year that times will be taken from</param>
+        /// <returns>Json of taken times. Every time in json is formated DD_HH:MM</returns>
         [HttpGet]
         public JsonResult getTakenTimes(int officeID = 1, int month = 6, int year = 2016)
         {
-
             string jsonTimes;
-            UtilityOrder uOrder = new UtilityOrder();
+            
             try
             {
-                List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
-                /*
-                List<JsonTimes> jTimes = new List<JsonTimes>();
-
-                foreach(string time in times)
-                {
-                    jTimes.Add(new JsonTimes(time));
-                }*/
-
+                List<string> times = UtilityOrder.getTakenTimesByMonthYear(officeID, month, year);
                 var jsonSerialiser = new JavaScriptSerializer();
                 jsonTimes = jsonSerialiser.Serialize(times);
             }

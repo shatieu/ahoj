@@ -1,5 +1,4 @@
-﻿using BasicForm.Models.DBHandler;
-using BasicForm.Models.DBRepresentations;
+﻿using BasicForm.Models.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +8,20 @@ namespace BasicForm.Models
 {
     public class CalendarProvider
     {
-        public List<BasicForm.Models.DBRepresentations.Order> orders;
-        public List<BasicForm.Models.DBRepresentations.Office> offices;
-        public BasicForm.Models.DBRepresentations.Provider provider;
-        public BasicForm.Models.DBRepresentations.Office currentOffice;
+        public List<Order> orders;
+        public List<Office> offices;
+        public Provider provider;
+        public Office currentOffice;
 
         public CalendarProvider(int providerID = 2)
         {
-            DBHandlerProvider hProvider = new DBHandlerProvider();
-            provider = hProvider.getByID(providerID);
+            //DBHandlerProvider hProvider = new DBHandlerProvider();
+            //provider = hProvider.getByID(providerID);
 
-            DBHandlerOffice hOffice = new DBHandlerOffice();
-            offices = hOffice.getByProviderIDActive(2);
+            //DBHandlerOffice hOffice = new DBHandlerOffice();
+            //offices = hOffice.getByProviderIDActive(2);
 
-            currentOffice = offices.Any() ? offices.ElementAt(0) : null;
+            //currentOffice = offices.Any() ? offices.ElementAt(0) : null;
 
             //using(CalendarEntities cal = new CalendarEntities())
             //{
@@ -31,12 +30,36 @@ namespace BasicForm.Models
             //                      /*  (from prov in cal.Providers
             //                        where (prov.ID.Equals(providerID))
             //                        select prov).SingleOrDefault();*/
-                              
+
             //}
+            
+
+            using (CalendarEntities db = new CalendarEntities())
+            {
+                provider = db.Providers.Where(x => x.ID.Equals(providerID)).SingleOrDefault();
+                offices = db.Offices.Where(x => x.ProviderID.Equals(providerID)).ToList();
+                currentOffice = offices.FirstOrDefault();
+                if(currentOffice == null)
+                {
+                    //vymyslet
+                }
+                orders =  db.Orders.Include("Customer").Include("Procedure").Where(x => x.OfficeID.Equals(currentOffice.ID)).ToList();
+            }
+                
             
         }
 
-
+        /// <summary>
+        /// Returns all times that are in specified day, month and year for specific provider
+        /// </summary>
+        /// <param name="month">specify month that times will be taken from</param>
+        /// <param name="year">specify year that times will be taken from</param>
+        /// <param name="day">specify day that times will be taken from</param>
+        /// <returns>Set of strings where strings are in format DD_HH:MM</returns>
+        public List<string> getTakenTimesListDay(int day = 1, int month = 6, int year = 2016)
+        {
+            return UtilityOrder.getTakenTimesByMonthYearDay(currentOffice.ID, month, year, day);
+        }
 
 
     }

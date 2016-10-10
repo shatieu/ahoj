@@ -1,5 +1,4 @@
 ﻿using BasicForm.Models.DBRepresentations;
-using BasicForm.Models.Logger;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -69,7 +68,7 @@ namespace BasicForm.Models.DatabaseContent.DBHandler
             }
             catch (Exception e)
             {
-                CustomLogger.Log(CustomLogger.Level.ERROR, "Cannot insert into " + aRepresentation._DBName + " database\n" + e.ToString());
+                Console.WriteLine(e);
                 return check;
             }
 

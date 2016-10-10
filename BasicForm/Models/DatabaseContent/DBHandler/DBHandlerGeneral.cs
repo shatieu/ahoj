@@ -1,5 +1,4 @@
 ﻿using BasicForm.Models.DBRepresentations;
-using BasicForm.Models.Logger;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -105,7 +104,7 @@ namespace BasicForm.Models.DBHandler
         {
             if (!sqlQuery.StartsWith("SELECT * FROM"))
             {
-                CustomLogger.Log(CustomLogger.Level.WARN, "Command should starts with SELECT * FROM. Current command is " + sqlQuery);
+                Console.WriteLine("Command should starts with SELECT * FROM. Current command is " + sqlQuery);
             }
 
             List<ARepresentation> repres = new List<ARepresentation>();
@@ -129,7 +128,7 @@ namespace BasicForm.Models.DBHandler
                     }
                     catch (Exception e)
                     {
-                        CustomLogger.Log(CustomLogger.Level.ERROR, "Wrong command\n" + e.ToString());
+                        Console.WriteLine("Wrong command\n" + e.ToString());
                     }
                 }
             }
@@ -215,7 +214,7 @@ namespace BasicForm.Models.DBHandler
             }
             catch (Exception e)
             {
-                CustomLogger.Log(CustomLogger.Level.WARN, "Cannot take " + property.Name + " from DB /n" + e.ToString());
+                Console.WriteLine( "Cannot take " + property.Name + " from DB /n" + e.ToString());
                 noError = false;
             }
 
@@ -345,7 +344,7 @@ namespace BasicForm.Models.DBHandler
             }
             catch (Exception e)
             {
-                CustomLogger.Log(CustomLogger.Level.ERROR, "Cannot insert into " + aRepresentation._DBName + " database\n" + e.ToString());
+                Console.WriteLine("Cannot insert into " + aRepresentation._DBName + " database\n" + e.ToString());
                 return check;
             }
 

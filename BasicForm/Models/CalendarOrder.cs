@@ -1,11 +1,8 @@
-﻿using BasicForm.Models.DBHandler;
-using BasicForm.Models.DBRepresentations;
-using BasicForm.Models.Utility;
+﻿using BasicForm.Models.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
@@ -14,10 +11,21 @@ namespace BasicForm.Models
 {
     public class CalendarOrder
     {
-        public BasicForm.Models.DBRepresentations.Customer customer { get; set; }
-        public BasicForm.Models.DBRepresentations.Order newOrder { get; set; }
-        public BasicForm.Models.DBRepresentations.Office office { get; set; }
-        public List<BasicForm.Models.DBRepresentations.Procedure> procedures { get; set; }
+        /// <summary>
+        /// ID of office that calendar will be work with
+        /// </summary>
+        public int OfficeID { get; set; }
+        /// <summary>
+        /// Customer for order, taken from form
+        /// </summary>
+        public Customer Customer { get; set; }
+        /// <summary>
+        /// New order createdby customer
+        /// </summary>
+        public Order NewOrder { get; set; }
+        /// <summary>
+        /// Form of Date only to parse into DateTime object
+        /// </summary>
         [Required]
         [RegularExpression(@"^([0-9]{1,2}[.][0-9]{1,2}[.][0-9]{4})$", ErrorMessage = "Date has to be in format DD.MM.YYYY")]
         public string formDate {
@@ -28,60 +36,53 @@ namespace BasicForm.Models
             set
             {
                 String[] splits = value.Split('.');
-                newOrder.DateAndTime = newOrder.DateAndTime.AddDays(Int32.Parse(splits[0])-1);
-                newOrder.DateAndTime = newOrder.DateAndTime.AddMonths(Int32.Parse(splits[1])-1);
-                newOrder.DateAndTime = newOrder.DateAndTime.AddYears(Int32.Parse(splits[2])-2000);
+                NewOrder.DateAndTime = NewOrder.DateAndTime.AddDays(Int32.Parse(splits[0]));
+                NewOrder.DateAndTime = NewOrder.DateAndTime.AddMonths(Int32.Parse(splits[1]));
+                NewOrder.DateAndTime = NewOrder.DateAndTime.AddYears(Int32.Parse(splits[2]));
             }
         }
+        /// <summary>
+        /// Form of time and minutes only to parse into DateTime object
+        /// </summary>
         [Required]
         [RegularExpression(@"^((([0-1]{0,1}[0-9])|([2][0-3]))[:][0-5][0-9])$", ErrorMessage = "Date has to be in format HH:MM")]
         public string formHour { get { return ""; }
             set
             {
                 String[] splits = value.Split(':');
-                newOrder.DateAndTime = newOrder.DateAndTime.AddHours(Int32.Parse(splits[0]));
-                newOrder.DateAndTime = newOrder.DateAndTime.AddMinutes(Int32.Parse(splits[1]));
+                NewOrder.DateAndTime = NewOrder.DateAndTime.AddHours(Int32.Parse(splits[0]));
+                NewOrder.DateAndTime = NewOrder.DateAndTime.AddMinutes(Int32.Parse(splits[1]));
             }
         }
         
-        public int OfficeID { get; set; }
-        /*
-        public Order NewOrder { get; set; }
-        public Customer NewCustomer { get; set; }
-        */
-
+        /// <summary>
+        /// Basic constructor for HTTP post form
+        /// </summary>
         public CalendarOrder()
         {
-            procedures = new List<DBRepresentations.Procedure>();
-            newOrder = new BasicForm.Models.DBRepresentations.Order();
-            customer = new BasicForm.Models.DBRepresentations.Customer();
-            /*
             NewOrder = new Order();
-            NewCustomer = new Customer();
-            */
+            Customer = new Customer();
         }
-
-
-        public CalendarOrder(int officeID)
+        
+        /// <summary>
+        /// Constructor for setting IfficeID
+        /// </summary>
+        /// <param name="officeID">ID of office in DB that calendar is created for</param>
+        public CalendarOrder(int officeID):this()
         {
-            DBHandlerOffice hOffice = new DBHandlerOffice();
-            office = hOffice.getByID(officeID);
             OfficeID = officeID;
-
-            DBHandlerProcedure hProcedure = new DBHandlerProcedure();
-            procedures = hProcedure.getByOfficeIDActive(officeID);
-
-            newOrder = new BasicForm.Models.DBRepresentations.Order();
-            customer = new BasicForm.Models.DBRepresentations.Customer(); 
         }
 
+        /// <summary>
+        /// Gets from DB all procedures that has proper OfficeID and Active==true
+        /// </summary>
+        /// <returns>All procedures that has proper OfficeID and Active==true</returns>
         public List<Procedure> getActiveProcedures()
         {
             List<Procedure> proceduresActive;
 
             using (CalendarEntities entities = new CalendarEntities())
             {
-                
                 proceduresActive = (from p in entities.Procedures
                                     where (p.OfficeID.Equals(OfficeID) && p.Active == true)
                                     select p).ToList();
@@ -90,16 +91,15 @@ namespace BasicForm.Models
             return proceduresActive;
         }
 
-        public List<string> getTakenTimesList(int officeID = 1, int month = 6, int year = 2016)
+        /// <summary>
+        /// Returns all times that are in specified month and year for specific provider
+        /// </summary>
+        /// <param name="month">specify month that times will be taken from</param>
+        /// <param name="year">specify year that times will be taken from</param>
+        /// <returns>Set of strings where strings are in format DD_HH:MM</returns>
+        public List<string> getTakenTimesList( int month = 6, int year = 2016)
         {
-
-
-            UtilityOrder uOrder = new UtilityOrder();
-            List<string> times = uOrder.getTakenTimesMonthYear(officeID, month, year);
-            
-
-            return times;
-
+            return UtilityOrder.getTakenTimesByMonthYear(OfficeID, month, year); 
         }
 
 

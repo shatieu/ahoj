@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BasicForm.Controllers
 {
     public class ErrorController : Controller
     {
-        //
+        
         /// <summary>
         /// GET - returns error page with description that its Invalid model state
         /// </summary>
