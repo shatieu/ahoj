@@ -36,6 +36,7 @@ namespace BasicForm.Models
 
             using (CalendarEntities db = new CalendarEntities())
             {
+                //TADY KURVA JE POTREBA PREPSAT DVOJKA NA PROVIDERID
                 provider = db.Providers.Where(x => x.ID.Equals(2)).SingleOrDefault();
                 offices = db.Offices.Where(x => x.ProviderID.Equals(provider.ID)).ToList();
                 currentOffice = offices.FirstOrDefault();
