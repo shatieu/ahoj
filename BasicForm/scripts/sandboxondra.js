@@ -1,4 +1,48 @@
-﻿var CALENDAR = function () {
+﻿function print_current() {
+    var d = new Date();
+    var year = d.getYear();
+    var month = d.getMonth();
+    var date = d.getDate();
+    var month_names = ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"];
+    
+    //prints month name to header
+    document.getElementById("month_top").innerHTML = month_names[month];
+    var json_string = document.getElementById("nasrat").innerHTML;
+    document.getElementById("napis").innerHTML = ("tohle se snad napise");
+    document.getElementById("json").innerHTML = json_string;
+    var parseds = JSON.parse(json_string);
+    document.getElementById("13").innerHTML = parseds.employees[0].firstName + "haha";
+
+    
+    $.ajax(
+        url: '/Sandboxes/getJson',
+        data: '',
+        type: 'GET',
+        dataType: 'json',
+        document.getElementById("15").innerHTML = "hahaassa";
+    success: function (data) {
+
+        var parsed = JSON.parse(data);
+        document.getElementById("15").innerHTML = parsed[0] + "haha";
+        $('.day').html('<p>' + JSON.valueOf(data)[1] + '</p>');
+    };
+    error: function () {
+        $('.day').html('<p>An error has occurred</p>');
+    }
+
+);
+    
+
+}
+    
+
+
+
+
+
+
+
+/* var CALENDAR = function () {
     var wrap, label,
 			months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -99,3 +143,4 @@
     };
 
 };
+*/
