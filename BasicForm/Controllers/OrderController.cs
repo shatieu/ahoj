@@ -123,16 +123,17 @@ namespace BasicForm.Controllers
         public JsonResult getTakenTimes(int officeID = 1, int month = 6, int year = 2016)
         {
             string jsonTimes;
-            
+            var jsonSerialiser = new JavaScriptSerializer();
+
             try
             {
                 List<string> times = UtilityOrder.getTakenTimesByMonthYear(officeID, month, year);
-                var jsonSerialiser = new JavaScriptSerializer();
+                jsonSerialiser = new JavaScriptSerializer();
                 jsonTimes = jsonSerialiser.Serialize(times);
             }
             catch (ArgumentException e)
             {
-                jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
+                jsonTimes = jsonSerialiser.Serialize(e);// "[{\"erorr\":\"" + e.ToString() + "\"}]";
             }
 
             return Json(jsonTimes, JsonRequestBehavior.AllowGet);

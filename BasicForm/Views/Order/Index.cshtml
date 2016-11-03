@@ -149,19 +149,19 @@
 <button id="action-button">Click me to load info!</button>
 <div id="info">info</div>
 
-<!--
+
 <script>
 
 
     $('#action-button').click(function() {
    $.ajax({
-       url: '@Html.Raw(Url.Action("getTakenTimes", "Home"))',
-       data: 'month=6&year=2016',
+       url: '@Html.Raw(Url.Action("getTakenTimes", "Order"))',
+       data: 'officeID=1&month=6&year=2016',
        type: 'GET',
       dataType: 'json',
       success: function(data) {
           var parsed = JSON.parse(data);
-          $('#info').html('<p>'+JSON.stringify(data)+'</p>');
+          $('#info').html('<p>'+data[0]+'</p>');
       },
       error: function() {
           $('#info').html('<p>An error has occurred</p>');
@@ -171,4 +171,4 @@
 });
 
 </script>
-    -->
+    
