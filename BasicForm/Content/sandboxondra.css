@@ -1,1 +1,38 @@
-﻿
+﻿body {
+background:lightgrey;
+
+}
+
+.c_box{
+
+	width:146px;
+	height:auto;
+	float:left;
+	background:#FFFFFF;
+	}
+
+.c_day{
+	width:20px;
+	height:20px;
+	float:left;
+	background:white;
+	text-align:center;
+	font-size:16px;
+    border-right:1px #C3C3C3 solid;
+	}
+
+.c_week{
+    width:146px;
+	height:20px;
+    border-bottom:1px #C3C3C3 solid;
+
+}
+
+.c_day_weekend{
+	width:20px;
+	height:20px;
+	float:left;
+	background:grey;
+	text-align:center;
+	font-size:16px;
+	}
