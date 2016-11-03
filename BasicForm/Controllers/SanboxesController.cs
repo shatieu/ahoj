@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace BasicForm.Controllers
 {
@@ -18,8 +20,40 @@ namespace BasicForm.Controllers
 
         public ActionResult Ondra()
         {
+            string pes =
+                "{\"employees\":["+
+    "{ \"firstName\":\"fuck\", \"lastName\":\"Doe\"},"+
+    "{ \"firstName\":\"Anna\", \"lastName\":\"Smith\"},"+
+    "{ \"firstName\":\"Peter\",\"lastName\":\"Jones\"}]}";
+            
+            ViewBag.Data = pes;
             return View();
         }
+
+        public JsonResult getJson(int a, int b)
+        {
+
+            string jsonTimes;
+
+            try
+            {
+                List<string> times = new List<string>();
+                times.Add("1");
+                times.Add("2");
+                times.Add("3");
+                var jsonSerialiser = new JavaScriptSerializer();
+                jsonTimes = jsonSerialiser.Serialize(times);
+            }
+            catch (System.ArgumentException e)
+            {
+                jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
+            }
+
+            return Json(jsonTimes, JsonRequestBehavior.AllowGet);
+
+        }
+
+    
 
         public ActionResult Jenda()
         {

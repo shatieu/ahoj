@@ -36,13 +36,15 @@ namespace BasicForm.Models
 
             using (CalendarEntities db = new CalendarEntities())
             {
-                provider = db.Providers.Where(x => x.ID.Equals(providerID)).SingleOrDefault();
-                offices = db.Offices.Where(x => x.ProviderID.Equals(providerID)).ToList();
+                //TADY KURVA JE POTREBA PREPSAT DVOJKA NA PROVIDERID
+                provider = db.Providers.Where(x => x.ID.Equals(2)).SingleOrDefault();
+                offices = db.Offices.Where(x => x.ProviderID.Equals(provider.ID)).ToList();
                 currentOffice = offices.FirstOrDefault();
                 if(currentOffice == null)
                 {
-                    //vymyslet
+                    Console.WriteLine("PICWWWWWWWEEEE");
                 }
+                currentOffice = offices.FirstOrDefault();
                 orders =  db.Orders.Include("Customer").Include("Procedure").Where(x => x.OfficeID.Equals(currentOffice.ID)).ToList();
             }
                 

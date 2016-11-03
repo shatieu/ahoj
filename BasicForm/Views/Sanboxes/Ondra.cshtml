@@ -3,5 +3,116 @@
     ViewBag.Title = "Ondra";
 }
 
-<h2>Ondra</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>calendar datepicker</title>
+    <link rel="stylesheet" href="~/Content/sandboxondra.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="datepicker">
+        <div class="top">
+            <div class="month_top" id="month_top"></div>
+        </div>
+        <div class="cal_body">
+            <div class="days_of_week">
+
+            </div>
+            <div class="allweeks">
+                <div class="week">
+                    <div class="day" id="1">1</div>
+                    <div class="day" id="2">2</div>
+                    <div class="day" id="3">3</div>
+                    <div class="day" id="4">4</div>
+                    <div class="day" id="5">5</div>
+                    <div class="day" id="6">6</div>
+                    <div class="day" id="7">7</div>
+                </div>
+                <div class="week">
+                    <div class="day" id="8"></div>
+                    <div class="day" id="10"></div>
+                    <div class="day" id="11"></div>
+                    <div class="day" id="12"></div>
+                    <div class="day" id="13"></div>
+                    <div class="day" id="14"></div>
+                    <div class="day" id="15"></div>
+                </div>
+                <div class="week">
+                    <div class="day" id="16"></div>
+                    <div class="day" id="17"></div>
+                    <div class="day" id="18"></div>
+                    <div class="day" id="19"></div>
+                    <div class="day" id="20"></div>
+                    <div class="day" id="21"></div>
+                    <div class="day" id="22"></div>
+                </div>
+                <div class="week">
+                    <div class="day" id="23"></div>
+                    <div class="day" id="24"></div>
+                    <div class="day" id="25"></div>
+                    <div class="day" id="26"></div>
+                    <div class="day" id="27"></div>
+                    <div class="day" id="28"></div>
+                    <div class="day" id="29"></div>
+                </div>
+                <div class="week">
+                    <div class="day" id="30"></div>
+                    <div class="day" id="31"></div>
+                    <div class="day" id="32"></div>
+                    <div class="day" id="33"></div>
+                    <div class="day" id="34"></div>
+                    <div class="day" id="35"></div>
+                    <div class="day" id="36"></div>
+                </div>
+            </div>
+        </div>
+    <button class="action_button" onclick="print_current()">tryout</button>
+<div class="seposer" id="nasrat">@ViewBag.Data</div>
+ <div id="napis"></div>
+        <div id="json"></div> 
+        <button id="action-button">Click me to load info!</button>
+        <div id="info" class="info">HHH</div>
+
+
+
+
+        <script>
+
+
+    $('#action-button').click(function() {
+   $.ajax({
+       url: '@Html.Raw(Url.Action("getJson", "Sandboxes"))',
+       data: 'month=6&year=2016',
+       type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+          var parsed = JSON.parse(data);
+          $('#info').html('<p>'+JSON.stringify(data)+'</p>');
+      },
+      error: function() {
+          $('#info').html('<p>An error has occurred</p>');
+      }
+
+   });
+});
+
+        </script>      
+        
+    
+
+
+
+    
+    <script>document.write("v htmhl")</script>
+    <script src="~/Scripts/sandboxondra.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+</body>
+
+
+
+
+</html>
+
 
