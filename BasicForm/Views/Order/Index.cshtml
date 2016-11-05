@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-       <!-- <h4>Customer</h4> -->
+        <h4>Customer</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.OfficeID);
         <br />
@@ -139,8 +139,7 @@
         <script src="~/Scripts/jquery.validate.min.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
         <script type="text/javascript" language="JavaScript" src="~/Scripts/calendar_generator.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-</div>
+    </div>
 
 }
 
@@ -149,20 +148,20 @@
 
 <button id="action-button">Click me to load info!</button>
 <div id="info">info</div>
-     
+
 
 <script>
 
 
     $('#action-button').click(function() {
    $.ajax({
-       url: '@Html.Raw(Url.Action("getTakenTimes", "Home"))',
-       data: 'month=6&year=2016',
+       url: '@Html.Raw(Url.Action("getTakenTimes", "Order"))',
+       data: 'officeID=1&month=6&year=2016',
        type: 'GET',
       dataType: 'json',
       success: function(data) {
           var parsed = JSON.parse(data);
-          $('#info').html('<p>'+JSON.stringify(data)+'</p>');
+          $('#info').html('<p>'+parsed[0]+'</p>');
       },
       error: function() {
           $('#info').html('<p>An error has occurred</p>');
@@ -172,4 +171,4 @@
 });
 
 </script>
-   
+    
