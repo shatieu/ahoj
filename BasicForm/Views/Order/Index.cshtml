@@ -161,7 +161,7 @@
       dataType: 'json',
       success: function(data) {
           var parsed = JSON.parse(data);
-          $('#info').html('<p>'+data[0]+'</p>');
+          $('#info').html('<p>'+parsed[0]+'</p>');
       },
       error: function() {
           $('#info').html('<p>An error has occurred</p>');
