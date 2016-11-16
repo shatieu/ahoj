@@ -269,6 +269,7 @@
     <Content Include="Views\Sanboxes\Jenda.cshtml" />
     <Content Include="Views\Sanboxes\Jirka.cshtml" />
     <Content Include="Views\Provider\EditOrder.cshtml" />
+    <Content Include="Views\Provider\PartialEditOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

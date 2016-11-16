@@ -219,6 +219,8 @@
                     <br /><input type="button" value="Smazat" />
                 </div>
                 <div id="c_info_box_right">
+
+                    <!--
                     Jméno:<input type="text" class="inputs" placeholder="-" /><br />
                     Přijmení:<input type="text" class="inputs" placeholder="-" /><br />
                     Tel:<input type="text" class="inputs" placeholder="-" /><br />
@@ -229,7 +231,9 @@
                     E-mail:<input type="text" class="inputs" placeholder="-" /><br />
                     Poznámka: <textarea type="text" class="txtarea" placeholder="-" /></textarea><br />
                     <input type="button" value="Upravit" />
+                    -->
 
+                    @Html.Partial("PartialEditOrder", new Order())
 
                 </div>
             </div>
