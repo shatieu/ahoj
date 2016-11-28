@@ -36,9 +36,9 @@ namespace BasicForm.Models
             set
             {
                 String[] splits = value.Split('.');
-                NewOrder.DateAndTime = NewOrder.DateAndTime.AddDays(Int32.Parse(splits[0]));
-                NewOrder.DateAndTime = NewOrder.DateAndTime.AddMonths(Int32.Parse(splits[1]));
-                NewOrder.DateAndTime = NewOrder.DateAndTime.AddYears(Int32.Parse(splits[2]));
+                NewOrder.Begin = NewOrder.Begin.AddDays(Int32.Parse(splits[0]));
+                NewOrder.Begin = NewOrder.Begin.AddMonths(Int32.Parse(splits[1]));
+                NewOrder.Begin = NewOrder.Begin.AddYears(Int32.Parse(splits[2]));
             }
         }
         /// <summary>
@@ -50,8 +50,8 @@ namespace BasicForm.Models
             set
             {
                 String[] splits = value.Split(':');
-                NewOrder.DateAndTime = NewOrder.DateAndTime.AddHours(Int32.Parse(splits[0]));
-                NewOrder.DateAndTime = NewOrder.DateAndTime.AddMinutes(Int32.Parse(splits[1]));
+                NewOrder.Begin = NewOrder.Begin.AddHours(Int32.Parse(splits[0]));
+                NewOrder.Begin = NewOrder.Begin.AddMinutes(Int32.Parse(splits[1]));
             }
         }
         

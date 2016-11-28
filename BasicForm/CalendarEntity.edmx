@@ -4,150 +4,163 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CalendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="PersonalNumber" Type="varchar" MaxLength="50" />
-          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Office">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProviderID" Type="int" Nullable="false" />
-          <Property Name="OpensAt" Type="time" Precision="0" Nullable="false" />
-          <Property Name="ClosesAt" Type="time" Precision="0" Nullable="false" />
-          <Property Name="Active" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="ProcedureID" Type="int" Nullable="false" />
-          <Property Name="OfficeID" Type="int" Nullable="false" />
-          <Property Name="DateAndTime" Type="datetime2" Precision="0" Nullable="false" />
-          <Property Name="DescProvider" Type="nvarchar" MaxLength="50" />
-          <Property Name="DescCustomer" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Procedure">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="Lasts" Type="int" Nullable="false" />
-          <Property Name="OfficeID" Type="int" Nullable="false" />
-          <Property Name="Active" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Provider">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PassHashed" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Payed" Type="bit" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Office_Provider">
-          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
-          <End Role="Office" Type="Self.Office" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Provider">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Office">
-              <PropertyRef Name="ProviderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Office">
-          <End Role="Office" Type="Self.Office" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Office">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="OfficeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_Procedure">
-          <End Role="Procedure" Type="Self.Procedure" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Procedure">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="ProcedureID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Procedure_Office">
-          <End Role="Office" Type="Self.Office" Multiplicity="1" />
-          <End Role="Procedure" Type="Self.Procedure" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Office">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Procedure">
-              <PropertyRef Name="OfficeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="CalendarModelStoreContainer">
-          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Office" EntityType="Self.Office" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Procedure" EntityType="Self.Procedure" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Office_Provider" Association="Self.FK_Office_Provider">
-            <End Role="Provider" EntitySet="Provider" />
-            <End Role="Office" EntitySet="Office" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Office" Association="Self.FK_Order_Office">
-            <End Role="Office" EntitySet="Office" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Procedure" Association="Self.FK_Order_Procedure">
-            <End Role="Procedure" EntitySet="Procedure" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Procedure_Office" Association="Self.FK_Procedure_Office">
-            <End Role="Office" EntitySet="Office" />
-            <End Role="Procedure" EntitySet="Procedure" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="CalendarModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CalendarModelStoreContainer">
+    <EntitySet Name="Customers" EntityType="CalendarModel.Store.Customers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Offices" EntityType="CalendarModel.Store.Offices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orders" EntityType="CalendarModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Procedures" EntityType="CalendarModel.Store.Procedures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Providers" EntityType="CalendarModel.Store.Providers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Order_Customer" Association="CalendarModel.Store.FK_Order_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Office_Provider" Association="CalendarModel.Store.FK_Office_Provider">
+      <End Role="Provider" EntitySet="Providers" />
+      <End Role="Office" EntitySet="Offices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Office" Association="CalendarModel.Store.FK_Order_Office">
+      <End Role="Office" EntitySet="Offices" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Procedure_Office" Association="CalendarModel.Store.FK_Procedure_Office">
+      <End Role="Office" EntitySet="Offices" />
+      <End Role="Procedure" EntitySet="Procedures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Procedure" Association="CalendarModel.Store.FK_Order_Procedure">
+      <End Role="Procedure" EntitySet="Procedures" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Surname" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="PersonalNumber" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Offices">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProviderID" Type="int" Nullable="false" />
+    <Property Name="OpenMo" Type="time" Nullable="false" Precision="0" />
+    <Property Name="CloseMo" Type="time" Nullable="false" Precision="0" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="OpenTu" Type="time" Nullable="false" Precision="0" />
+    <Property Name="CloseTu" Type="time" Nullable="false" Precision="0" />
+    <Property Name="OpenWe" Type="time" Nullable="false" Precision="0" />
+    <Property Name="CloseWe" Type="time" Nullable="false" Precision="0" />
+    <Property Name="OpenTh" Type="time" Nullable="false" Precision="0" />
+    <Property Name="CloseTh" Type="time" Nullable="false" Precision="0" />
+    <Property Name="OpenFr" Type="time" Nullable="false" Precision="0" />
+    <Property Name="CloseFr" Type="time" Nullable="false" Precision="0" />
+    <Property Name="OpenSa" Type="time" Nullable="false" Precision="0" />
+    <Property Name="CloseSa" Type="time" Nullable="false" Precision="0" />
+    <Property Name="OpenSu" Type="time" Nullable="false" Precision="0" />
+    <Property Name="CloseSu" Type="time" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="ProcedureID" Type="int" Nullable="false" />
+    <Property Name="OfficeID" Type="int" Nullable="false" />
+    <Property Name="DescProvider" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="DescCustomer" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Begin" Type="datetime" Nullable="false" />
+    <Property Name="End" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Procedures">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Lasts" Type="int" Nullable="false" />
+    <Property Name="OfficeID" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Providers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Surname" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="PassHashed" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Payed" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Order_Customer">
+    <End Role="Customer" Type="CalendarModel.Store.Customers" Multiplicity="1" />
+    <End Role="Order" Type="CalendarModel.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Office_Provider">
+    <End Role="Provider" Type="CalendarModel.Store.Providers" Multiplicity="1" />
+    <End Role="Office" Type="CalendarModel.Store.Offices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provider">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Office">
+        <PropertyRef Name="ProviderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Office">
+    <End Role="Office" Type="CalendarModel.Store.Offices" Multiplicity="1" />
+    <End Role="Order" Type="CalendarModel.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Office">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OfficeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Procedure_Office">
+    <End Role="Office" Type="CalendarModel.Store.Offices" Multiplicity="1" />
+    <End Role="Procedure" Type="CalendarModel.Store.Procedures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Office">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Procedure">
+        <PropertyRef Name="OfficeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Procedure">
+    <End Role="Procedure" Type="CalendarModel.Store.Procedures" Multiplicity="1" />
+    <End Role="Order" Type="CalendarModel.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Procedure">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ProcedureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CalendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -169,12 +182,24 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProviderID" Type="Int32" Nullable="false" />
-          <Property Name="OpensAt" Type="Time" Nullable="false" Precision="0" />
-          <Property Name="ClosesAt" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="OpenMo" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="CloseMo" Type="Time" Nullable="false" Precision="0" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Provider" Relationship="Self.FK_Office_Provider" FromRole="Office" ToRole="Provider" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Office" FromRole="Office" ToRole="Order" />
           <NavigationProperty Name="Procedures" Relationship="Self.FK_Procedure_Office" FromRole="Office" ToRole="Procedure" />
+          <Property Name="OpenTu" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="CloseTu" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="OpenWe" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="CloseWe" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="OpenTh" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="CloseTh" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="OpenFr" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="CloseFr" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="OpenSa" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="CloseSa" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="OpenSu" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="CloseSu" Type="Time" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -184,12 +209,13 @@
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="ProcedureID" Type="Int32" Nullable="false" />
           <Property Name="OfficeID" Type="Int32" Nullable="false" />
-          <Property Name="DateAndTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DescProvider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DescCustomer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
           <NavigationProperty Name="Office" Relationship="Self.FK_Order_Office" FromRole="Order" ToRole="Office" />
           <NavigationProperty Name="Procedure" Relationship="Self.FK_Order_Procedure" FromRole="Order" ToRole="Procedure" />
+          <Property Name="Begin" Type="DateTime" Nullable="false" />
+          <Property Name="End" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="Procedure">
           <Key>
@@ -307,71 +333,83 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CalendarModelStoreContainer" CdmEntityContainer="CalendarEntities">
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="CalendarModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PersonalNumber" ColumnName="PersonalNumber" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Offices">
-            <EntityTypeMapping TypeName="CalendarModel.Office">
-              <MappingFragment StoreEntitySet="Office">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
-                <ScalarProperty Name="OpensAt" ColumnName="OpensAt" />
-                <ScalarProperty Name="ClosesAt" ColumnName="ClosesAt" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="CalendarModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="ProcedureID" ColumnName="ProcedureID" />
-                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
-                <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
-                <ScalarProperty Name="DescProvider" ColumnName="DescProvider" />
-                <ScalarProperty Name="DescCustomer" ColumnName="DescCustomer" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Procedures">
-            <EntityTypeMapping TypeName="CalendarModel.Procedure">
-              <MappingFragment StoreEntitySet="Procedure">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Lasts" ColumnName="Lasts" />
-                <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Providers">
-            <EntityTypeMapping TypeName="CalendarModel.Provider">
-              <MappingFragment StoreEntitySet="Provider">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PassHashed" ColumnName="PassHashed" />
-                <ScalarProperty Name="Payed" ColumnName="Payed" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CalendarModelStoreContainer" CdmEntityContainer="CalendarEntities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="IsTypeOf(CalendarModel.Customer)">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PersonalNumber" ColumnName="PersonalNumber" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Offices">
+      <EntityTypeMapping TypeName="IsTypeOf(CalendarModel.Office)">
+        <MappingFragment StoreEntitySet="Offices">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+          <ScalarProperty Name="OpenMo" ColumnName="OpenMo" />
+          <ScalarProperty Name="CloseMo" ColumnName="CloseMo" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="OpenTu" ColumnName="OpenTu" />
+          <ScalarProperty Name="CloseTu" ColumnName="CloseTu" />
+          <ScalarProperty Name="OpenWe" ColumnName="OpenWe" />
+          <ScalarProperty Name="CloseWe" ColumnName="CloseWe" />
+          <ScalarProperty Name="OpenTh" ColumnName="OpenTh" />
+          <ScalarProperty Name="CloseTh" ColumnName="CloseTh" />
+          <ScalarProperty Name="OpenFr" ColumnName="OpenFr" />
+          <ScalarProperty Name="CloseFr" ColumnName="CloseFr" />
+          <ScalarProperty Name="OpenSa" ColumnName="OpenSa" />
+          <ScalarProperty Name="CloseSa" ColumnName="CloseSa" />
+          <ScalarProperty Name="OpenSu" ColumnName="OpenSu" />
+          <ScalarProperty Name="CloseSu" ColumnName="CloseSu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="IsTypeOf(CalendarModel.Order)">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="ProcedureID" ColumnName="ProcedureID" />
+          <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+          <ScalarProperty Name="DescProvider" ColumnName="DescProvider" />
+          <ScalarProperty Name="DescCustomer" ColumnName="DescCustomer" />
+          <ScalarProperty Name="Begin" ColumnName="Begin" />
+          <ScalarProperty Name="End" ColumnName="End" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Procedures">
+      <EntityTypeMapping TypeName="IsTypeOf(CalendarModel.Procedure)">
+        <MappingFragment StoreEntitySet="Procedures">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Lasts" ColumnName="Lasts" />
+          <ScalarProperty Name="OfficeID" ColumnName="OfficeID" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Providers">
+      <EntityTypeMapping TypeName="IsTypeOf(CalendarModel.Provider)">
+        <MappingFragment StoreEntitySet="Providers">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PassHashed" ColumnName="PassHashed" />
+          <ScalarProperty Name="Payed" ColumnName="Payed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -385,7 +423,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

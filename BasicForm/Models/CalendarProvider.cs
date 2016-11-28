@@ -49,7 +49,7 @@ namespace BasicForm.Models
             }
 
             Elmah.ErrorLog.GetDefault(null).Log(new Elmah.Error());
-            Elmah.ErrorLog.
+           // Elmah.ErrorLog.
         }
 
         /// <summary>

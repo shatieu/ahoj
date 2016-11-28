@@ -57,8 +57,8 @@ namespace BasicForm.Models.Utility
                 //potencional request for cheange to faster the code....
                 //<Date, ID of procedure> of Office is specified month and year
                 Dictionary<DateTime, int> _ordersInDate = (from p in db.Orders
-                                                           where (p.OfficeID.Equals(officeID) && p.DateAndTime.Year.Equals(year) && p.DateAndTime.Month.Equals(month))
-                                                           select p).ToDictionary(p => p.DateAndTime, p => p.ProcedureID);
+                                                           where (p.OfficeID.Equals(officeID) && p.Begin.Year.Equals(year) && p.Begin.Month.Equals(month))
+                                                           select p).ToDictionary(p => p.Begin, p => p.ProcedureID);
 
                 //<id of procedure, lasts> of Office with Active status
                 Dictionary<int, int> proceduresActive = (from p in db.Procedures
@@ -105,8 +105,8 @@ namespace BasicForm.Models.Utility
                 //potencional request for cheange to faster the code....
                 //<Date, ID of procedure> of Office is specified month and year
                 Dictionary<DateTime, int> _ordersInDate = (from p in db.Orders
-                                                           where (p.OfficeID.Equals(officeID) && p.DateAndTime.Year.Equals(year) && p.DateAndTime.Month.Equals(month) && p.DateAndTime.Day.Equals(day))
-                                                           select p).ToDictionary(p => p.DateAndTime, p => p.ProcedureID);
+                                                           where (p.OfficeID.Equals(officeID) && p.Begin.Year.Equals(year) && p.Begin.Month.Equals(month) && p.Begin.Day.Equals(day))
+                                                           select p).ToDictionary(p => p.Begin, p => p.ProcedureID);
 
                 //<id of procedure, lasts> of Office with Active status
                 Dictionary<int, int> proceduresActive = (from p in db.Procedures

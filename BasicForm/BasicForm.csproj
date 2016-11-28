@@ -134,11 +134,13 @@
   <ItemGroup>
     <Content Include="App_Data\DBProperties.txt" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="App_Readme\FolderDescription.txt" />
     <Content Include="CalendarEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CalendarEntity.edmx</DependentUpon>
       <LastGenOutput>CalendarEntity.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="SQL_generators\CalendarEntity.edmx.sql" />
     <Content Include="CalendarEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CalendarEntity.edmx</DependentUpon>
@@ -182,6 +184,7 @@
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\sandboxondra.js" />
+    <Content Include="SQL_generators\ELMAH-1.2-db-SQLServer.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -230,6 +233,13 @@
     <Compile Include="Models\DatabaseContent\DBRepresentations\Order.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Procedure.cs" />
     <Compile Include="Models\DatabaseContent\DBRepresentations\Provider.cs" />
+    <Compile Include="Models\EntityPartialClasses\Customer.cs" />
+    <Compile Include="Models\EntityPartialClasses\IEntity.cs" />
+    <Compile Include="Models\EntityPartialClasses\Office.cs" />
+    <Compile Include="Models\EntityPartialClasses\Order.cs" />
+    <Compile Include="Models\EntityPartialClasses\Procedure.cs" />
+    <Compile Include="Models\EntityPartialClasses\Provider.cs" />
+    <Compile Include="Models\Exceptions\NoEntityInDatabase.cs" />
     <Compile Include="Models\Utility\UtilityOrder.cs" />
     <Compile Include="Models\Utility\UtilityProcedure.cs" />
     <Compile Include="Office.cs">

@@ -1,0 +1,52 @@
+﻿App_Readme:
+ folder obtain teoretic konstructions to understand code.
+
+ SQL_generators:
+  folder contains SQL generator file to create tables in Microsoft SQL database
+
+App_Data:
+ folder can contain application data files like LocalDB, .mdf files, xml files and other data related files.
+  IIS will never serve files from App_Data folder.
+
+App_Start:
+ folder can contain class files which will be executed when the application starts. Typically, these would be
+ config files like AuthConfig.cs, BundleConfig.cs, FilterConfig.cs, RouteConfig.cs etc. MVC 5 includes BundleConfig.cs, 
+ FilterConfig.cs and RouteConfig.cs by default.
+
+Content:
+ Content folder contains static files like css files, images and icons files. MVC 5 application includes bootstrap.css,
+ bootstrap.min.css and Site.css by default.
+
+Controllers:
+ Controllers folder contains class files for the controllers. Controllers handles users' request and returns a response.
+ MVC requires the name of all controller files to end with "Controller".
+
+fonts:
+ Fonts folder contains custom font files for your application.
+
+Models:
+ Models folder contains model class files. Typically model class includes public properties, which will be used by application
+ to hold and manipulate application data.
+
+Scripts:
+ Scripts folder contains JavaScript or VBScript files for the application. MVC 5 includes javascript files for bootstrap, 
+ jquery 1.10 and modernizer by default.
+
+Views:
+ Views folder contains html files for the application. Typically view file is a .cshtml 
+ file where you write html and C# or VB.NET code.
+ Views folder includes separate folder for each controllers. For example, all the 
+ .cshtml files, which will be rendered by HomeController will be in View > Home folder.
+ Shared folder under View folder contains all the views which will be shared among 
+ different controllers e.g. layout files.
+
+Global.asax:
+ Global.asax allows you to write code that runs in response to application level events, 
+ such as Application_BeginRequest, application_start, application_error, session_start, session_end etc.
+
+Packages.config:
+ Packages.config file is managed by NuGet to keep track of what packages and versions you have installed
+ in the application.
+
+Web.config:
+ Web.config file contains application level configurations.

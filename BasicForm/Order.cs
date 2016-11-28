@@ -18,9 +18,10 @@ namespace BasicForm
         public int CustomerID { get; set; }
         public int ProcedureID { get; set; }
         public int OfficeID { get; set; }
-        public System.DateTime DateAndTime { get; set; }
         public string DescProvider { get; set; }
         public string DescCustomer { get; set; }
+        public System.DateTime Begin { get; set; }
+        public System.DateTime End { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Office Office { get; set; }

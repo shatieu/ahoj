@@ -23,9 +23,21 @@ namespace BasicForm
     
         public int ID { get; set; }
         public int ProviderID { get; set; }
-        public System.TimeSpan OpensAt { get; set; }
-        public System.TimeSpan ClosesAt { get; set; }
+        public System.TimeSpan OpenMo { get; set; }
+        public System.TimeSpan CloseMo { get; set; }
         public bool Active { get; set; }
+        public System.TimeSpan OpenTu { get; set; }
+        public System.TimeSpan CloseTu { get; set; }
+        public System.TimeSpan OpenWe { get; set; }
+        public System.TimeSpan CloseWe { get; set; }
+        public System.TimeSpan OpenTh { get; set; }
+        public System.TimeSpan CloseTh { get; set; }
+        public System.TimeSpan OpenFr { get; set; }
+        public System.TimeSpan CloseFr { get; set; }
+        public System.TimeSpan OpenSa { get; set; }
+        public System.TimeSpan CloseSa { get; set; }
+        public System.TimeSpan OpenSu { get; set; }
+        public System.TimeSpan CloseSu { get; set; }
     
         public virtual Provider Provider { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
