@@ -132,7 +132,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DBProperties.txt" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="App_Readme\FolderDescription.txt" />
     <Content Include="CalendarEntity.Context.tt">
@@ -220,19 +219,6 @@
     </Compile>
     <Compile Include="Models\CalendarProvider.cs" />
     <Compile Include="Models\CalendarOrder.cs" />
-    <Compile Include="Models\DatabaseContent\DBHandler\DatabaseHandler.cs" />
-    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerCustomer.cs" />
-    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerGeneral.cs" />
-    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerOffice.cs" />
-    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerOrder.cs" />
-    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerProcedure.cs" />
-    <Compile Include="Models\DatabaseContent\DBHandler\DBHandlerProvider.cs" />
-    <Compile Include="Models\DatabaseContent\DBRepresentations\ARepresentation.cs" />
-    <Compile Include="Models\DatabaseContent\DBRepresentations\Customer.cs" />
-    <Compile Include="Models\DatabaseContent\DBRepresentations\Office.cs" />
-    <Compile Include="Models\DatabaseContent\DBRepresentations\Order.cs" />
-    <Compile Include="Models\DatabaseContent\DBRepresentations\Procedure.cs" />
-    <Compile Include="Models\DatabaseContent\DBRepresentations\Provider.cs" />
     <Compile Include="Models\EntityPartialClasses\Customer.cs" />
     <Compile Include="Models\EntityPartialClasses\IEntity.cs" />
     <Compile Include="Models\EntityPartialClasses\Office.cs" />
@@ -298,8 +284,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Helpers\" />
-    <Folder Include="Views\Error\" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
