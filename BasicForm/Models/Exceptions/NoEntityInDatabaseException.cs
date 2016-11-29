@@ -16,5 +16,5 @@ namespace BasicForm.Models.Exceptions
         protected NoEntityInDatabaseException(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context)
         { }
-}
+    }
 }

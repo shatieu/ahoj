@@ -1,5 +1,6 @@
 ﻿using BasicForm.Models;
 using BasicForm.Models.Utility;
+using BasicForm.Models.Utility.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,37 +25,20 @@ namespace BasicForm.Controllers
         [HttpGet]
         public ActionResult Index(int id = 2)
         {
-
-            ////TEST - implicit json to test AJAX
-            //string jsonTimes;
-            //UtilityOrder uOrder = new UtilityOrder();
-            //try
-            //{
-            //    List<string> times = uOrder.getTakenTimesMonthYear(id, 7, 2016);
-            //    /*
-            //    List<JsonTimes> jTimes = new List<JsonTimes>();
-
-            //    foreach(string time in times)
-            //    {
-            //        jTimes.Add(new JsonTimes(time));
-            //    }*/
-
-            //    var jsonSerialiser = new JavaScriptSerializer();
-            //    jsonTimes = jsonSerialiser.Serialize(times);
-            //}
-            //catch (ArgumentException e)
-            //{
-            //    jsonTimes = "[{\"erorr\":\"" + e.ToString() + "\"}]";
-            //}
-
-            ////TEST - implicit json to test AJAX
-            //ViewBag.JsonRaw = jsonTimes.ToString();
-            //ViewBag.Json = Json(jsonTimes, JsonRequestBehavior.AllowGet);
-
+            
             //init new object to view
-            CalendarOrder calendar = new CalendarOrder(id);
+            //CalendarOrder calendar = new CalendarOrder(id);
 
-            return View(calendar);
+            Order order = new Order();
+            order.Customer = new Customer();
+            order.Office = UDatabase.UOffice.getOffice(id, true);
+            
+            if(order.Office == null)
+            {
+                return RedirectToAction("InnerError", "Error", new { details = ("No office with id " + id)  });
+            }
+
+            return View(order);
         }
 
         /// <summary>

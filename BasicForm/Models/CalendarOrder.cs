@@ -55,6 +55,8 @@ namespace BasicForm.Models
             }
         }
         
+
+
         /// <summary>
         /// Basic constructor for HTTP post form
         /// </summary>
@@ -62,6 +64,7 @@ namespace BasicForm.Models
         {
             NewOrder = new Order();
             Customer = new Customer();
+
         }
         
         /// <summary>

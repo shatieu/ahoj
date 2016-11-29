@@ -16,5 +16,11 @@ namespace BasicForm.Controllers
             ViewBag.description = "Error: Invalid model state <br/>"+details;
             return View("Error");
         }
+
+        public ActionResult InnerError(String details = "No description")
+        {
+            ViewBag.description = "Error: Inner error <br/>" + details;
+            return View("Error");
+        }
     }
 }
